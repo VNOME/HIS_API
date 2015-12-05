@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 20, 2013 10:36:55 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.admin.Employee" table="employee">
+        <id name="empID" type="int">
+            <column name="employee_ID" />
+            <generator class="native" />
+        </id>
+        <property name="empSerialNo" type="int">
+            <column name="employee_SerialNo" />
+        </property>
+        <property name="empNIC" type="java.lang.String">
+            <column name="employee_NIC" />
+        </property>
+        <property name="empName" type="java.lang.String">
+            <column name="employee_Name" />
+        </property>
+        <property name="empDOB" type="java.util.Date">
+            <column name="employee_DOB" />
+        </property>
+        <property name="empAddress" type="java.lang.String">
+            <column name="employee_Address" />
+        </property>
+        <property name="empTelephoneNo" type="java.lang.String">
+            <column name="employee_TelephoneNo" />
+        </property>
+        <property name="empGender" type="java.lang.String">
+            <column name="employee_Gender" />
+        </property>
+        <property name="civilStatus" type="java.lang.String">
+            <column name="employee_CivilStatus" />
+        </property>
+        <property name="empType" type="java.lang.String">
+            <column name="employee_Type" />
+        </property>
+        <property name="post" type="java.lang.String">
+            <column name="employee_Post" />
+        </property>
+        <property name="appointmentDate" type="java.util.Date">
+            <column name="employee_AppointmentDate" />
+        </property>
+        <property name="pensionDate" type="java.util.Date">
+            <column name="employee_PensionDate" />
+        </property>
+        <property name="WAndOPno" type="java.lang.String">
+            <column name="employee_WandOPNo" />
+        </property>
+        <property name="basicSalary" type="java.lang.Double">
+            <column name="employee_BasicSalary" />
+        </property>
+        <property name="salaryCode" type="java.lang.String">
+            <column name="employee_SalaryCode" />
+        </property>
+        <property name="medRegNo" type="java.lang.String">
+            <column name="employee_MedRegNo" />
+        </property>
+        <property name="docType" type="java.lang.String">
+            <column name="employee_DoctorType" />
+        </property>
+        <property name="empActive" type="byte">
+            <column name="employee_Active" />
+        </property>
+        
+        <many-to-one name="department" class="core.classes.api.admin.Department" fetch="join">
+            <column name="department_ID" />
+        </many-to-one>
+        
+        <set name="leaves" table="leaves" inverse="true" lazy="false" fetch="select" cascade="all">
+            <key>
+                <column name="employee_ID" />
+            </key>
+            <one-to-many class="core.classes.api.admin.Leaves" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

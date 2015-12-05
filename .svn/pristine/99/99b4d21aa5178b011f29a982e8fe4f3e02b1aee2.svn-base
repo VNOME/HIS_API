@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 21, 2013 10:58:15 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+ 
+	<class name="core.classes.opd.PrescribeItem" table="opd_prescriptionitems"	dynamic-update="true" lazy="false">
+		
+		<id name="prescriptionItemID" type="int" column="prescriptionItems_ID">
+			<generator class="native" />
+		</id>
+ 
+ 	    <many-to-one name="prescription" class="core.classes.opd.Prescription" lazy="false" fetch="join">
+            <column name="prescription_ID"/> 
+        </many-to-one>
+            
+        <many-to-one name="drugID" class="core.classes.pharmacy.MstDrugsNew" column="drug_ID"  lazy="false" fetch="join"/>
+       
+		<property name="prescribeItemsFrequency" column="prescriptionItems_Frequency" type="string" />
+		<property name="prescribeItemsDosage" column="prescriptionItems_Dosage" type="string" />
+		<property name="prescribeItemsPeriod" column="prescriptionItems_Period" type="string" />
+		<property name="prescribeItemsQuantity" column="prescriptionItems_Quantity" type="int" />
+
+
+
+	</class>
+	
+</hibernate-mapping>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <!-- <property name="hibernate.connection.password">123456</property> -->
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/his</property>
+      <!--   <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/his</property> -->
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.show_sql">true</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		
+		<mapping resource="lib/driver/api/mappings/user/User.hbm.xml"/>
+		<mapping resource="lib/driver/api/mappings/user/UserRole.hbm.xml"/>
+		<mapping resource="lib/driver/api/mappings/user/Permission.hbm.xml"/>
+		
+		
+		<mapping resource="lib/driver/api/mappings/admin/Employee.hbm.xml"/>
+		<mapping resource="lib/driver/api/mappings/admin/Department.hbm.xml"/>	
+		<mapping resource="lib/driver/api/mappings/admin/Leaves.hbm.xml"/>		
+		
+		<mapping resource="lib/driver/api/mappings/standards/hin/Hin.hbm.xml"/>	
+		<mapping resource="lib/driver/api/mappings/standards/icd10/Icd10.hbm.xml"/>
+		<mapping resource="lib/driver/api/mappings/standards/loinc/Loinc.hbm.xml"/>
+		<mapping resource="lib/driver/api/mappings/standards/immr/Immr.hbm.xml"/>
+		<mapping resource="lib/driver/api/mappings/standards/immr/ImmrStatistics.hbm.xml"/>
+		
+		
+		<mapping resource="lib/driver/finance/mappings/HisFinPayment.hbm.xml"/>
+		<mapping resource="lib/driver/finance/mappings/HisFinReceipt.hbm.xml"/>
+		
+			
+		<mapping resource="lib/driver/opd/mappings/Patient.hbm.xml"/>
+		<mapping resource="lib/driver/opd/mappings/Visit.hbm.xml"/>
+		<mapping resource="lib/driver/opd/mappings/Allergy.hbm.xml"/>
+		<mapping resource="lib/driver/opd/mappings/Attachments.hbm.xml"/>
+		<mapping resource="lib/driver/opd/mappings/Exams.hbm.xml"/>
+		<mapping resource="lib/driver/opd/mappings/OpdLabOrder.hbm.xml" />
+		<mapping resource="lib/driver/opd/mappings/Prescription.hbm.xml"/>
+		<mapping resource="lib/driver/opd/mappings/PrescriptionItems.hbm.xml"/>	
+		<mapping resource="lib/driver/opd/mappings/Queue.hbm.xml"/> 	
+	  	<mapping resource="lib/driver/opd/mappings/Questionnaire.hbm.xml"/>	
+	  	<mapping resource="lib/driver/opd/mappings/Record.hbm.xml"/>
+		
+		<mapping resource="lib/driver/pharmacy/mappings/TrnDrugsSupplied.hbm.xml"/>
+		<mapping resource="lib/driver/pharmacy/mappings/MstDrugCategory.hbm.xml"/>
+		<mapping resource="lib/driver/pharmacy/mappings/MstDrugsNew.hbm.xml"/>
+		<mapping resource="lib/driver/pharmacy/mappings/MstManufacturer.hbm.xml"/>
+		<mapping resource="lib/driver/pharmacy/mappings/MstPharmDepartment.hbm.xml"/>
+		<mapping resource="lib/driver/pharmacy/mappings/TrnDispenseDrugs.hbm.xml"/>
+		<mapping resource="lib/driver/pharmacy/mappings/TrnRequestDrugs.hbm.xml"/>
+		<mapping resource="lib/driver/pharmacy/mappings/MstDrugFrequency.hbm.xml"/>
+		<mapping resource="lib/driver/pharmacy/mappings/MstDrugDosage.hbm.xml"/>
+		<mapping resource="lib/driver/pharmacy/mappings/MstMailHistory.hbm.xml"/>
+		
+		<mapping resource="lib/driver/laboratory/mappings/lab.hbm.xml"/>
+		<mapping resource="lib/driver/laboratory/mappings/labOrder.hbm.xml"/>
+		<mapping resource="lib/driver/laboratory/mappings/labSpecimen.hbm.xml"/>
+		<mapping resource="lib/driver/laboratory/mappings/labSpecimenOfBloodSugar.hbm.xml"/> 
+		<mapping resource="lib/driver/laboratory/mappings/labTestDescription.hbm.xml"/>
+		
+		
+    </session-factory>
+</hibernate-configuration>

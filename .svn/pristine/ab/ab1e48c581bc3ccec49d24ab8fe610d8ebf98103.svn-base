@@ -1,0 +1,58 @@
+/**
+ * 
+ */
+package core.classes.ward;
+
+import core.classes.api.standards.immr.CalculateImmr;
+
+/**
+ * This class is for IMMR statistical calculations Calls the relevant methods of
+ * CalculateImmr class, based on the Discharge Patient
+ * 
+ * @author IMANKA
+ * 
+ */
+public class DischargeImmr {
+
+	CalculateImmr calImmr = new CalculateImmr();
+
+	public static void updateImmrStatistics() {
+		// String dischargePatientStatus=dischargePatient.getDeathStatus();
+		// Admitted admitObj=dischargePatient.getAdmittedobject();
+		// InPatient inPatientObj=admitObj.getInPatientObject();
+		// String dischargePatientGender=inPatientObj.getInPatientGender();
+		// int dischargePatientAge=inPatientObj.getinPatientAge();
+		// String
+		// dischargePatientImmrCode=dischargePatient.getDischargeIMMRcode();
+
+		String dischargePatientStatus = "Live";
+		String dischargePatientGender = "Female";
+
+		if (dischargePatientStatus == "Live") {
+			if (dischargePatientGender == "Male") {
+				CalculateImmr calImmr = new CalculateImmr();
+				calImmr.updateImmrStatisticsLiveMale("008A", (double) 3);
+			} else if (dischargePatientGender == "Female") {
+				CalculateImmr calImmr = new CalculateImmr();
+				calImmr.updateImmrStatisticsLiveFemale("004B", (double) 3);
+			}
+		}
+
+		if (dischargePatientStatus == "Dead") {
+			if (dischargePatientGender == "Male") {
+				CalculateImmr calImmr = new CalculateImmr();
+				calImmr.updateImmrStatisticsDeadMale("0001", (double) 20);
+			} else if (dischargePatientGender == "Female") {
+				CalculateImmr calImmr = new CalculateImmr();
+				calImmr.updateImmrStatisticsDeadFemale("0001", (double) 6);
+			}
+
+		}
+
+	}
+
+	public static void main(String[] args) {
+		updateImmrStatistics();
+	}
+
+}

@@ -1,0 +1,80 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import lib.driver.laboratory.driver_class.LipidProfileDBDriver;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.laboratory.LipidProfileResult;
+
+
+@Path("LipidProfile")
+public class LipidProfileResultResource {
+
+	LipidProfileDBDriver lpsd = new LipidProfileDBDriver();
+	
+	/*
+	 * Add Lipid Profile Report by FF
+	 */
+	@POST
+	@Path("/addLipidProfileResult")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addReport(JSONObject json) {
+
+		/*
+		 * retrieve data from json object and pass it to service driver class by
+		 * FF
+		 */
+
+		int orderID, labOrder;
+
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+
+			LipidProfileResult lp = new LipidProfileResult();
+
+			orderID = json.getInt("orderID");
+			labOrder = json.getInt("labID");
+
+			int doneBy=json.getInt("doneBy");
+			int chkBy=json.getInt("checkedBy");
+			lp.setLpRemarks(json.getString("remarks").toString());
+
+			lp.setLpCholesterol(Double.valueOf(json.getString("Cholesterol")
+					.toString()));
+			lp.setLpHDL(Double.valueOf(json.getString("hDL").toString()));
+
+			lp.setLpTRIG(Double.valueOf(json.getString("tRIG").toString()));
+
+			lp.setLpLDL(Double.valueOf(json.getString("lDL").toString()));
+
+			lp.setLpVLDL(Double.valueOf(json.getString("vLDL").toString()));
+			lp.setLpCompletedDate(dateformat.parse(json
+					.getString("completedDate").toString()));
+			lp.setLpCreateDate(dateformat.parse(json.getString("createDate")
+					.toString()));
+			int userID=json.getInt("createUser");
+			// lpr.setLastUpdate(lastUpdate);//null
+			// lpr.setLastUpdateUser(null);
+
+			
+
+			lpsd.insertData(lp, orderID, labOrder,doneBy,chkBy,userID);
+
+			return "ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+}

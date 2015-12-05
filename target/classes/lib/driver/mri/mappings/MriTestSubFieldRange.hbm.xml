@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 6, 2015 6:20:37 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriTestSubFieldRange" table="mri_test_sub_field_range" catalog="his">
+        <id name="testSubFieldRangeId" type="java.lang.Integer">
+            <column name="test_sub_field_range_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriTestSubFields" class="core.classes.mri.MriTestSubFields" fetch="select">
+            <column name="ftest_sub_field_id" />
+        </many-to-one>
+        <property name="gender" type="string">
+            <column name="gender" length="10" not-null="true" />
+        </property>
+        <property name="minage" type="int">
+            <column name="minage" not-null="true" />
+        </property>
+        <property name="unit" type="string">
+            <column name="unit" length="15" />
+        </property>
+        <property name="minVal" type="double">
+            <column name="min_val" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="maxVal" type="double">
+            <column name="max_val" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="maxAge" type="java.lang.Integer">
+            <column name="max_age" />
+        </property>
+    </class>
+</hibernate-mapping>

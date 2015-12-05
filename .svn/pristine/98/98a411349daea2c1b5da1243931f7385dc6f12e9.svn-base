@@ -1,0 +1,381 @@
+package core.classes.api.admin;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+/***
+ * Employee class contains all the attributes and there getters and setters.
+ * @author RUSIRU
+ * @version 1.0
+ */
+
+public class Employee {
+	 
+	private int empID; // auto assigned no from the database
+	private int empSerialNo; // eg: a number given from the hospital for each employee
+	private String empNIC;
+	private String empName;
+	private Date empDOB;      // date of birth
+	private String empAddress;
+	private String empTelephoneNo;
+	private String empGender;
+	private String civilStatus;
+	private String empType;   // eg: doctor, nurse , paramedical , major staff, miner staff
+	private String post;    // post of the employee  (eg for doctors House officers (HO),Resident house officers (RHO),Senior House Officers (SHO) / MO,Registar,Senior Registrar,Consultant)
+	private Date appointmentDate; // date of the appointment 
+	private Date pensionDate;  // date of the pension
+	private String WAndOPno;  // eg: 82/7321 widowers' and orphans' pension scheme 
+	private Double basicSalary;  // basic salary without increments
+	private String salaryCode;  // eg: PL 1-2006-A
+	private String medRegNo;  // Medical registration number 
+	private String docType; //eg: Surgeon
+    private byte empActive;  // check whether employee is still in service or not 
+    
+    private Department department;
+    private Set<Leaves> leaves = new HashSet<Leaves>();
+    
+	/***
+	 * Class constructor.
+	 */
+	public Employee()
+	{
+		
+	}
+
+	/***
+	 * Get Employee ID
+	 * @return type is Integer type value and it contains employee ID
+	 */
+	public int getEmpID() {
+		return empID;
+	}
+
+	/***
+	 * Set Employee ID
+	 * @param empID is an Integer value
+	 */
+	public void setEmpID(int empID) {
+		this.empID = empID;
+	}
+
+	/***
+	 * Get Employee Serial Number
+	 * @return type is Integer type value and it contains Employee Serial Number
+	 */
+	public int getEmpSerialNo() {
+		return empSerialNo;
+	}
+
+	/***
+	 * Set Employee Serial number
+	 * @param empSerialNo is Integer and it contains Employee serial Number
+	 */
+	public void setEmpSerialNo(int empSerialNo) {
+		this.empSerialNo = empSerialNo;
+	}
+
+	/***
+	 * Get the Employee National Identification Card number
+	 * @return A String type value with 9 digits and 1 character  
+	 */
+	public String getEmpNIC() {
+		return empNIC;
+	}
+
+	/***
+	 * Set the Employee National Identification Card number
+	 * @param empNIC A String value with 9 digits and 1 character
+	 */
+	public void setEmpNIC(String empNIC) {
+		this.empNIC = empNIC;
+	}
+
+	/***
+	 * Get Employee Name
+	 * @return A String type value and it contains Employee Name
+	 */
+	public String getEmpName() {
+		return empName;
+	}
+
+	/***
+	 * Set Employee Name
+	 * @param empName A String value 
+	 */
+	public void setEmpName(String empName) {
+		this.empName = empName;
+	}
+
+	/***
+	 * Get Date of Birth of the Employee
+	 * @return A Date type Value
+	 */
+	public Date getEmpDOB() {
+		return empDOB;
+	}
+
+	/***
+	 * Set Date of Birth of the Employee
+	 * @param empDOB A Date Type value
+	 */
+	public void setEmpDOB(Date empDOB) {
+		this.empDOB = empDOB;
+	}
+
+	/***
+	 * Get Employee Address
+	 * @return A String type Value
+	 */
+	public String getEmpAddress() {
+		return empAddress;
+	}
+
+	/***
+	 * Set Employee Address
+	 * @param empAddress is a String type value
+	 */
+	public void setEmpAddress(String empAddress) {
+		this.empAddress = empAddress;
+	}
+
+	/***
+	 * Get Employee Telephone Number
+	 * @return A String Value
+	 */
+	public String getEmpTelephoneNo() {
+		return empTelephoneNo;
+	}
+
+	/***
+	 * Set The Employee Telephone Number
+	 * @param empTelephoneNo A String value
+	 */
+	public void setEmpTelephoneNo(String empTelephoneNo) {
+		this.empTelephoneNo = empTelephoneNo;
+	}
+
+/***
+ * Get The Employee Gender
+ * @return String type value
+ */
+	public String getEmpGender() {
+		return empGender;
+	}
+
+	/***
+	 * Set Employee Gender
+	 * @param empGender A String Value
+	 */
+	public void setEmpGender(String empGender) {
+		this.empGender = empGender;
+	}
+
+	/***
+	 * Get The Civil Status of the Employee
+	 * @return A String type Value
+	 */
+	public String getCivilStatus() {
+		return civilStatus;
+	}
+
+/***
+ * Set the Civil Status Value
+ * @param civilStatus A string type Value
+ */
+	public void setCivilStatus(String civilStatus) {
+		this.civilStatus = civilStatus;
+	}
+
+/***
+ * Get Employee Type
+ * @return A String Value
+ */
+	public String getEmpType() {
+		return empType;
+	}
+
+/***
+ * Set Employee Type
+ * @param empType a String Value
+ */
+	public void setEmpType(String empType) {
+		this.empType = empType;
+	}
+
+/***
+ * Get Employee Post 
+ * @return A String Value
+ */
+	public String getPost() {
+		return post;
+	}
+
+/***
+ * Set Employee Post
+ * @param post a String Value
+ */
+	public void setPost(String post) {
+		this.post = post;
+	}
+
+/***
+ * Get Employee Appoint date
+ * @return A Date Type Value
+ */
+	public Date getAppointmentDate() {
+		return appointmentDate;
+	}
+
+/***
+ * Set Employee Appoint date
+ * @param appointmentDate  A Date Type Value
+ */
+	public void setAppointmentDate(Date appointmentDate) {
+		this.appointmentDate = appointmentDate;
+	}
+
+/***
+ * Get Employee Pension Date
+ * @return A Date Type Value
+ */
+	public Date getPensionDate() {
+		return pensionDate;
+	}
+
+/***
+ * Set Employee Pension Date
+ * @param pensionDate A Date Type Value
+ */
+	public void setPensionDate(Date pensionDate) {
+		this.pensionDate = pensionDate;
+	}
+
+/***
+ * Get Employee WANDOP Number
+ * @return A String Value
+ */
+	public String getWAndOPno() {
+		return WAndOPno;
+	}
+
+/***
+ * Set Employee WANDOP Number
+ * @param wAndOPno A String Value
+ */
+	public void setWAndOPno(String wAndOPno) {
+		WAndOPno = wAndOPno;
+	}
+
+/***
+ * Get Employee Basic Salary 
+ * @return A double value
+ */
+	public Double getBasicSalary() {
+		return basicSalary;
+	}
+
+/***
+ * Set Employee Basic Salary 
+ * @param basicSalary A double value
+ */
+	public void setBasicSalary(Double basicSalary) {
+		this.basicSalary = basicSalary;
+	}
+
+/***
+ * Get Employee Salary Code
+ * @return A String Value
+ */
+	public String getSalaryCode() {
+		return salaryCode;
+	}
+
+/***
+ * Set Employee Salary Code
+ * @param salaryCode A String Value
+ */
+	public void setSalaryCode(String salaryCode) {
+		this.salaryCode = salaryCode;
+	}
+
+/***
+ * Get Employee Medicine Register number
+ * @return A String Value
+ */
+	public String getMedRegNo() {
+		return medRegNo;
+	}
+
+/***
+ * Set Employee Medicine Register number
+ * @param medRegNo A String Value
+ */
+	public void setMedRegNo(String medRegNo) {
+		this.medRegNo = medRegNo;
+	}
+
+/***
+ * Get Doctor Type
+ * @return A String Value
+ */
+	public String getDocType() {
+		return docType;
+	}
+
+/***
+ * Set Doctor Type
+ * @param docType A String Value
+ */
+	public void setDocType(String docType) {
+		this.docType = docType;
+	}
+
+/***
+ * Get Employee Availability 
+ * @return A byte Value
+ */
+	public byte getEmpActive() {
+		return empActive;
+	}
+
+	/***
+	 * Set Employee Availability 
+	 * @param A byte Value
+	 */
+	public void setEmpActive(byte empActive) {
+		this.empActive = empActive;
+	}
+
+	/***
+	 * Get Employee Department 
+	 * @return A Integer Value
+	 */
+	public Department getDepartment() {
+		return department;
+	}
+
+	/***
+	 * Set Employee Department 
+	 * @param A Integer Value
+	 */
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
+	/***
+	 * Get Employee Leaves
+	 * @return A Set that has type of Leaves
+	 */
+	public Set<Leaves> getLeaves() {
+		return leaves;
+	}
+
+	/***
+	 * Set Employee Leaves
+	 * @param A Set that has type of Leaves
+	 */
+	public void setLeaves(Set<Leaves> leaves) {
+		this.leaves = leaves;
+	}	
+}

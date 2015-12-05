@@ -1,0 +1,55 @@
+package lib.driver.laboratory.driver_class;
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.LabOrder;
+import core.classes.laboratory.ReticCountResult;
+
+
+public class ReticCountServiceDriver {
+
+	/*
+	 * manupulate data in db table labTestResult_RecticCount by MR
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public ReticCountServiceDriver() {
+
+		
+	}
+
+	// insert data to db table labTestResult_RecticCount
+	public void insertData(ReticCountResult rcr, int orderID, int labID,int doneBy,int chkBy,int createBy) {
+
+		session.beginTransaction();
+
+		// added MR for labid
+		Lab lab = (Lab) session.get(Lab.class, labID);
+		rcr.setLabID(lab);
+		// -------------
+		// added MR for orderid
+		LabOrder labOrder = (LabOrder) session.get(LabOrder.class, orderID);
+		rcr.setRcOrderID(labOrder);
+		
+		Employee doneEmp=(Employee)session.get(Employee.class, doneBy);
+		rcr.setRcDoneBy(doneEmp);
+		
+		Employee chkByEmp=(Employee)session.get(Employee.class, chkBy);
+		rcr.setRcCheckedBy(chkByEmp);
+		
+		User creUser=(User) session.get(User.class, createBy);
+		rcr.setRcCreateUser(creUser);
+
+		session.save(rcr);
+
+		session.getTransaction().commit();
+
+	}
+
+	
+}

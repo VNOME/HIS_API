@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	<class name="core.classes.lims.addNewLabRequest" table="lab_labtestrequest"
+		catalog="lims">
+		<id name="lab_test_request_id" type="java.lang.Integer">
+			<column name="lab_test_request_id" />
+			<generator class="identity" />
+		</id>
+		<property name="ftest_id" type="string">
+			<column name="ftest_id" length="300" not-null="true" />
+		</property>
+
+		<property name="fpatient_id" type="java.lang.Integer">
+			<column name="fpatient_id" />
+		</property>
+
+		<property name="flab_id" type="java.lang.Integer">
+			<column name="flab_id" />
+		</property>
+
+		<property name="comments" type="java.lang.Integer">
+			<column name="comment" />
+		</property>
+
+		<property name="priority" type="string">
+			<column name="priority" length="100" not-null="true" />
+		</property>
+		<property name="status" type="string">
+			<column name="status" length="100" not-null="true" />
+		</property>
+		<property name="test_request_date" type="string">
+			<column name="test_request_date" length="100" not-null="true" />
+		</property>
+		<property name="test_due_date" type="string">
+			<column name="test_due_date" length="100" not-null="true" />
+		</property>
+		<property name="ftest_request_person" type="string">
+			<column name="ftest_request_person" length="100" not-null="true" />
+		</property>
+
+	</class>
+</hibernate-mapping>

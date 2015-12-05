@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	<class name="core.classes.laboratory.LabOrder" table="lab_order">
+
+		<id name="orderID" type="int" column="labOrder_ID">
+			<generator class="native" />	
+		</id>
+
+		<many-to-one name="orderTestID" class="core.classes.laboratory.TestDescription"
+			fetch="join" lazy="false">
+			<column name="TestID" not-null="true" />
+		</many-to-one>
+
+		<many-to-one name="orderSpecimenID" class="core.classes.laboratory.LabSpecimen"
+			fetch="join" lazy="false">
+			<column name="labOrder_SpecimenID" not-null="false" />
+		</many-to-one>
+
+
+		<property name="orderLocation" column="labOrder_Location"
+			type="string" />
+		<property name="orderStatus" column="labOrder_Status" type="string" />
+		<property name="orderDueDate" column="labOrder_DueDate" type="java.util.Date" />
+		<property name="orderPriority" column="labOrder_Priority"
+			type="int" />
+
+		<property name="orderRemarks" column="labOrder_Remarks" type="string" />
+		
+			
+	    <many-to-one name="orderCreateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labOrder_CreateUser"/>
+        </many-to-one>
+        
+		<many-to-one name="orderLastUpdateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labOrder_LastUpdateUser"/>
+        </many-to-one>	
+<!-- 		<property name="orderCreateUser" column="labOrder_CreateUser"
+			type="int" />
+		<property name="orderLastUpdateUser" column="labOrder_LastUpdateUser"
+			type="int" /> -->
+		<property name="orderCreateDate" column="labOrder_CreateDate"
+			type="java.util.Date" />
+		<property name="orderLastUpdate" column="labOrder_LastUpdate"
+			type="java.util.Date" />
+			
+			
+	</class>
+</hibernate-mapping>

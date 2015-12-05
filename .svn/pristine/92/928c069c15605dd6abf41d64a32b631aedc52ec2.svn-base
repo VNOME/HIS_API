@@ -1,0 +1,303 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+
+package lib.driver.api.driver_class.standards.icd10;
+
+import lib.SessionFactoryUtil;
+
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import core.classes.api.standards.icd10.Icd10;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Iterator;
+
+/**
+ *  Icd10DBDriver class contains all the CRUD operation methods that required by Icd10Resources class(web service)
+ *  * @author IMANKA
+ * version 1.0
+ */
+
+public class Icd10DBDriver {
+	
+Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	
+	
+
+	/**
+	 * This method returns the all the icd10 code details a given disease name
+	 * @param disease name
+	 * @return icd10Code object of the Icd10 class
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction.
+	 */
+
+	public Icd10 getIcdDetailsGivenDisease(String disName)
+	{
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Query query =  session.createQuery("select i from Icd10 as i where i.cIcdName = :name");
+			query.setParameter("name",disName);
+			List<Icd10> icdList  = query.list();
+			Icd10 icd10=new Icd10();
+			for(Iterator<Icd10> iter = icdList.iterator(); iter.hasNext();)
+			{
+				icd10 = (Icd10)iter.next();
+			}
+			tx.commit();
+			return icd10;
+		}catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+		
+			
+	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * The method getIcdDetailsGivenCode returns the all the icd10 code details a given Icd10 code
+	 * @param icd10 code
+	 * @return icd10Code object of the Icd10 class
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction.
+	 */
+
+	public Icd10 getIcdDetailsGivenCode(String icdCode)
+	{
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Query query =  session.createQuery("select i from Icd10 as i where i.cIcdCode = :code");
+			query.setParameter("code",icdCode);
+			List<Icd10> icdList  = query.list();
+			Icd10 icd10=new Icd10();
+			for(Iterator<Icd10> iter = icdList.iterator(); iter.hasNext();)
+			{
+				icd10 = (Icd10)iter.next();
+			}
+			tx.commit();
+			return icd10;
+		}catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+		
+			
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * This method retrieve a list of icd10 codes
+	 * @return icd10 codes list List<Icd10>
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction.
+	 */
+	public List<Icd10> getIcd10Details(){
+		Transaction tx = null;
+		
+		try{
+			tx = session.beginTransaction();
+			Query query =  session.createQuery("select i from Icd10 as i");
+			
+			List<Icd10> icd10List =castList(Icd10.class, query.list()); 
+			tx.commit();
+			return icd10List;
+			
+		}
+		catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * This method insert the icd10 code details to the icd10 table 
+	 * @param icd10code object of Icd10 class
+	 * @return boolean value true if success otherwise false 
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction. 
+	 */
+	public boolean insertIcd10(Icd10 icd10Obj)
+	{
+		Transaction tx = null;
+		try{	
+			tx = session.beginTransaction();
+			session.save(icd10Obj);
+			tx.commit();
+			return true;
+		}catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Delete icd10 code from the database 
+	 * @param icd10code is a Icd10 type object that contains data about deleting code details
+	 * @return a boolean value. Returns true if the code deleted Successfully else returns false
+	 */
+	
+	public boolean deleteIcd10(Icd10 icd10Obj){
+		Transaction tx=null;
+		
+		try {
+			
+			tx=session.beginTransaction();
+			session.delete(icd10Obj);
+			tx.commit();
+			return true;
+			
+		} 
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/***
+	 * Insert updated data of a particular icd10 code into the database.
+	 * @param icd10Obj is a Icd10 type object that contains data about updating code
+	 * @return a boolean value. Returns true if code details updated Successfully else returns false
+	 */
+	
+	public boolean updateIcd10CodeDetails(Icd10 icd10Obj){
+		Transaction tx=null;
+		
+		try{
+			tx=session.beginTransaction();
+			session.update(icd10Obj);
+			tx.commit();
+			return true;
+		}
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+
+	/**
+	 * Cast collection of data list into a particular java List and the type will be as mentioned 
+	 * @param clazz Class name 
+	 * @param c collection of data that need to be cast
+	 * @return returns a java List that contains data and the type will be as mentioned in clazz param
+	 */
+	
+	public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+	    List<T> r = new ArrayList<T>(c.size());
+	    for(Object o: c)
+	      r.add(clazz.cast(o));
+	    return r;
+	}
+	
+	
+	
+	
+
+}

@@ -1,0 +1,74 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.laboratory.TestDescriptionReference;
+import lib.driver.laboratory.driver_class.TestDescriptionReferenceDBDriver;
+
+
+
+/*
+ * 
+ * By MR
+ */
+@Path("TestDescriptionReference")
+public class TestDescriptionReferenceResource {
+
+	
+	TestDescriptionReferenceDBDriver testDesRefDbDriver = new TestDescriptionReferenceDBDriver();
+	//Added by MR 
+	//to insert min max values for each field in a test to tb table lab_test_description_reference
+	@POST
+	@Path("/addTestDescriptionRef")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addMinMax(JSONObject json) {
+
+		/*
+		 * retrieve data from json object and pass it to service driver class by
+		 * MR
+		 */
+		
+		int testID;//for test description ID 
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+
+			TestDescriptionReference tdr = new TestDescriptionReference();
+			
+			testID = json.getInt("testID");
+			
+			tdr.setReferenceColumnName(json.getString("columnName").toString());
+			tdr.setReferenceMinValue(json.getDouble("minValue"));
+			tdr.setReferenceMaxValue(json.getDouble("maxValue"));
+					
+			tdr.setReferenceCreateDate(dateformat.parse(json.getString("createDate")
+					.toString()));
+			int creatUser=json.getInt("createUser");
+			//tdr.setReferenceCreateUser();
+			// epr.setLastUpdate(lastUpdate);//null
+			// epr.setLastUpdateUser(null);
+
+			
+
+			testDesRefDbDriver.insertData(tdr,testID,creatUser);
+
+			return "ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+		//----------------
+	}
+	
+
+}

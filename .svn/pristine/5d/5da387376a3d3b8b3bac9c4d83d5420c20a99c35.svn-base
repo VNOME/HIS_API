@@ -1,0 +1,59 @@
+package lib.driver.laboratory.driver_class;
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.ErythrocyteSedimentationRateResult;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.LabOrder;
+
+
+
+
+
+
+public class ErythrocyteSedimentationRateServiceDriver {
+
+	/*
+	 * manupulate data in db table labTestResult_ErythrocyteSedimentationRate by MR
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public ErythrocyteSedimentationRateServiceDriver() {
+
+		
+	}
+
+	// insert data to db table labTestResult_ErythrocyteSedimentationRate
+	public void insertData(ErythrocyteSedimentationRateResult esrr, int orderID, int labID,int doneBy,int chkBy,int createBy) {
+
+		session.beginTransaction();
+
+		// added MR for labid
+		Lab lab = (Lab) session.get(Lab.class, labID);
+		esrr.setLabID(lab);
+		// -------------
+		// added MR for orderid
+		LabOrder labOrder = (LabOrder) session.get(LabOrder.class, orderID);
+		esrr.setEsrOrderID(labOrder);
+		// -------------
+		Employee doneEmp=(Employee)session.get(Employee.class, doneBy);
+		esrr.setEsrDoneBy(doneEmp);
+		
+		Employee chkByEmp=(Employee)session.get(Employee.class, chkBy);
+		esrr.setEsrCheckedBy(chkByEmp);
+		
+		User creUser=(User) session.get(User.class, createBy);
+		esrr.setEsrCreateUser(creUser);
+		
+		
+		session.save(esrr);
+
+		session.getTransaction().commit();
+
+	}
+
+}

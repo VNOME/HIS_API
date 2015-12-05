@@ -1,0 +1,53 @@
+package lib.driver.laboratory.driver_class;
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.user.User;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.LabTestsInLabs;
+import core.classes.laboratory.TestDescription;
+
+
+
+
+
+public class LabTestsInLabsDBDriver {
+
+	/*
+	 * manupulate data in db table lab_tests_in_labs by MR
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public LabTestsInLabsDBDriver() {
+
+		
+	}
+
+	// insert data to db table lab_tests_in_labs
+	public void insertData(LabTestsInLabs ltil, int testID,int labID,int userID) {
+
+		session.beginTransaction();
+
+		
+		//setting testID
+		TestDescription testDescription = (TestDescription) session.get(TestDescription.class, testID);
+		ltil.setTestID(testDescription);
+		//  for labid
+		Lab lab = (Lab) session.get(Lab.class, labID);
+		ltil.setLabID(lab);
+		// -------------
+		
+		User usr=(User) session.get(User.class, userID);
+		ltil.setLabTestCreateUser(usr);
+	
+		session.save(ltil);
+
+		session.getTransaction().commit();
+
+		
+	}
+
+	
+}

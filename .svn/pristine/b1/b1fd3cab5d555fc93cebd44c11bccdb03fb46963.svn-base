@@ -1,0 +1,125 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+
+package core.classes.api.standards.hin;
+
+import java.util.Date;
+
+/***
+ * Hin Class contains all the attributes and there getters and setters
+ * @author IMANKA
+ * version 1.0
+ *
+ */
+
+public class Hin {
+
+	private int hHinId;
+	private Date hDate;
+	private String hPCI;
+	private String hLastSerialNumber;
+	
+	/***
+	 * Class default Constructor 
+	 */
+	public Hin()
+	{
+		
+	}
+	
+	/***
+	 * A Class Constructor with five Parameters
+	 * @param pHinId A integer Value
+	 * @param pDate A Date Value
+	 * @param pPCI A Date Value
+	 * @param pLastSerialNumber A Date Value
+	 * @param pCheckDigit A integer Value
+	 */
+	public Hin(int pHinId,Date pDate,String pPCI,String pLastSerialNumber,int pCheckDigit)
+	{
+		this.hHinId=pHinId;
+		this.hDate=pDate;
+		this.hPCI=pPCI;
+		this.hLastSerialNumber=pLastSerialNumber;
+	}
+
+/***
+ * Get HIN ID 
+ * @return A integer Vakue
+ */
+	public int gethHinId() {
+		return hHinId;
+	}
+
+/***
+ * Set HIN ID
+ * @param hHinId A integer Value
+ */
+	public void sethHinId(int hHinId) {
+		this.hHinId = hHinId;
+	}
+
+
+/***
+ * Get the HDate
+ * @return A Integer Value
+ */
+	public Date gethDate() {
+		return hDate;
+	}
+
+/***
+ * Set H-Date
+ * @param hDate A Date Value
+ */
+	public void sethDate(Date hDate) {
+		this.hDate = hDate;
+	}
+
+/***
+ * Get PCI Value
+ * @return A String Value
+ */
+	public String gethPCI() {
+		return hPCI;
+	}
+
+/***
+ * Set PCI Value
+ * @param hPCI A String value
+ */
+	public void sethPCI(String hPCI) {
+		this.hPCI = hPCI;
+	}
+
+/***
+ * Get Last Serial No
+ * @return A String Value
+ */
+	public String gethLastSerialNumber() {
+		return hLastSerialNumber;
+	}
+
+/***
+ * Set H-Last Serial No
+ * @param hLastSerialNumber A String Value
+ */
+	public void sethLastSerialNumber(String hLastSerialNumber) {
+		this.hLastSerialNumber = hLastSerialNumber;
+	}
+
+
+}

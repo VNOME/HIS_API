@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 21, 2013 10:58:15 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+
+	<class name="core.classes.opd.Questionnaire" table="opd_questionnaire" 
+		lazy="false">
+
+		<id name="questionnaireID" type="int">
+			<column name="questionnaire_ID" />
+			<generator class="native" />
+		</id>
+
+		<property name="questionnaireName" column="questionnaire_Name"
+			type="string" />
+		<property name="questionnaireRelateTo" column="questionnaire_RelateTo"
+			type="string" />
+		<property name="questionnaireRemarks" column="questionnaire_Remarks"
+			type="string" />
+		<property name="questionnaireCreateDate" column="questionnaire_CreateDate"
+			type="timestamp" />
+		<property name="questionnaireCreateUser" column="questionnaire_CreateUser"
+			type="int" />
+		<property name="questionnaireLastUpdate" column="questionnaire_LastUpdate"
+			type="timestamp" />
+		<property name="questionnaireLastUpdateUser" column="questionnaire_LastUpdateUser"
+			type="int" />
+		<property name="questionnaireActive" column="questionnaire_Active"
+			type="int" />
+
+
+		<set name="questions" table="opd_question" inverse="true" lazy="false"
+			fetch="join" cascade="all">
+			<key column="questionnaire_ID" not-null="true" />
+			<one-to-many class="core.classes.opd.Question" />
+		</set>
+
+
+	</class>
+
+
+	<class name="core.classes.opd.Question" table="opd_question" 
+		dynamic-update="true" lazy="false">
+
+		<id name="questionID" type="int" column="question_ID">
+			<generator class="increment" />
+		</id>
+
+		<many-to-one name="questionnaireID" class="core.classes.opd.Questionnaire"
+			fetch="join">
+			<column name="questionnaire_ID" />
+		</many-to-one>
+ 
+		<property name="questionText" column="question_Text" type="string" />
+		<property name="questionAnswerType" column="question_AnswerType"
+			type="string" />
+		<property name="questionAnswerValue" column="question_AnswerValue"
+			type="string" />
+
+	</class>
+
+
+	<class name="core.classes.opd.AnswerSet" table="opd_question_answer_set"
+		dynamic-update="true" lazy="false">
+
+		<id name="answerSetId" type="int" column="answer_SetID">
+			<generator class="increment" />
+		</id>
+   
+		<many-to-one name="visit" class="core.classes.opd.Visit"
+			fetch="join">
+			<column name="visit_ID" />
+		</many-to-one>
+		
+ 		<many-to-one name="questionnaire" class="core.classes.opd.Questionnaire"
+			fetch="join">
+			<column name="questionnaire_ID" />
+		</many-to-one>
+ 
+ 
+		<property name="answerSetCreateUser" column="answerSet_CreateUser"
+			type="int" />
+		<property name="answerSetCreateDate" column="answerSet_CreateDate"
+			type="java.util.Date" />
+		<property name="answerSetLastUpDate" column="answerSet_LastUpDate"
+			type="timestamp" />
+		<property name="answerSetLastUpDateUser" column="answerSet_LastUpDateUser"
+			type="int" />
+
+	</class>
+	
+	<class name="core.classes.opd.Answer" table="opd_question_answer"
+		dynamic-update="true" lazy="false">
+
+		<id name="answerID" type="int" column="answer_ID">
+			<generator class="increment" />
+		</id>
+			
+	   <many-to-one name="answerSetId" class="core.classes.opd.AnswerSet" not-null="true" cascade="all"  fetch="join"  >
+	        <column name="answerSetId_ID" />
+	    </many-to-one>
+	    
+	   <many-to-one name="questionID" class="core.classes.opd.Question" not-null="true" cascade="all" 	fetch="join"  >
+	        <column name="question_ID" />
+	    </many-to-one>
+	      
+		<property name="answerText" column="answer_Text" type="string" />
+	  
+	</class>
+
+
+</hibernate-mapping>

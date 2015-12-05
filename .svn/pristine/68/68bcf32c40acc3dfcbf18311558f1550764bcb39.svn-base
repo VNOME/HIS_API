@@ -1,0 +1,194 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+
+package core.resources.api.standards.loinc;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.api.standards.loinc.Loinc;
+
+//import flexjson.transformer.DateTransformer;
+
+
+import lib.driver.api.driver_class.standards.loinc.*;
+
+/**
+ *  LoincResources class contains all the rest-full web methods to manipulate Loinc codes
+ *   @author IMANKA
+ * version 1.0
+ */
+
+@Path("loincServices")
+public class LoincResources {
+
+
+		LoincDBDriver loincDBDriver=new LoincDBDriver();
+	
+	/**
+	 * inserting a new Loinc code to the system
+	 * @param uJson the JSON object that contains details about new Loinc code
+	 * @return returns a string value.True if the inserting is successful else it returns false
+	 */
+	
+	@POST
+	@Path("/addLoincCode")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addLoincCodes(JSONObject uJson){
+		
+		System.out.println(uJson.toString());
+		String result="false";
+		boolean r=false;
+		Loinc loinc=new Loinc();
+		
+		
+		try{
+			
+			loinc.setoLoincCode(uJson.getString("oLoincCode"));
+			loinc.setoLongName(uJson.getString("oLongName"));
+			loinc.setoShortName(uJson.getString("oShortName"));
+			loinc.setoClass(uJson.getString("oClass"));
+			loinc.setoRank(uJson.getInt("oRank"));
+			
+			r=loincDBDriver.insertLoincCode(loinc);
+			result=String.valueOf(r);
+			
+			
+			return result;
+			 
+		}
+		
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		
+		
+		catch(Exception ex){
+			ex.printStackTrace();
+			return ex.getMessage();
+		}	
+		
+	}
+	
+	
+	
+	/***
+	 * Update loinc details 
+	 * @param jsnObj is a JSON object which contains new loinc details that need to be updated
+	 * @return returns a string value.True if updated successfully else it returns false
+	 */
+	
+	@PUT
+	@Path("/updateLoinc")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String updateUserDetails(JSONObject uJson){
+		
+		String result="false";
+		boolean r=false;
+		Loinc loinc=new Loinc();
+		
+		
+		try{
+			loinc.setoLoincId(uJson.getInt("oLoincId"));
+			loinc.setoLoincCode(uJson.getString("oLoincCode"));
+			loinc.setoLongName(uJson.getString("oLongName"));
+			loinc.setoShortName(uJson.getString("oShortName"));
+			loinc.setoClass(uJson.getString("oClass"));
+			loinc.setoRank(uJson.getInt("oRank"));
+			
+			r=loincDBDriver.updateLoincDetails(loinc);
+			result=String.valueOf(r);
+			
+			return result;
+			
+		}
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		
+		
+		catch(Exception ex){
+			ex.printStackTrace();
+			return ex.getMessage();
+		}
+
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/***
+	 * 
+	 * Delete a particular Loinc code from the system 
+	 * @param jsnObj is JSON object that contains data about code that going to delete
+	 * @return returns a string value.True if the code deleted successfully else it returns false
+	 */	
+	
+	@PUT
+	@Path("/deleteLoincCode")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String deleteLoincCode(JSONObject jsnObj){
+		String result="false";
+		boolean r=false;
+		Loinc loinc=new Loinc();
+		
+		
+		try{
+			
+			loinc.setoLoincId(jsnObj.getInt("oLoincId"));
+			r=loincDBDriver.deleteLoincCode(loinc);		
+			result=String.valueOf(r);
+			
+			return result;		
+			
+		}
+		
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		
+		
+	}
+	
+
+	
+	
+}

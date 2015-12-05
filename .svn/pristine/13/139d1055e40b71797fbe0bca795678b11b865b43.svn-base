@@ -1,0 +1,209 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+
+package core.resources.api.standards.hin;
+
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.POST;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.api.standards.hin.Hin;
+
+
+
+import flexjson.JSONSerializer;
+import flexjson.transformer.DateTransformer;
+
+import java.util.Date;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import java.util.List;
+
+import lib.driver.api.driver_class.standards.hin.HinDBDriver;
+
+/**
+ * HinResources class contains all the rest-full web methods regarding Hin details 
+ * * @author IMANKA
+ * version 1.0
+ *
+ */
+
+@Path("hinService")
+public class HinResources {
+
+	HinDBDriver hinDBDriver = new HinDBDriver();
+
+	
+	/***
+	 * Insert new Hin details into the system.
+	 * @param jsnObj is a JSON object that contains about new hin details
+	 * @return returns a string value.True if the data inserted successful else it returns false
+	 */
+	
+	@POST
+	@Path("/hinAdding")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String insertHin(JSONObject jsnObj){
+		String result="false";
+		boolean r=false;
+		Hin hinObj=new Hin();
+		
+		DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+		
+		try{
+			
+			Date hinAddDate=formatter.parse(jsnObj.getString("hDate"));
+			hinObj.sethDate(hinAddDate);
+			
+			hinObj.sethPCI(jsnObj.getString("hPci"));
+			hinObj.sethLastSerialNumber(jsnObj.getString("hSerialNumber"));
+			
+			r=hinDBDriver.inserHinDetails(hinObj);
+			result=String.valueOf(r);
+			
+			return result;
+			 
+		}
+		
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		
+		catch(ParseException ex){
+			ex.printStackTrace();
+			return result;
+		}
+		
+		
+		catch(Exception ex){
+			ex.printStackTrace();
+			return ex.getMessage();
+		}
+		
+		
+	}
+	
+	
+
+	/***
+	 * Update hin details 
+	 * @param jsnObj is a JSON object which contains new hin details that need to be updated
+	 * @return returns a string value.True if updated successfully else it returns false
+	 */
+	
+	@PUT
+	@Path("/updateHin")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String updateHinDetails(JSONObject jsnObj){
+		
+		String result="false";
+		boolean r=false;
+		Hin hinObj=new Hin();
+		
+		DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+		
+		
+		try{
+			hinObj.sethHinId(jsnObj.getInt("hId"));
+			
+			Date hinAddDate=formatter.parse(jsnObj.getString("hDate"));
+			hinObj.sethDate(hinAddDate);
+			
+			hinObj.sethPCI(jsnObj.getString("hPci"));
+			hinObj.sethLastSerialNumber(jsnObj.getString("hSerialNumber"));
+			
+			r=hinDBDriver.updateHinDetails(hinObj);
+			result=String.valueOf(r);
+			return result;
+			
+		}
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		catch(ParseException ex){
+			ex.printStackTrace();
+			return result;
+		}
+		
+		catch(Exception ex){
+			ex.printStackTrace();
+			return ex.getMessage();
+		}
+
+	}
+
+	
+	
+	
+	
+	/***
+	 * 
+	 * Delete hin details from the system
+	 * @param jsnObj is JSON object that contains data about hin that is to be deleted
+	 * @return returns a string value.True if deleted successfully else it returns false
+	 */	
+	
+	@PUT
+	@Path("/deleteHinDetails")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String deleteHin(JSONObject jsnObj){
+		String result="false";
+		boolean r=false;
+		Hin hinObj=new Hin();
+		
+		
+		try{
+			hinObj.sethHinId(jsnObj.getInt("hId"));
+			
+			r=hinDBDriver.deleteHinDetails(hinObj);
+			result=String.valueOf(r);
+			
+			return result;
+			
+			
+		}
+		
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+}

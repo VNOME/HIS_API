@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriUserRoles" table="mri_user_roles" catalog="his">
+        <id name="roleId" type="java.lang.Integer">
+            <column name="role_id" />
+            <generator class="identity" />
+        </id>
+        <property name="roleName" type="string">
+            <column name="role_name" length="50" not-null="true" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+        <set name="mriUsers" table="mri_user" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fuser_role_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriUser" />
+        </set>
+    </class>
+</hibernate-mapping>

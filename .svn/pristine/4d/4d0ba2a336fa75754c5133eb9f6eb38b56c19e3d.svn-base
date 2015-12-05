@@ -1,0 +1,56 @@
+package lib.driver.laboratory.driver_class;
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.LabOrder;
+import core.classes.laboratory.LiverProfileResult;
+
+
+
+public class LiverProfileDBDriver {
+
+	/*
+	 * manupulate data in db table labTestResult_LiverProfileResult by MR
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public LiverProfileDBDriver() {
+
+		
+	}
+
+	// insert data to db table labTestResult_LiverProfileResult
+	public void insertData(LiverProfileResult lpr, int orderID, int labID,int doneBy,int chkBy,int createBy) {
+
+		session.beginTransaction();
+
+		// added MR for labid
+		Lab lab = (Lab) session.get(Lab.class, labID);
+		lpr.setLabID(lab);
+		// -------------
+		// added MR for orderid
+		LabOrder labOrder = (LabOrder) session.get(LabOrder.class, orderID);
+		lpr.setLvOrderID(labOrder);
+		// -------------
+		Employee doneEmp=(Employee)session.get(Employee.class, doneBy);
+		lpr.setLvDoneBy(doneEmp);
+		
+		Employee chkByEmp=(Employee)session.get(Employee.class, chkBy);
+		lpr.setLvCheckedBy(chkByEmp);
+		
+		User creUser=(User) session.get(User.class, createBy);
+		lpr.setLvCreateUser(creUser);
+
+		session.save(lpr);
+
+		session.getTransaction().commit();
+
+	}
+
+
+}

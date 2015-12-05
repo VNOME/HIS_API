@@ -1,0 +1,147 @@
+/**
+ * 
+ */
+package core.classes.ward;
+
+import java.sql.Date;
+import java.sql.Time;
+
+/**
+ * This is a dummy POJO class for Discharge Patient
+ * 
+ * @author IMANKA
+ * 
+ */
+public class Discharge {
+
+	private int dischargeID;
+	private Date dischargeDate;
+	private Time dischargeTime;
+	private String dischargeHistory;
+	private String dischargeRemarks;
+	private String dischargeIMMRcode;
+	private String dischargeICDcode;
+	private String dischargeStatus;
+
+	private Date dischargeCreateDate;
+	private int dischargeCreateUser;
+	private Date dischargeLastUpDate;
+	private int dischargeLastUpDateUser;
+
+	private Admitted admittedobject;
+
+	public Discharge() {
+
+	}
+
+	public Discharge(String dischargeIMMRcode, String dischargeStatus) {
+		super();
+		this.dischargeIMMRcode = dischargeIMMRcode;
+		this.dischargeStatus = dischargeStatus;
+	}
+
+	public int getDischargeID() {
+		return dischargeID;
+	}
+
+	public void setDischargeID(int dischargeID) {
+		this.dischargeID = dischargeID;
+	}
+
+	public Date getDischargeDate() {
+		return dischargeDate;
+	}
+
+	public void setDischargeDate(Date dischargeDate) {
+		this.dischargeDate = dischargeDate;
+	}
+
+	public Time getDischargeTime() {
+		return dischargeTime;
+	}
+
+	public void setDischargeTime(Time dischargeTime) {
+		this.dischargeTime = dischargeTime;
+	}
+
+	public String getDischargeHistory() {
+		return dischargeHistory;
+	}
+
+	public void setDischargeHistory(String dischargeHistory) {
+		this.dischargeHistory = dischargeHistory;
+	}
+
+	public String getDischargeRemarks() {
+		return dischargeRemarks;
+	}
+
+	public void setDischargeRemarks(String dischargeRemarks) {
+		this.dischargeRemarks = dischargeRemarks;
+	}
+
+	public String getDischargeIMMRcode() {
+		return dischargeIMMRcode;
+	}
+
+	public void setDischargeIMMRcode(String dischargeIMMRcode) {
+		this.dischargeIMMRcode = dischargeIMMRcode;
+	}
+
+	public String getDischargeICDcode() {
+		return dischargeICDcode;
+	}
+
+	public void setDischargeICDcode(String dischargeICDcode) {
+		this.dischargeICDcode = dischargeICDcode;
+	}
+
+	public String getDischargeStatus() {
+		return dischargeStatus;
+	}
+
+	public void setDischargeStatus(String dischargeStatus) {
+		this.dischargeStatus = dischargeStatus;
+	}
+
+	public Date getDischargeCreateDate() {
+		return dischargeCreateDate;
+	}
+
+	public void setDischargeCreateDate(Date dischargeCreateDate) {
+		this.dischargeCreateDate = dischargeCreateDate;
+	}
+
+	public int getDischargeCreateUser() {
+		return dischargeCreateUser;
+	}
+
+	public void setDischargeCreateUser(int dischargeCreateUser) {
+		this.dischargeCreateUser = dischargeCreateUser;
+	}
+
+	public Date getDischargeLastUpDate() {
+		return dischargeLastUpDate;
+	}
+
+	public void setDischargeLastUpDate(Date dischargeLastUpDate) {
+		this.dischargeLastUpDate = dischargeLastUpDate;
+	}
+
+	public int getDischargeLastUpDateUser() {
+		return dischargeLastUpDateUser;
+	}
+
+	public void setDischargeLastUpDateUser(int dischargeLastUpDateUser) {
+		this.dischargeLastUpDateUser = dischargeLastUpDateUser;
+	}
+
+	public Admitted getAdmittedobject() {
+		return admittedobject;
+	}
+
+	public void setAdmittedobject(Admitted admittedobject) {
+		this.admittedobject = admittedobject;
+	}
+
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriBundle" table="mri_bundle" catalog="his">
+        <id name="bundleId" type="java.lang.Integer">
+            <column name="bundle_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriHospital" class="core.classes.mri.MriHospital" fetch="select">
+            <column name="fhospital_id" not-null="false" />
+        </many-to-one>
+        <property name="requestDateTime" type="timestamp">
+            <column name="request_dateTime" length="19" not-null="false" />
+        </property>
+        <property name="noOfRequests" type="int">
+            <column name="no_of_requests" not-null="false" />
+        </property>
+        <set name="mriTestRequests" table="mri_test_request" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fbundle_id" not-null="false" />
+            </key>
+            <one-to-many class="core.classes.mri.MriTestRequest" />
+        </set>
+    </class>
+</hibernate-mapping>

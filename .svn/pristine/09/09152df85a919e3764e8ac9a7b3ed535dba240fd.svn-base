@@ -1,0 +1,441 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import lib.driver.laboratory.driver_class.LabOrderDBDriver;
+
+import org.codehaus.jettison.json.JSONObject;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import core.classes.laboratory.LabOrder;
+import flexjson.JSONSerializer;
+import flexjson.transformer.DateTransformer;
+
+@Path("Laborder")
+public class LabOrderResource {
+
+	LabOrderDBDriver labOrderDBDriver = new LabOrderDBDriver();
+	/*
+	 * This function is used to get the orders that need to be collect the
+	 * samples
+	 */
+	@GET
+	@Path("/getAll")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String Getlaborderwithspeciman() {
+		try {
+
+			
+
+			// List<LabOrder> uList = lo
+			// .SelectData("from LabOrder  e,TestDescription t,Patient p,Doctor d  where e.testID =t.testID and t.isSpecimenAvailable = true and e.orderStatus='pending' and p.patientID = e.patientID and d.DoctorID = e.doctorID and  e.specimenID is null");
+
+			List<LabOrder> uList = labOrderDBDriver.Getlaborderwithspeciman();
+			// List<LabOrder> uList = lo
+			// .SelectData("from LabOrder  e,TestDescription t where e.testID =t.testID and t.isSpecimenAvailable = true and e.orderStatus='pending'");
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.transform(new DateTransformer("yyyy-MM-dd"),
+					"orderDueDate", "orderCreateDate", "orderSpecimenID.specimenCollectedDate",
+					"patientDateOfBirth").serialize(uList);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@GET
+	@Path("/searchorder/{pid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String ordersearch(@PathParam("pid") String pid) {
+		try {
+			
+			List<LabOrder> uList = labOrderDBDriver.ordersearch(pid);// query.list();
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.transform(new DateTransformer("yyyy-MM-dd"),
+					"orderDueDate", "orderCreateDate", "orderSpecimenID.specimenCollectedDate",
+					"patientDateOfBirth").serialize(uList);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@GET
+	@Path("/searchStatus/{oID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String statusSearch(@PathParam("oID") int oID) {
+		try {
+			
+			List<LabOrder> uList = labOrderDBDriver.statusSearch(oID);// query.list();
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.transform(new DateTransformer("yyyy-MM-dd"),
+					"dueDate", "orderCreateDate", "createDate",
+					"patientDateOfBirth").serialize(uList);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@GET
+	@Path("/orderStatus")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String OrderTracking() {
+		try {
+
+			List<LabOrder> uList = labOrderDBDriver.OrderTracking();
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.transform(new DateTransformer("yyyy-MM-dd"),
+					"orderDueDate", "orderCreateDate", "orderSpecimenID.specimenCollectedDate",
+					"patientDateOfBirth").serialize(uList);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	/*
+	 * This function is used to get the orders that need to start test samples
+	 */
+	@GET
+	@Path("/getAllTestToLab")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String Getlabordertolab() {
+		try {
+
+			
+			
+			List<LabOrder> uList = labOrderDBDriver.Getlabordertolab();
+			
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.transform(new DateTransformer("yyyy-MM-dd"),
+					"orderDueDate", "orderCreateDate", "orderSpecimenID.specimenCollectedDate",
+					"patientDateOfBirth").serialize(uList);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@GET
+	@Path("/getAllSpecimenCollectedOrders")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAllSpecimenCollectedOrders() {
+		try {
+		
+			List<LabOrder> uList = labOrderDBDriver.getAllSpecimenCollectedOrders();
+			
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.transform(new DateTransformer("yyyy-MM-dd"),
+					"orderDueDate", "orderCreateDate", "orderSpecimenID.specimenCollectedDate",
+					"patientDateOfBirth").serialize(uList);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	/*
+	 * 
+	 * This function is used to get the orders where specimens are received by
+	 * lab but not yet started the test
+	 */
+
+	@GET
+	@Path("/getAllSpecimenReceivedOrders")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAllSpecimenReceivedOrders() {
+
+		try {
+
+			List<LabOrder> uList = labOrderDBDriver.getAllSpecimenReceivedOrders();
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer
+					.transform(new DateTransformer("yyyy-MM-dd"),
+
+					"orderDueDate", "orderCreateDate", "orderSpecimenID.specimenCollectedDate",
+							"patientDateOfBirth").serialize(
+
+					uList);
+
+		} catch (Exception e) {
+
+			return e.getMessage();
+
+		}
+
+	}
+
+	/*
+	 * This function is used to get the orders that need to finish the tests
+	 * samples
+	 */
+	@GET
+	@Path("/getAllOrdearsStartest")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getallordearsstartest() {
+		try {
+
+			List<LabOrder> uList = labOrderDBDriver.getallordearsstartest();
+			// lo.SelectData("from LabOrder  e,TestDescription t,LabSpecimen s,Patient p,Doctor d  where e.testID =t.testID and e.orderStatus='Test Started' and e.specimenID = s.specimenID and p.patientID = e.patientID and d.DoctorID = e.doctorID");
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.transform(new DateTransformer("yyyy-MM-dd"),
+					"orderDueDate", "orderCreateDate", "orderSpecimenID.specimenCollectedDate",
+					"patientDateOfBirth").serialize(uList);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	/*
+	 * This function is used to get the orders that need to insert Tesults
+	 * samples
+	 */
+	@GET
+	@Path("/insertResults")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String insertresults() {
+		try {
+
+			List<LabOrder> uList = labOrderDBDriver.insertresults();
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.transform(new DateTransformer("yyyy-MM-dd"),
+					"orderDueDate", "orderCreateDate", "orderSpecimenID.specimenCollectedDate",
+					"patientDateOfBirth").serialize(uList);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	/*
+	 * Insert Lab Order
+	 
+
+	@POST
+	@Path("/add")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addSample(JSONObject json) {
+
+		try {
+
+			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			Date Duedate = formatter.parse(json.get("DueDate").toString());
+
+			int tID = json.getInt("TestID");
+
+			Date OrderDate = formatter.parse(json.get("OrderdDate").toString());
+
+			LabOrder laborder = new LabOrder();
+
+			laborder.setOrderDueDate(Duedate);
+			laborder.setOrderCreateDate(OrderDate);
+			laborder.setOrderCreateUser(json.getInt("orderCreateUser"));
+			laborder.setOrderLastUpdate(OrderDate);
+			laborder.setOrderLastUpdateUser(json.getInt("orderCreateUser"));
+			laborder.setOrderLocation(json.get("orderLocation").toString());
+			laborder.setOrderPriority(json.getInt("orderPriority"));
+			laborder.setOrderRemarks(json.get("orderRemarks").toString());
+			laborder.setOrderStatus("pending");
+
+			
+
+			int OrderID = labOrderDBDriver.saveOrder(laborder, tID);
+
+			return String.valueOf(OrderID);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+
+	}*/
+
+	/*
+	 * Update the status of the order to sample collected
+	 */
+	@GET
+	@Path("/sampleCollected/{orderid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String SampleCollectedOrder(@PathParam("orderid") int orderid) {
+		try {
+
+			int i = labOrderDBDriver.SampleCollectedOrder(orderid);
+
+
+			return "Ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@GET
+	@Path("/specimenSent/{orderID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String updateStatusToSpecimenSent(@PathParam("orderID") int orderID) {
+
+		try {
+
+			int i = labOrderDBDriver.updateStatusToSpecimenSent(orderID);
+
+			return "Ok";
+
+		} catch (Exception e) {
+
+			return e.getMessage();
+
+		}
+
+	}
+
+	/*
+	 * 
+	 * Update the status of the order to Specimen received
+	 */
+
+	@GET
+	@Path("/specimenReceived/{orderID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String specimenReceived(@PathParam("orderID") int orderID) {
+
+		try {
+
+			
+			int i = labOrderDBDriver.updateStatusToSpecimenReceived(orderID);
+
+			return "Ok";
+
+		} catch (Exception e) {
+
+			return e.getMessage();
+
+		}
+
+	}
+
+	/*
+	 * update sample status to test started
+	 */
+	@GET
+	@Path("/testStarted/{orderid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String TestStared(@PathParam("orderid") int orderid) {
+		try {
+
+
+			int i = labOrderDBDriver.TestStared(orderid);
+			System.out.print(i);
+
+			return "Ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	/*
+	 * 
+	 * Update the status of the order to Test Executed
+	 */
+
+	@GET
+	@Path("/testExecuted/{orderID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String testExecuted(@PathParam("orderID") int orderID) {
+
+		try {
+
+			
+
+			int i = labOrderDBDriver.updateStatusToTestExecuted(orderID);
+
+			return "Ok";
+
+		} catch (Exception e) {
+
+			return e.getMessage();
+
+		}
+
+	}
+
+	/*
+	 * update sample status to test completed
+	 */
+	@GET
+	@Path("/testCompleted/{orderid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String TestCompleted(@PathParam("orderid") int orderid) {
+		try {
+
+			int i = labOrderDBDriver.TestCompleted(orderid);
+			return "Ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	// @GET
+	// @Path("/getResult/{orderid}")
+	// @Produces(MediaType.APPLICATION_JSON)
+	// public String getSpecificResult(@PathParam("orderid") int orderid) {
+	//
+	// try {
+	// Session session = SessionFactoryUtil.getSessionFactory()
+	// .openSession();
+	// // session.beginTransaction();
+	// // LabOrder test = (LabOrder)session.get(LabOrder.class,
+	// orderid);
+	// // TestDescription td
+	// // =(TestDescription)session.get(TestDescription.class,
+	// // test.getTestID().getTestID());
+	// //
+	// // // return td.getTestResultTableName();
+	// // String tblName = td.getTestResultTableName();
+	// Query query = session
+	// .createQuery("from SpecimenOfBloodSugarResult");
+	//
+	// List<String> result = query.list();
+	//
+	// session.close();
+	//
+	// JSONSerializer serializer = new JSONSerializer();
+	// return serializer.serialize(result);
+	//
+	// } catch (Exception e) {
+	// return e.getMessage();
+	// }
+	// }
+}

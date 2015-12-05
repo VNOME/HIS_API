@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	<class name="core.classes.laboratory.LabEquipment" table="lab_equipment">
+
+		<id name="equipmentID" type="int" column="labEquipment_ID">
+			<generator class="increment" />
+		</id>
+
+		<many-to-one name="labID" class="core.classes.laboratory.Lab"
+                     fetch="join" cascade="all" not-null="true" >
+                     <column name="labEquipment_LabID" not-null="true" />
+        </many-to-one>
+		
+		<property name="equipmentName" column="labEquipment_Name" type="string" />
+		<property name="equipmentDescription" column="labEquipment_Description" type="string" />
+		<property name="equipmentRemarks" column="labEquipment_Remarks" type="string" />
+		
+		
+<!-- 		<property name="equipmentCreateUser" column="labTestResult_CreateUser"
+			type="int" />
+		<property name="equipmentLastUpdateUser" column="labTestResult_LastUpdateUser"
+			type="int" /> -->
+		<property name="equipmentCreateDate" column="labEquipment_CreateDate"
+			type="java.util.Date" />
+		<property name="equipmentLastUpdate" column="labEquipment_LastUpdate"
+			type="java.util.Date" />
+		
+		<many-to-one name="equipmentCreateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labEquipment_CreateUser"/>
+        </many-to-one>
+        
+		<many-to-one name="equipmentLastUpdateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labEquipment_LastUpdateUser"/>
+        </many-to-one>
+		
+	</class>
+</hibernate-mapping>

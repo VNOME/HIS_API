@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 21, 2013 10:58:15 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	<class name="core.classes.opd.Prescription" table="opd_patient_presciption" lazy="false"
+		dynamic-update="true">
+		<id name="prescriptionID" type="int" column="prescription_ID">
+			<generator class="native" />
+		</id>
+ 
+	    <many-to-one name="visit" class="core.classes.opd.Visit" fetch="join">
+            <column name="visit_ID" />
+        </many-to-one>
+        
+		<property name="prescriptionDate" column="prescription_Date" type="timestamp" />
+		<property name="prescriptionPrescribedBy" column="prescription_PrescribedBy" type="int" />
+		<property name="prescriptionStatus" column="prescription_Status" type="int" />
+		<property name="prescriptionCreateDate" column="prescription_CreateDate" type="java.util.Date" />
+		<property name="prescriptionCreateUser" column="prescription_CreateUser" type="int" />
+		<property name="prescriptionLastUpdate" column="prescription_LastUpdate" type="timestamp" />
+		<property name="prescriptionLastUpdateUser" column="prescription_LastUpdateUser" type="int" />
+
+		
+		  
+		<set name="prescribeItems" table="opd_prescribeItems" inverse="true" lazy="false" fetch="join" cascade="all">
+			<key column="prescription_ID" not-null="true"/>
+         	<one-to-many class="core.classes.opd.PrescribeItem"/>
+        </set>   
+        
+	</class>
+    
+         
+</hibernate-mapping>

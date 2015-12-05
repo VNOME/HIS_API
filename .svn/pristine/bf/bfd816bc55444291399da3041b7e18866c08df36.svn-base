@@ -1,0 +1,250 @@
+/**
+ * 
+ */
+package core.classes.ward;
+
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * This is a dummy POJO class for InPatient
+ * 
+ * @author IMANKA
+ * 
+ */
+public class InPatient {
+
+	private int inPatientID;
+	private String inPatientTitle;
+	private String inPatientFullName;
+	private String inPatientPersonalUsedName;
+	private String inPatientNIC;
+
+	private Double inPatientAge;
+
+	private String inPatientHIN;
+	private String inPatientPhoto;
+	private Date inPatientDOB;
+	private String inPatientTelephone;
+
+	private String inPatientGender;
+
+	private String inPatientCivilStatus;
+	private String inPatientBirthPlace;
+	private String inPatientCitizenship;
+	private String inPatientAddress;
+	private String inPatientContactPName;
+	private String inPatientContactPNo;
+	private String inPatientRemarks;
+	private Date inPatientCreateDate;
+	private int inPatientCreateUser;
+	private Date inPatientLastUpdate;
+	private int inPatientLastUpdateUser;
+	private int inPatientActive;
+
+	private Set<Admitted> admittedobject = new HashSet<Admitted>(0);
+
+	public InPatient() {
+
+	}
+
+	public InPatient(Double inPatientAge, String inPatientGender) {
+		super();
+		this.inPatientAge = inPatientAge;
+		this.inPatientGender = inPatientGender;
+	}
+
+	public int getInPatientID() {
+		return inPatientID;
+	}
+
+	public void setInPatientID(int inPatientID) {
+		this.inPatientID = inPatientID;
+	}
+
+	public String getInPatientTitle() {
+		return inPatientTitle;
+	}
+
+	public void setInPatientTitle(String inPatientTitle) {
+		this.inPatientTitle = inPatientTitle;
+	}
+
+	public String getInPatientFullName() {
+		return inPatientFullName;
+	}
+
+	public void setInPatientFullName(String inPatientFullName) {
+		this.inPatientFullName = inPatientFullName;
+	}
+
+	public String getInPatientPersonalUsedName() {
+		return inPatientPersonalUsedName;
+	}
+
+	public void setInPatientPersonalUsedName(String inPatientPersonalUsedName) {
+		this.inPatientPersonalUsedName = inPatientPersonalUsedName;
+	}
+
+	public String getInPatientNIC() {
+		return inPatientNIC;
+	}
+
+	public void setInPatientNIC(String inPatientNIC) {
+		this.inPatientNIC = inPatientNIC;
+	}
+
+	public Double getInPatientAge() {
+		return inPatientAge;
+	}
+
+	public void setInPatientAge(Double inPatientAge) {
+		this.inPatientAge = inPatientAge;
+	}
+
+	public String getInPatientHIN() {
+		return inPatientHIN;
+	}
+
+	public void setInPatientHIN(String inPatientHIN) {
+		this.inPatientHIN = inPatientHIN;
+	}
+
+	public String getInPatientPhoto() {
+		return inPatientPhoto;
+	}
+
+	public void setInPatientPhoto(String inPatientPhoto) {
+		this.inPatientPhoto = inPatientPhoto;
+	}
+
+	public Date getInPatientDOB() {
+		return inPatientDOB;
+	}
+
+	public void setInPatientDOB(Date inPatientDOB) {
+		this.inPatientDOB = inPatientDOB;
+	}
+
+	public String getInPatientTelephone() {
+		return inPatientTelephone;
+	}
+
+	public void setInPatientTelephone(String inPatientTelephone) {
+		this.inPatientTelephone = inPatientTelephone;
+	}
+
+	public String getInPatientGender() {
+		return inPatientGender;
+	}
+
+	public void setInPatientGender(String inPatientGender) {
+		this.inPatientGender = inPatientGender;
+	}
+
+	public String getInPatientCivilStatus() {
+		return inPatientCivilStatus;
+	}
+
+	public void setInPatientCivilStatus(String inPatientCivilStatus) {
+		this.inPatientCivilStatus = inPatientCivilStatus;
+	}
+
+	public String getinPatientBirthPlace() {
+		return inPatientBirthPlace;
+	}
+
+	public void setinPatientBirthPlace(String inPatientBirthPlace) {
+		this.inPatientBirthPlace = inPatientBirthPlace;
+	}
+
+	public String getInPatientCitizenship() {
+		return inPatientCitizenship;
+	}
+
+	public void setInPatientCitizenship(String inPatientCitizenship) {
+		this.inPatientCitizenship = inPatientCitizenship;
+	}
+
+	public String getInPatientAddress() {
+		return inPatientAddress;
+	}
+
+	public void setInPatientAddress(String inPatientAddress) {
+		this.inPatientAddress = inPatientAddress;
+	}
+
+	public String getInPatientContactPName() {
+		return inPatientContactPName;
+	}
+
+	public void setInPatientContactPName(String inPatientContactPName) {
+		this.inPatientContactPName = inPatientContactPName;
+	}
+
+	public String getInPatientContactPNo() {
+		return inPatientContactPNo;
+	}
+
+	public void setInPatientContactPNo(String inPatientContactPNo) {
+		this.inPatientContactPNo = inPatientContactPNo;
+	}
+
+	public String getInPatientRemarks() {
+		return inPatientRemarks;
+	}
+
+	public void setInPatientRemarks(String inPatientRemarks) {
+		this.inPatientRemarks = inPatientRemarks;
+	}
+
+	public Date getInPatientCreateDate() {
+		return inPatientCreateDate;
+	}
+
+	public void setInPatientCreateDate(Date inPatientCreateDate) {
+		this.inPatientCreateDate = inPatientCreateDate;
+	}
+
+	public int getInPatientCreateUser() {
+		return inPatientCreateUser;
+	}
+
+	public void setInPatientCreateUser(int inPatientCreateUser) {
+		this.inPatientCreateUser = inPatientCreateUser;
+	}
+
+	public Date getInPatientLastUpdate() {
+		return inPatientLastUpdate;
+	}
+
+	public void setInPatientLastUpdate(Date inPatientLastUpdate) {
+		this.inPatientLastUpdate = inPatientLastUpdate;
+	}
+
+	public int getInPatientLastUpdateUser() {
+		return inPatientLastUpdateUser;
+	}
+
+	public void setInPatientLastUpdateUser(int inPatientLastUpdateUser) {
+		this.inPatientLastUpdateUser = inPatientLastUpdateUser;
+	}
+
+	public int getInPatientActive() {
+		return inPatientActive;
+	}
+
+	public void setInPatientActive(int inPatientActive) {
+		this.inPatientActive = inPatientActive;
+	}
+
+	public Set<Admitted> getAdmittedobject() {
+		return admittedobject;
+	}
+
+	public void setAdmittedobject(Set<Admitted> admittedobject) {
+		this.admittedobject = admittedobject;
+	}
+
+}

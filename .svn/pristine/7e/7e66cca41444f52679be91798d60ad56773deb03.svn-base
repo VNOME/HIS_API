@@ -1,0 +1,109 @@
+package core.classes.api.admin;
+
+import java.util.HashSet;
+import java.util.Set;
+
+
+/***
+ * Department class contains all the attributes and there getters and setters.
+ * @author RUSIRU
+ * version 1.0
+ */
+public class Department {
+	
+	private int deptID;
+	private String deptName;
+	private String deptSection;
+	private String deptTelephone;
+	
+	private Set<Employee> employee = new HashSet<Employee>();
+	
+	/***
+	 * Class constructor.
+	 */
+	public Department(){}
+
+	/***
+	 * Get Department Id
+	 * @return A Integer Value
+	 */
+	public int getDeptID() {
+		return deptID;
+	}
+
+	
+	/***
+	 * Set Department Id
+	 * @param A Integer Value
+	 */
+	public void setDeptID(int deptID) {
+		this.deptID = deptID;
+	}
+
+	/***
+	 * Get Department Name
+	 * @return A String Value
+	 */
+	public String getDeptName() {
+		return deptName;
+	}
+
+	/***
+	 * Set Department Name
+	 * @param A String Value
+	 */
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	/***
+	 * Get Department Section
+	 * @return A String Value
+	 */
+	public String getDeptSection() {
+		return deptSection;
+	}
+
+	/***
+	 * Set Department Section
+	 * @param A String Value
+	 */
+	public void setDeptSection(String deptSection) {
+		this.deptSection = deptSection;
+	}
+
+	/***
+	 * Get Department Telephone Number
+	 * @return A String Value
+	 */
+	public String getDeptTelephone() {
+		return deptTelephone;
+	}
+
+	
+	/***
+	 * Set Department Telephone Number
+	 * @param A String Value
+	 */
+	public void setDeptTelephone(String deptTelephone) {
+		this.deptTelephone = deptTelephone;
+	}
+
+	
+	/***
+	 * Get Department Employees
+	 * @return A Employee Class Type Set
+	 */
+	public Set<Employee> getEmployee() {
+		return employee;
+	}
+
+	/***
+	 * Set Department Employees
+	 * @param A Employee Class Type Set
+	 */
+	public void setEmployee(Set<Employee> employee) {
+		this.employee = employee;
+	}
+	
+}

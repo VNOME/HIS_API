@@ -1,0 +1,95 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Department;
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class Lab {
+/*
+ * Related to lab details ....corresponding db table is lab
+ */
+	
+	int labID;
+	String labName;
+	Department labDepartment;
+	String labType;
+	String labDescription;
+	Employee labIncharge;
+	
+	User labCreateUser;
+	User labLastUpdateUser;
+	Date labCreateDate;
+	Date labLastUpdate;
+	
+	
+	public int getLabID() {
+		return labID;
+	}
+	public void setLabID(int labID) {
+		this.labID = labID;
+	}
+	public String getLabName() {
+		return labName;
+	}
+	public void setLabName(String labName) {
+		this.labName = labName;
+	}
+	
+	public Department getLabDepartment() {
+		return labDepartment;
+	}
+	public void setLabDepartment(Department labDepartment) {
+		this.labDepartment = labDepartment;
+	}
+	public String getLabType() {
+		return labType;
+	}
+	public void setLabType(String labType) {
+		this.labType = labType;
+	}
+	public String getLabDescription() {
+		return labDescription;
+	}
+	public void setLabDescription(String labDescription) {
+		this.labDescription = labDescription;
+	}
+	public Employee getLabIncharge() {
+		return labIncharge;
+	}
+	public void setLabIncharge(Employee labIncharge) {
+		this.labIncharge = labIncharge;
+	}
+	public User getLabCreateUser() {
+		return labCreateUser;
+	}
+	public void setLabCreateUser(User labCreateUser) {
+		this.labCreateUser = labCreateUser;
+	}
+	public User getLabLastUpdateUser() {
+		return labLastUpdateUser;
+	}
+	public void setLabLastUpdateUser(User labLastUpdateUser) {
+		this.labLastUpdateUser = labLastUpdateUser;
+	}
+	public Date getLabCreateDate() {
+		return labCreateDate;
+	}
+	public void setLabCreateDate(Date labCreateDate) {
+		this.labCreateDate = labCreateDate;
+	}
+	public Date getLabLastUpdate() {
+		return labLastUpdate;
+	}
+	public void setLabLastUpdate(Date labLastUpdate) {
+		this.labLastUpdate = labLastUpdate;
+	}
+	
+	
+	
+	
+
+	
+
+}

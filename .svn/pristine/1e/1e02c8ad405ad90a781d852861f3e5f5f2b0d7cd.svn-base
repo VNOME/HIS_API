@@ -1,0 +1,216 @@
+package core.classes.api.admin;
+
+import java.util.Date;
+
+import core.classes.*;
+
+/***
+ * Leaves class contains all the attributes and there getters and setters.
+ * @author RUSIRU
+ * version 1.0
+ */
+public class Leaves {
+	
+	private int leaveID;
+	private Employee employee;
+	private Date leaveStartDate;
+	private Date leaveEndDate;
+	private Date leaveApplyDate;
+	private double numberOfDays;
+	private String leaveType;
+	private String reason;
+	private String addressOnLeave;
+	private double currentYearLeaves;
+	private String stateOfLeave;
+	
+	/***
+	 *  Class constructor.
+	 */
+	public Leaves()
+	{
+		
+	}
+
+/***
+ * Get Leave ID
+ * @return A Integer Value
+ */
+	public int getLeaveID() {
+		return leaveID;
+	}
+
+	/***
+	 * Set Leave ID
+	 * @param A Integer Value
+	 */
+	public void setLeaveID(int leaveID) {
+		this.leaveID = leaveID;
+	}
+
+	/***
+	 * Get A Employee Object
+	 * @return An Employee Object
+	 */
+	public Employee getEmployee() {
+		return employee;
+	}
+
+/***
+ * Set Employee 
+ * @param employee  An Employee Object
+ */
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+/***
+ * Get Employee Leave date
+ * @return A Date Value
+ */
+	public Date getLeaveStartDate() {
+		return leaveStartDate;
+	}
+
+/***
+ * Set Employee Leave date
+ * @param leaveStartDate A Date Value
+ */
+	public void setLeaveStartDate(Date leaveStartDate) {
+		this.leaveStartDate = leaveStartDate;
+	}
+
+/***
+ * Get Employee Leave End date
+ * @return
+ */
+	public Date getLeaveEndDate() {
+		return leaveEndDate;
+	}
+
+	/***
+	 * Set Employee Leave End date
+	 * @param leaveStartDate A Date Value
+	 */
+	public void setLeaveEndDate(Date leaveEndDate) {
+		this.leaveEndDate = leaveEndDate;
+	}
+
+/***
+ * Get Leave Apply Date
+ * @return A Date Value
+ */
+	public Date getLeaveApplyDate() {
+		return leaveApplyDate;
+	}
+
+/***
+ * Set Leave Apply Date
+ * @param leaveApplyDate  A Date Value
+ */
+	public void setLeaveApplyDate(Date leaveApplyDate) {
+		this.leaveApplyDate = leaveApplyDate;
+	}
+
+/***
+ * Get Number of days
+ * @return A Double value
+ */
+	public double getNumberOfDays() {
+		return numberOfDays;
+	}
+
+/***
+ * Set Number of days
+ * @param numberOfDays a double value
+ */
+	public void setNumberOfDays(double numberOfDays) {
+		this.numberOfDays = numberOfDays;
+	}
+
+/***
+ * Get A Leave Type
+ * @return A String value
+ */
+	public String getLeaveType() {
+		return leaveType;
+	}
+
+/***
+ * Set Leave Type
+ * @param leaveType a String Value
+ */
+	public void setLeaveType(String leaveType) {
+		this.leaveType = leaveType;
+	}
+
+/***
+ * Get the reason
+ * @return A String value
+ */
+	public String getReason() {
+		return reason;
+	}
+
+/***
+ * Set The reason
+ * @param reason A String VAlue
+ */
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+/***
+ * 
+ * Get Address On Leave
+ * @return a String value;
+ */
+	public String getAddressOnLeave() {
+		return addressOnLeave;
+	}
+
+/***
+ * Set Address On Leave
+ * @param addressOnLeave A String value 
+ */
+	public void setAddressOnLeave(String addressOnLeave) {
+		this.addressOnLeave = addressOnLeave;
+	}
+
+/***
+ * Get Current Years Leaves
+ * @return A double value
+ */
+	public double getCurrentYearLeaves() {
+		return currentYearLeaves;
+	}
+
+/***
+ * Set Current Year Value
+ * @param currentYearLeaves	a Double Value
+ */
+	public void setCurrentYearLeaves(double currentYearLeaves) {
+		this.currentYearLeaves = currentYearLeaves;
+	}
+
+/***
+ * Get State Of Leave
+ * @return A String Value
+ */
+	public String getStateOfLeave() {
+		return stateOfLeave;
+	}
+
+/***
+ * Set the State Of Leave
+ * @param stateOfLeave A String Value
+ */
+	public void setStateOfLeave(String stateOfLeave) {
+		this.stateOfLeave = stateOfLeave;
+	}
+
+
+
+	
+
+
+}

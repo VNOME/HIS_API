@@ -1,0 +1,240 @@
+/**
+ * 
+ */
+package core.classes.ward;
+
+import java.util.Date;
+
+/**
+ * This is a dummy POJO class for Admitted Patient
+ * 
+ * @author IMANKA
+ */
+
+public class Admitted {
+
+	private int admittedID;
+	private String admittedBHT;
+	private String admittedType;
+	private Date admittedDate;
+	// private Time admittedTime;
+	private String admittedGuardianName;
+	private String admittedGuardianAddress;
+	private int admittedGuardianTP;
+	private String admittedBelongings;
+	private String admittedDoc;
+	private int admittedBedNo;
+	private int admittedWardNo;
+	private InPatient inPatientObject;
+	private Date admittedCreateDate;
+	private int admittedCreateUser;
+	private Date admittedLastUpdate;
+	private int admittedLastUpdateUser;
+	private int admittedIcdCode;
+
+	// public Set<Bed> bedobject = new HashSet<Bed>(0);
+	// private Set<Diagnosis> diagnosisobject = new HashSet<Diagnosis>(0);
+	// private Set<Temperature> tempobject = new HashSet<Temperature>(0);
+	// private Set<DietPlan> dietplanobject = new HashSet<DietPlan>(0);
+	// private Set<Transfer> transferobject = new HashSet<Transfer>(0);
+	// private Set<Discharge> dischargeobject = new HashSet<Discharge>(0);
+	// private Set<InPatientLabOrder> laborderobject = new
+	// HashSet<InPatientLabOrder>(0);
+	// private Set<InPatientDrugPrescription> drugpobject = new
+	// HashSet<InPatientDrugPrescription>(0);
+
+	public Admitted() {
+
+	}
+
+	public int getAdmittedID() {
+		return admittedID;
+	}
+
+	public void setAdmittedID(int admittedID) {
+		this.admittedID = admittedID;
+	}
+
+	public String getAdmittedBHT() {
+		return admittedBHT;
+	}
+
+	public void setAdmittedBHT(String admittedBHT) {
+		this.admittedBHT = admittedBHT;
+	}
+
+	public String getAdmittedType() {
+		return admittedType;
+	}
+
+	public void setAdmittedType(String admittedType) {
+		this.admittedType = admittedType;
+	}
+
+	public Date getAdmittedDate() {
+		return admittedDate;
+	}
+
+	public void setAdmittedDate(Date admittedDate) {
+		this.admittedDate = admittedDate;
+	}
+
+	public String getAdmittedBelongings() {
+		return admittedBelongings;
+	}
+
+	public void setAdmittedBelongings(String admittedBelongings) {
+		this.admittedBelongings = admittedBelongings;
+	}
+
+	public String getAdmittedDoc() {
+		return admittedDoc;
+	}
+
+	public void setAdmittedDoc(String admittedDoc) {
+		this.admittedDoc = admittedDoc;
+	}
+
+	public int getAdmittedBedNo() {
+		return admittedBedNo;
+	}
+
+	public void setAdmittedBedNo(int admittedBedNo) {
+		this.admittedBedNo = admittedBedNo;
+	}
+
+	public int getAdmittedWardNo() {
+		return admittedWardNo;
+	}
+
+	public void setAdmittedWardNo(int admittedWardNo) {
+		this.admittedWardNo = admittedWardNo;
+	}
+
+	public InPatient getInPatientObject() {
+		return inPatientObject;
+	}
+
+	public void setInPatientObject(InPatient inPatientObject) {
+		this.inPatientObject = inPatientObject;
+	}
+
+	public Date getAdmittedCreateDate() {
+		return admittedCreateDate;
+	}
+
+	public void setAdmittedCreateDate(Date admittedCreateDate) {
+		this.admittedCreateDate = admittedCreateDate;
+	}
+
+	public int getAdmittedCreateUser() {
+		return admittedCreateUser;
+	}
+
+	public void setAdmittedCreateUser(int admittedCreateUser) {
+		this.admittedCreateUser = admittedCreateUser;
+	}
+
+	public Date getAdmittedLastUpdate() {
+		return admittedLastUpdate;
+	}
+
+	public void setAdmittedLastUpdate(Date admittedLastUpdate) {
+		this.admittedLastUpdate = admittedLastUpdate;
+	}
+
+	public int getAdmittedLastUpdateUser() {
+		return admittedLastUpdateUser;
+	}
+
+	public void setAdmittedLastUpdateUser(int admittedLastUpdateUser) {
+		this.admittedLastUpdateUser = admittedLastUpdateUser;
+	}
+
+	/*
+	 * public Set<Diagnosis> getDiagnosisobject() { return diagnosisobject; }
+	 * 
+	 * public void setDiagnosisobject(Set<Diagnosis> diagnosisobject) {
+	 * this.diagnosisobject = diagnosisobject; }
+	 * 
+	 * public Set<DietPlan> getDietplanobject() { return dietplanobject; }
+	 * 
+	 * public void setDietplanobject(Set<DietPlan> dietplanobject) {
+	 * this.dietplanobject = dietplanobject; }
+	 * 
+	 * public Set<Transfer> getTransferobject() { return transferobject; }
+	 * 
+	 * public void setTransferobject(Set<Transfer> transferobject) {
+	 * this.transferobject = transferobject; }
+	 * 
+	 * public Set<Discharge> getDischargeobject() { return dischargeobject; }
+	 * 
+	 * public void setDischargeobject(Set<Discharge> dischargeobject) {
+	 * this.dischargeobject = dischargeobject; }
+	 */
+
+	/*
+	 * public Set<InPatientLabOrder> getLaborderobject() { return
+	 * laborderobject; }
+	 * 
+	 * public void setLaborderobject(Set<InPatientLabOrder> laborderobject) {
+	 * this.laborderobject = laborderobject; }
+	 */
+
+	/*
+	 * public Set<InPatientDrugPrescription> getDrugpobject() { return
+	 * drugpobject; }
+	 * 
+	 * public void setDrugpobject(Set<InPatientDrugPrescription> drugpobject) {
+	 * this.drugpobject = drugpobject; }
+	 */
+
+	public int getAdmittedIcdCode() {
+		return admittedIcdCode;
+	}
+
+	public void setAdmittedIcdCode(int admittedIcdCode) {
+		this.admittedIcdCode = admittedIcdCode;
+	}
+
+	public String getAdmittedGuardianName() {
+		return admittedGuardianName;
+	}
+
+	public void setAdmittedGuardianName(String admittedGuardianName) {
+		this.admittedGuardianName = admittedGuardianName;
+	}
+
+	public String getAdmittedGuardianAddress() {
+		return admittedGuardianAddress;
+	}
+
+	public void setAdmittedGuardianAddress(String admittedGuardianAddress) {
+		this.admittedGuardianAddress = admittedGuardianAddress;
+	}
+
+	public int getAdmittedGuardianTP() {
+		return admittedGuardianTP;
+	}
+
+	public void setAdmittedGuardianTP(int admittedGuardianTP) {
+		this.admittedGuardianTP = admittedGuardianTP;
+	}
+
+	/*
+	 * 
+	 * public Set<Temperature> getTempobject() { return tempobject; }
+	 * 
+	 * public void setTempobject(Set<Temperature> tempobject) { this.tempobject
+	 * = tempobject; }
+	 */
+
+	// public Set<Bed> getBedobject() {
+	// return bedobject;
+	// }
+	//
+	// public void setBedobject(Set<Bed> bedobject) {
+	// this.bedobject = bedobject;
+	// }
+
+}

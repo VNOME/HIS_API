@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 15, 2014 8:06:13 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.user.AdminRolePermissions" table="admin_rolepermissions" catalog="his">
+        <id name="roleId" type="java.lang.Integer">
+            <column name="role_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="permissoinId" type="java.lang.Integer">
+            <column name="permission_id" />
+        </property>
+    </class>
+</hibernate-mapping>

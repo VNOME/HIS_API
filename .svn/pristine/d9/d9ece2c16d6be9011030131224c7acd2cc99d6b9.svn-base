@@ -1,0 +1,124 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class SpecimenOfBloodSugarResult {
+
+	int sbsReportID;
+	LabOrder sbsOrderID;
+	Employee sbsDoneBy;
+	Employee sbsCheckedBy;
+	Lab labID;
+	String sbsRemarks;
+	
+	Date sbsCompletedDate;
+	User sbsCreateUser;
+	User sbsLastUpdateUser;
+	Date sbsCreateDate;
+	Date sbsLastUpdate;
+	
+	//test result values
+	Double sbsFBS;
+	Double sbsPPBS;
+	Double sbsRBS;
+	Double sbsUrineSugar;
+	
+	
+	public Lab getLabID() {
+		return labID;
+	}
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+	public int getSbsReportID() {
+		return sbsReportID;
+	}
+	public void setSbsReportID(int sbsReportID) {
+		this.sbsReportID = sbsReportID;
+	}
+	public LabOrder getSbsOrderID() {
+		return sbsOrderID;
+	}
+	public void setSbsOrderID(LabOrder sbsOrderID) {
+		this.sbsOrderID = sbsOrderID;
+	}
+	public Employee getSbsDoneBy() {
+		return sbsDoneBy;
+	}
+	public void setSbsDoneBy(Employee sbsDoneBy) {
+		this.sbsDoneBy = sbsDoneBy;
+	}
+	public Employee getSbsCheckedBy() {
+		return sbsCheckedBy;
+	}
+	public void setSbsCheckedBy(Employee sbsCheckedBy) {
+		this.sbsCheckedBy = sbsCheckedBy;
+	}
+	public String getSbsRemarks() {
+		return sbsRemarks;
+	}
+	public void setSbsRemarks(String sbsRemarks) {
+		this.sbsRemarks = sbsRemarks;
+	}
+	public Date getSbsCompletedDate() {
+		return sbsCompletedDate;
+	}
+	public void setSbsCompletedDate(Date sbsCompletedDate) {
+		this.sbsCompletedDate = sbsCompletedDate;
+	}
+	public User getSbsCreateUser() {
+		return sbsCreateUser;
+	}
+	public void setSbsCreateUser(User sbsCreateUser) {
+		this.sbsCreateUser = sbsCreateUser;
+	}
+	public User getSbsLastUpdateUser() {
+		return sbsLastUpdateUser;
+	}
+	public void setSbsLastUpdateUser(User sbsLastUpdateUser) {
+		this.sbsLastUpdateUser = sbsLastUpdateUser;
+	}
+	public Date getSbsCreateDate() {
+		return sbsCreateDate;
+	}
+	public void setSbsCreateDate(Date sbsCreateDate) {
+		this.sbsCreateDate = sbsCreateDate;
+	}
+	public Date getSbsLastUpdate() {
+		return sbsLastUpdate;
+	}
+	public void setSbsLastUpdate(Date sbsLastUpdate) {
+		this.sbsLastUpdate = sbsLastUpdate;
+	}
+	public Double getSbsFBS() {
+		return sbsFBS;
+	}
+	public void setSbsFBS(Double sbsFBS) {
+		this.sbsFBS = sbsFBS;
+	}
+	public Double getSbsPPBS() {
+		return sbsPPBS;
+	}
+	public void setSbsPPBS(Double sbsPPBS) {
+		this.sbsPPBS = sbsPPBS;
+	}
+	public Double getSbsRBS() {
+		return sbsRBS;
+	}
+	public void setSbsRBS(Double sbsRBS) {
+		this.sbsRBS = sbsRBS;
+	}
+	public Double getSbsUrineSugar() {
+		return sbsUrineSugar;
+	}
+	public void setSbsUrineSugar(Double sbsUrineSugar) {
+		this.sbsUrineSugar = sbsUrineSugar;
+	}
+	
+	
+
+
+}

@@ -1,0 +1,159 @@
+package core.resources.opd;
+import java.text.DateFormat;
+ 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import flexjson.JSONSerializer;
+import flexjson.transformer.DateTransformer;
+import core.classes.laboratory.LabOrder;
+import core.classes.laboratory.TestDescription;
+import core.classes.opd.Allergy;
+import core.classes.opd.OpdLabOrder;
+import lib.driver.laboratory.driver_class.LabOrderDBDriver;
+import lib.driver.opd.driver_class.OpdLabOrderDBDriver;
+
+/**
+ * This class define all the generic REST Services necessary for handling patient's LabTests
+ * @author 
+ * @version 1.0
+ */
+@Path("OPDLabOrder")
+public class OpdLabOrderResource {
+	
+	//LabOrderDBDriver labOrderDBDriver=new LabOrderDBDriver();
+	OpdLabOrderDBDriver opdLabOrderDBDriver=new OpdLabOrderDBDriver();
+	DateFormat dateformat1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	DateFormat dateformat2 = new SimpleDateFormat("yyyy-MM-dd");
+
+	/***
+	 * Add New OPD Lab Order
+	 * @param ajson A Json Object that contains New OPD Lab Order Details
+	 * @return Is A String and If Data inserted Successfully return is True else False
+	 */
+	@POST
+	@Path("/addLabOrder")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addLabOrder(JSONObject ajson) {
+
+		try {
+			OpdLabOrder opdLaborder =new OpdLabOrder();
+ 
+			System.out.println(ajson.toString());
+			
+			
+			int visitID = ajson.getInt("visitid");
+			int createdUser = ajson.getInt("orderCreateUser");
+			int TestID = ajson.getInt("TestID");  
+			opdLaborder.setOrderLocation(ajson.getString("orderLocation"));
+			opdLaborder.setOrderStatus("Pending");
+			opdLaborder.setOrderDueDate(dateformat2.parse(ajson.get("DueDate").toString())); 
+			opdLaborder.setOrderPriority( ajson.getInt("orderPriority"));
+			opdLaborder.setOrderRemarks(ajson.getString("orderRemarks"));
+			
+			opdLaborder.setOrderCreateDate(new Date());
+			opdLaborder.setOrderLastUpdate(new Date()); 
+			
+			
+			opdLabOrderDBDriver.saveOpdLaborder(opdLaborder, TestID, visitID, createdUser);
+			return "True";
+
+		}
+		
+		catch (JSONException e) {
+			e.printStackTrace();
+			return "False";
+		}		
+		catch (Exception e) {
+			return "False";
+		}
+	}
+	 
+	/**
+	 * Get Lab Order Details By User ID
+	 * @param userID Is An Integer Value
+	 * @return JSON String that contains all the Lab Order Details
+	 */
+	@GET
+	@Path("/getLabOrderByUserID/{userid}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getLabOrderByUserID(@PathParam("userid") int userID) {
+		try {
+		 
+			List<OpdLabOrder> labOrderList = opdLabOrderDBDriver.retrieveLabOrderByUserID(userID);
+			JSONSerializer serializer = new JSONSerializer();
+			 
+			return  serializer.include("visit.patient.patientID","visit.patient.patientFullName",
+					"visit.visitType","orderID","orderCreateDate","orderTestID.testName",
+					"orderStatus","visit.patient.patientTitle").exclude("*").transform(new DateTransformer("yyyy-MM-dd"),"orderCreateDate").serialize(labOrderList);
+			 
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "False";
+		}
+	}
+	
+	
+	/***
+	 * Get LabOrder details By Patient ID
+	 * @param patientID Is an Integer Value
+	 * @return JSON String that contains all the Lab Order Details
+	 */
+	@GET
+	@Path("/getLabOrderByPatientID/{patientID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getLabOrderByPatientID(@PathParam("patientID") int patientID) {
+		try {
+		 
+			List<OpdLabOrder> labOrderList = opdLabOrderDBDriver.retrieveLabOrderByPatientID(patientID);
+			JSONSerializer serializer = new JSONSerializer();
+			 
+			return  serializer.include("visit.patient.patientID","visit.patient.patientFullName",
+					"visit.visitType","orderID","orderCreateDate","orderTestID.testName",
+					"orderStatus","visit.patient.patientTitle").exclude("*").transform(new DateTransformer("yyyy-MM-dd"),"orderCreateDate").serialize(labOrderList);
+			 
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "False";
+		}
+	}
+	
+
+	/***
+	 * Get Lab Order Details By Visit ID
+	 * @param visitID is an Integer Value
+	 * @return JSON String that contains all the Lab Order Details
+	 */
+	@GET
+	@Path("/getLabOrderByVisitID/{visitID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getLabOrderByVisitID(@PathParam("visitID") int visitID) {
+		try {
+		 
+			List<OpdLabOrder> labOrderList = opdLabOrderDBDriver.retrieveLabOrderByVisitID(visitID);
+			JSONSerializer serializer = new JSONSerializer();
+			 
+			return  serializer.include("visit.patient.patientID","visit.patient.patientFullName",
+					"visit.visitType","orderID","orderCreateDate","orderTestID.testName",
+					"orderStatus","visit.patient.patientTitle").exclude("*").transform(new DateTransformer("yyyy-MM-dd"),"orderCreateDate").serialize(labOrderList);
+				 
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "False";
+		}
+	}
+	
+}

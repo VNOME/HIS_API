@@ -1,0 +1,120 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+package lib.driver.api.driver_class.standards.immr;
+
+import java.util.Iterator;
+import java.util.List;
+
+import lib.SessionFactoryUtil;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import core.classes.api.standards.icd10.Icd10;
+import core.classes.api.standards.immr.Immr;
+import core.classes.api.standards.immr.ImmrStatistics;
+
+
+/**
+ *  ImmrStatisticsDBDriver class contains all the CRUD operation methods that required by Immr Statistical calculations
+ *  @author IMANKA
+ * 	version 1.0
+ */
+public class ImmrStatisticsDBDriver {
+	
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+	
+	/**
+	 * This method returns the all the icd10 code details a given disease name
+	 * @param disease name
+	 * @return icd10Code object of the Icd10 class
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction.
+	 */
+
+	
+	public ImmrStatistics getImmrStatisticsRecordGivenImmrCode(String immrCode)
+	{
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Query query =  session.createQuery("select i from ImmrStatistics as i where i.isImmrCode = :name");
+			
+			query.setParameter("name",immrCode);
+			
+			List<ImmrStatistics> immrStatList  = query.list();
+			
+			ImmrStatistics immrStat=new ImmrStatistics();
+			
+			for(Iterator<ImmrStatistics> iter = immrStatList.iterator(); iter.hasNext();)
+			{
+				immrStat = (ImmrStatistics)iter.next();
+			}
+			tx.commit();
+			return immrStat;
+		}catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+		
+			
+	}
+	
+	
+	
+	
+	/***
+	 * Insert updated data of a particular immrStatistics into the database.
+	 * @param immrStatisticsObj is a ImmrStatistics type object that contains data about updating record
+	 * @return a boolean value. Returns true if code details updated Successfully else returns false
+	 */
+	
+	public boolean updateImmrStatisticsRecord(ImmrStatistics immrStatisticsObj){
+		Transaction tx=null;
+		
+		try{
+			tx=session.beginTransaction();
+			session.update(immrStatisticsObj);
+			tx.commit();
+			return true;
+		}
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+		
+	}
+	
+	
+
+}

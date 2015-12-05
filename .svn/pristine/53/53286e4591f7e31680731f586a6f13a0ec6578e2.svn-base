@@ -1,0 +1,111 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class SerumProteinResult {
+	/*
+	 * This class corresponds to db table labTestResult_SerumProtein by FF
+	 */
+
+	int spReportID;
+	LabOrder spOrderID;
+	Employee spDoneBy;
+	Employee spCheckedBy;
+	Lab labID;
+	String spRemarks;
+
+	Date spCompletedDate;
+	User spCreateUser;
+	User spLastUpdateUser;
+	Date spCreateDate;
+	Date spLastUpdate;
+
+	// result values relevant to lab test
+	Double spAL;
+	Double spGL;
+	
+	
+	public Lab getLabID() {
+		return labID;
+	}
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+	public int getSpReportID() {
+		return spReportID;
+	}
+	public void setSpReportID(int spReportID) {
+		this.spReportID = spReportID;
+	}
+	public LabOrder getSpOrderID() {
+		return spOrderID;
+	}
+	public void setSpOrderID(LabOrder spOrderID) {
+		this.spOrderID = spOrderID;
+	}
+	public Employee getSpDoneBy() {
+		return spDoneBy;
+	}
+	public void setSpDoneBy(Employee spDoneBy) {
+		this.spDoneBy = spDoneBy;
+	}
+	public Employee getSpCheckedBy() {
+		return spCheckedBy;
+	}
+	public void setSpCheckedBy(Employee spCheckedBy) {
+		this.spCheckedBy = spCheckedBy;
+	}
+	public String getSpRemarks() {
+		return spRemarks;
+	}
+	public void setSpRemarks(String spRemarks) {
+		this.spRemarks = spRemarks;
+	}
+	public Date getSpCompletedDate() {
+		return spCompletedDate;
+	}
+	public void setSpCompletedDate(Date spCompletedDate) {
+		this.spCompletedDate = spCompletedDate;
+	}
+	public User getSpCreateUser() {
+		return spCreateUser;
+	}
+	public void setSpCreateUser(User spCreateUser) {
+		this.spCreateUser = spCreateUser;
+	}
+	public User getSpLastUpdateUser() {
+		return spLastUpdateUser;
+	}
+	public void setSpLastUpdateUser(User spLastUpdateUser) {
+		this.spLastUpdateUser = spLastUpdateUser;
+	}
+	public Date getSpCreateDate() {
+		return spCreateDate;
+	}
+	public void setSpCreateDate(Date spCreateDate) {
+		this.spCreateDate = spCreateDate;
+	}
+	public Date getSpLastUpdate() {
+		return spLastUpdate;
+	}
+	public void setSpLastUpdate(Date spLastUpdate) {
+		this.spLastUpdate = spLastUpdate;
+	}
+	public Double getSpAL() {
+		return spAL;
+	}
+	public void setSpAL(Double spAL) {
+		this.spAL = spAL;
+	}
+	public Double getSpGL() {
+		return spGL;
+	}
+	public void setSpGL(Double spGL) {
+		this.spGL = spGL;
+	}
+	
+	
+}

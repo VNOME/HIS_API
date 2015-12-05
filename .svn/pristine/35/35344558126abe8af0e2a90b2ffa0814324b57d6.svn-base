@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	<class name="core.classes.laboratory.ErythrocyteSedimentationRateResult" table="labTestResult_ErythrocyteSedimentationRate">
+
+		<id name="esrReportID" type="int" column="labTestResult_ReportID">
+			<generator class="native" />
+		</id>
+
+		<many-to-one name="esrOrderID" class="core.classes.laboratory.LabOrder"
+			not-null="true" cascade="all" unique="true">
+			<column name="labTestResult_LabOrderID" />
+		</many-to-one>
+
+		<many-to-one name="esrDoneBy" class="core.classes.api.admin.Employee" fetch="join" lazy="false">
+        	<column name="labTestResult_DoneBy"/>
+        </many-to-one>
+        
+		<many-to-one name="esrCheckedBy" class="core.classes.api.admin.Employee" fetch="join" lazy="false">
+        	<column name="labTestResult_CheckedBy"/>
+        </many-to-one>
+
+		<many-to-one name="labID" class="core.classes.laboratory.Lab"
+			fetch="join">
+			<column name="labTestResult_LabID" not-null="true" />
+		</many-to-one>
+
+		<property name="esrRemarks" column="labTestResult_Remarks" type="string" />
+
+
+		<property name="eSR1hr" column="labTestResult_ESR1hr" type="double" />
+		
+
+
+		<property name="esrCompletedDate" column="labTestResult_CompletedDate"
+			type="java.util.Date" />
+		
+		<many-to-one name="esrCreateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestResult_CreateUser"/>
+        </many-to-one>
+        
+		<many-to-one name="esrLastUpdateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestResult_LastUpdateUser"/>
+        </many-to-one>
+        
+		<property name="esrCreateDate" column="labTestResult_CreateDate"
+			type="java.util.Date" />
+		<property name="esrLastUpdate" column="labTestResult_LastUpdate"
+			type="java.util.Date" />
+		
+	</class>
+</hibernate-mapping>

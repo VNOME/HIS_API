@@ -1,0 +1,220 @@
+package core.resources.api.admin;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.api.admin.Leaves;
+import flexjson.JSONSerializer;
+import flexjson.transformer.DateTransformer;
+
+import java.util.Date;
+import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+import lib.driver.api.driver_class.admin.LeaveDBDriver;
+
+
+/***
+ * 
+ * @author RUSIRU
+ *
+ */
+
+@Path("Leaves")
+public class LeaveResource {
+	
+	LeaveDBDriver ldb = new LeaveDBDriver();
+	DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+	
+	/***
+	 * post method to add leaves
+	 * @param ljson
+	 * @return
+	 */
+	@POST
+	@Path("/addLeave")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addLeave(JSONObject ljson)
+	{
+		String result="false";
+		boolean r=false;
+		Leaves le = new Leaves();
+		
+		try{
+			
+			le.setLeaveID(ljson.getInt("leaveID"));
+			
+			Date leavestart = dateformat.parse(ljson.getString("leaveStartDate"));
+			le.setLeaveStartDate(leavestart);
+			
+			Date leaveEnd = dateformat.parse(ljson.getString("leaveEndDate"));
+			le.setLeaveEndDate(leaveEnd);
+			
+			Date leaveApply = dateformat.parse(ljson.getString("leaveApplyDate"));
+			le.setLeaveApplyDate(leaveApply);
+			
+			le.setNumberOfDays(ljson.getDouble("numberOfDays"));
+			le.setLeaveType(ljson.getString("leaveType"));
+			le.setReason(ljson.getString("reason"));
+			le.setAddressOnLeave(ljson.getString("addressOnLeave"));
+			le.setCurrentYearLeaves(ljson.getDouble("currentYearLeaves"));
+			le.setStateOfLeave(ljson.getString("stateOfLeave"));
+			int empID = ljson.getInt("empID");
+			
+			//ldb.insertLeave(le, empID);
+			
+			r= ldb.insertLeave(le,empID);
+			result= String.valueOf(r);
+			return result;
+		}
+		
+		catch(JSONException ex)
+		{
+			ex.printStackTrace();
+			return result;
+		}
+		
+		catch(ParseException ex){
+			ex.printStackTrace();
+			return result;
+		}
+	}
+	
+	
+	/***
+	 * A method to update leaves 
+	 * @param ljson
+	 * @return
+	 */
+
+	@PUT
+    @Path("/updateLeave")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String updateLeave(JSONObject ljson)
+	{
+		String result="false";
+		boolean r=false;
+		Leaves le = new Leaves();
+		
+     try{
+	        le.setLeaveID(ljson.getInt("leaveID"));
+			
+			Date leavestart = dateformat.parse(ljson.getString("leaveStartDate"));
+			le.setLeaveStartDate(leavestart);
+			
+			Date leaveEnd = dateformat.parse(ljson.getString("leaveEndDate"));
+			le.setLeaveEndDate(leaveEnd);
+			
+			Date leaveApply = dateformat.parse(ljson.getString("leaveApplyDate"));
+			le.setLeaveApplyDate(leaveApply);
+			
+			le.setNumberOfDays(ljson.getDouble("numberOfDays"));
+			le.setLeaveType(ljson.getString("leaveType"));
+			le.setReason(ljson.getString("reason"));
+			le.setAddressOnLeave(ljson.getString("addressOnLeave"));
+			le.setCurrentYearLeaves(ljson.getDouble("currentYearLeaves"));
+			le.setStateOfLeave(ljson.getString("stateOfLeave"));
+			int empID = ljson.getInt("empID");
+			
+			
+			
+			r= ldb.updateLeave(le,empID);
+			result= String.valueOf(r);
+	    	return result;
+		}
+     catch(JSONException ex)
+		{
+			ex.printStackTrace();
+			return result;
+		}
+		
+		catch(ParseException ex){
+			ex.printStackTrace();
+			return result;
+		}
+	}
+	
+	/***
+	 * A method to delete leaves
+	 * @param ljson
+	 * @return
+	 */
+	@PUT
+    @Path("/deleteLeave")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
+	public String deleteLeave(JSONObject ljson)
+	{
+		String result="false";
+		boolean r=false;
+		Leaves le = new Leaves();
+		
+		 try{
+				le.setLeaveID(ljson.getInt("leaveID"));
+				
+				Date leavestart = dateformat.parse(ljson.getString("leaveStartDate"));
+				le.setLeaveStartDate(leavestart);
+				
+				Date leaveEnd = dateformat.parse(ljson.getString("leaveEndDate"));
+				le.setLeaveEndDate(leaveEnd);
+				
+				Date leaveApply = dateformat.parse(ljson.getString("leaveApplyDate"));
+				le.setLeaveApplyDate(leaveApply);
+				
+				le.setNumberOfDays(ljson.getDouble("numberOfDays"));
+				le.setLeaveType(ljson.getString("leaveType"));
+				le.setReason(ljson.getString("reason"));
+				le.setAddressOnLeave(ljson.getString("addressOnLeave"));
+				le.setCurrentYearLeaves(ljson.getDouble("currentYearLeaves"));
+				le.setStateOfLeave(ljson.getString("stateOfLeave"));
+				
+				
+				
+				r= ldb.deleteLeave(le);
+				result= String.valueOf(r);
+		    	return result;
+		 }
+		   catch(JSONException ex)
+			{
+				ex.printStackTrace();
+				return result;
+			}
+			
+			catch(ParseException ex){
+				ex.printStackTrace();
+				return result;
+			}
+	}
+	
+	
+	/***
+	 * a method to get Leave by ID
+	 * @param empID
+	 * @return
+	 */
+	@GET
+	@Path("/Leavelist/{empID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getEmployee(@PathParam("empID")int empID)
+	{
+		
+		List<Leaves> empList = ldb.getLeaveDetails(empID);
+		JSONSerializer serializor=new JSONSerializer();
+		return serializor.include("employee.employee_ID").exclude("*.class","employee.*") .transform(new DateTransformer("yyyy-MM-dd"),"leaveStartDate","leaveEndDate","leaveApplyDate").serialize(empList);
+	
+	}
+
+}

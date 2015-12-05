@@ -1,0 +1,106 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+
+
+package core.classes.api.standards.icd10;
+
+import java.util.List;
+
+import lib.driver.api.driver_class.standards.icd10.*;
+
+
+/**
+ * Icd10UseStandards Class contains all the methods that use to implement ICD10 standard 
+ * These methods are supposed to be used by other modules of this System
+ * @author IMANKA
+ * 	version 1.0
+ */
+
+public class Icd10UseStandard {
+
+
+	static Icd10DBDriver icd10DBDriver=new Icd10DBDriver();
+		
+	
+	/*
+	 * Method getIcd10ObjectGivenDisease will return the relevant Icd10 object which is stored in the database,
+	 * Given the disease name
+	 *  @param disease is a String value contains disease name
+	 * 	@returns the particular Icd10 type object
+	 * */
+	
+	
+	public static Icd10 getIcd10ObjectGivenDisease(String disease)
+	{
+		Icd10 icd10Obj = icd10DBDriver.getIcdDetailsGivenDisease(disease);
+		return icd10Obj;
+		
+	}
+	
+	
+	
+	
+	/*
+	 * Method getIcd10CodeGivenDisease will return the relevant Icd10 code (Diagnose), 
+	 * Given the disease name
+	 * @param disease is a String value contains disease name
+	 * 	@returns a String value that contains icd code
+	 * */
+	
+	public static String getIcd10CodeGivenDisease(String disease)
+	{
+		Icd10 icd10Obj = icd10DBDriver.getIcdDetailsGivenDisease(disease);
+		
+		String icdCode=icd10Obj.getcIcdCode();
+		return icdCode;
+		
+	}
+	
+	
+	
+	/*
+	 * Method getIcd10ObjectDisease will return the relevant Icd10 object which is stored in the database,
+	 * Given the icd code
+	 *  @param icdCode is a String value contains Icd code
+	 * 	@returns the particular icd object
+	 * */
+	public static Icd10 getIcd10ObjectGivenIcdCode(String icdCode)
+	{
+		Icd10 icd10Obj = icd10DBDriver.getIcdDetailsGivenCode(icdCode);
+		return icd10Obj;
+		
+	}
+	
+	
+	/*
+	 * Method getAllIcdCodes will return List of all Icd10 codes and details
+	 * 
+	 * 	@returns a list type of Icd10
+	 * */
+	public static List<Icd10> getAllIcdCodes()
+	{
+		List<Icd10> icd10List=icd10DBDriver.getIcd10Details();
+		return icd10List;
+	}
+	
+	public static void main(String[] args)
+	{
+		//String cc=getIcd10CodeGivenDisease("Ann");
+		//System.out.println(cc);
+	}
+
+
+}

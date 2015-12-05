@@ -1,0 +1,124 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class ElectrolytesProfileResult {
+
+	/*
+	 * This class corresponds to db table labTestResult_ElectrolytesProfile by
+	 * MR
+	 */
+
+	int epfReportID;
+	LabOrder epfOrderID;
+	Employee epfDoneBy;
+	Employee epfCheckedBy;
+	Lab labID;
+	String epfRemarks;
+	
+	Date epfCompletedDate;
+	User epfCreateUser;
+	User epfLastUpdateUser;
+	Date epfCreateDate;
+	Date epfLastUpdate;
+
+	// result values relevant to lab test
+	Double epfSerumSodium;
+	Double epfSerumPotassium;
+	Double epfChloride;
+	
+	
+	public Lab getLabID() {
+		return labID;
+	}
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+	public int getEpfReportID() {
+		return epfReportID;
+	}
+	public void setEpfReportID(int epfReportID) {
+		this.epfReportID = epfReportID;
+	}
+	public LabOrder getEpfOrderID() {
+		return epfOrderID;
+	}
+	public void setEpfOrderID(LabOrder epfOrderID) {
+		this.epfOrderID = epfOrderID;
+	}
+	public Employee getEpfDoneBy() {
+		return epfDoneBy;
+	}
+	public void setEpfDoneBy(Employee epfDoneBy) {
+		this.epfDoneBy = epfDoneBy;
+	}
+	public Employee getEpfCheckedBy() {
+		return epfCheckedBy;
+	}
+	public void setEpfCheckedBy(Employee epfCheckedBy) {
+		this.epfCheckedBy = epfCheckedBy;
+	}
+	public String getEpfRemarks() {
+		return epfRemarks;
+	}
+	public void setEpfRemarks(String epfRemarks) {
+		this.epfRemarks = epfRemarks;
+	}
+	public Date getEpfCompletedDate() {
+		return epfCompletedDate;
+	}
+	public void setEpfCompletedDate(Date epfCompletedDate) {
+		this.epfCompletedDate = epfCompletedDate;
+	}
+	public User getEpfCreateUser() {
+		return epfCreateUser;
+	}
+	public void setEpfCreateUser(User epfCreateUser) {
+		this.epfCreateUser = epfCreateUser;
+	}
+	public User getEpfLastUpdateUser() {
+		return epfLastUpdateUser;
+	}
+	public void setEpfLastUpdateUser(User epfLastUpdateUser) {
+		this.epfLastUpdateUser = epfLastUpdateUser;
+	}
+	public Date getEpfCreateDate() {
+		return epfCreateDate;
+	}
+	public void setEpfCreateDate(Date epfCreateDate) {
+		this.epfCreateDate = epfCreateDate;
+	}
+	public Date getEpfLastUpdate() {
+		return epfLastUpdate;
+	}
+	public void setEpfLastUpdate(Date epfLastUpdate) {
+		this.epfLastUpdate = epfLastUpdate;
+	}
+	public Double getEpfSerumSodium() {
+		return epfSerumSodium;
+	}
+	public void setEpfSerumSodium(Double epfSerumSodium) {
+		this.epfSerumSodium = epfSerumSodium;
+	}
+	public Double getEpfSerumPotassium() {
+		return epfSerumPotassium;
+	}
+	public void setEpfSerumPotassium(Double epfSerumPotassium) {
+		this.epfSerumPotassium = epfSerumPotassium;
+	}
+	public Double getEpfChloride() {
+		return epfChloride;
+	}
+	public void setEpfChloride(Double epfChloride) {
+		this.epfChloride = epfChloride;
+	}
+	
+	
+	
+	
+
+
+}

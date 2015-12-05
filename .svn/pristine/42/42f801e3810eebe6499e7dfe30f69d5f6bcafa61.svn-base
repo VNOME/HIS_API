@@ -1,0 +1,116 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class LabSpecimen {
+
+	double specimenID;
+	String specimenStatus;//pending,collected,delivered
+	String specimenRemarks;	
+	
+	Employee specimenCollectedBy;
+	Date specimenCollectedDate;
+	
+	Employee specimenDeliveredBy;
+	Date specimenDeliveredDate;
+	
+	Employee specimenReceivedBy;
+	Date specimenReceivedDate;
+	
+	User specimenCreateUser;
+	User specimenLastUpdateUser;
+	Date specimenCreateDate;
+	Date specimenLastUpdate;
+	
+	public double getSpecimenID() {
+		return specimenID;
+	}
+	public void setSpecimenID(double specimenID) {
+		this.specimenID = specimenID;
+	}
+	public String getSpecimenStatus() {
+		return specimenStatus;
+	}
+	public void setSpecimenStatus(String specimenStatus) {
+		this.specimenStatus = specimenStatus;
+	}
+	public String getSpecimenRemarks() {
+		return specimenRemarks;
+	}
+	public void setSpecimenRemarks(String specimenRemarks) {
+		this.specimenRemarks = specimenRemarks;
+	}
+	
+	public Date getSpecimenCollectedDate() {
+		return specimenCollectedDate;
+	}
+	public void setSpecimenCollectedDate(Date specimenCollectedDate) {
+		this.specimenCollectedDate = specimenCollectedDate;
+	}
+	
+	public Date getSpecimenDeliveredDate() {
+		return specimenDeliveredDate;
+	}
+	public void setSpecimenDeliveredDate(Date specimenDeliveredDate) {
+		this.specimenDeliveredDate = specimenDeliveredDate;
+	}
+	
+	public Date getSpecimenReceivedDate() {
+		return specimenReceivedDate;
+	}
+	public void setSpecimenReceivedDate(Date specimenReceivedDate) {
+		this.specimenReceivedDate = specimenReceivedDate;
+	}
+	public Date getSpecimenCreateDate() {
+		return specimenCreateDate;
+	}
+	public void setSpecimenCreateDate(Date specimenCreateDate) {
+		this.specimenCreateDate = specimenCreateDate;
+	}
+	public Date getSpecimenLastUpdate() {
+		return specimenLastUpdate;
+	}
+	public void setSpecimenLastUpdate(Date specimenLastUpdate) {
+		this.specimenLastUpdate = specimenLastUpdate;
+	}
+	public Employee getSpecimenCollectedBy() {
+		return specimenCollectedBy;
+	}
+	public void setSpecimenCollectedBy(Employee specimenCollectedBy) {
+		this.specimenCollectedBy = specimenCollectedBy;
+	}
+	public Employee getSpecimenDeliveredBy() {
+		return specimenDeliveredBy;
+	}
+	public void setSpecimenDeliveredBy(Employee specimenDeliveredBy) {
+		this.specimenDeliveredBy = specimenDeliveredBy;
+	}
+	public Employee getSpecimenReceivedBy() {
+		return specimenReceivedBy;
+	}
+	public void setSpecimenReceivedBy(Employee specimenReceivedBy) {
+		this.specimenReceivedBy = specimenReceivedBy;
+	}
+	public User getSpecimenCreateUser() {
+		return specimenCreateUser;
+	}
+	public void setSpecimenCreateUser(User specimenCreateUser) {
+		this.specimenCreateUser = specimenCreateUser;
+	}
+	public User getSpecimenLastUpdateUser() {
+		return specimenLastUpdateUser;
+	}
+	public void setSpecimenLastUpdateUser(User specimenLastUpdateUser) {
+		this.specimenLastUpdateUser = specimenLastUpdateUser;
+	}
+
+	
+	
+	
+
+	
+
+}

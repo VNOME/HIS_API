@@ -1,0 +1,354 @@
+package lib.driver.laboratory.driver_class;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import lib.SessionFactoryUtil;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import core.classes.api.user.User;
+import core.classes.laboratory.LabOrder;
+import core.classes.laboratory.LabSpecimen;
+import core.classes.laboratory.TestDescription;
+import core.classes.opd.OpdLabOrder;
+import core.classes.opd.OutPatient;
+import core.classes.opd.Visit;
+import flexjson.JSONSerializer;
+import flexjson.transformer.DateTransformer;
+
+public class LabOrderDBDriver {
+
+	Session session=SessionFactoryUtil.getSessionFactory().openSession();
+
+	public LabOrderDBDriver() {
+
+		//session = 
+	}
+
+	public List<LabOrder> SelectData(String Query) {
+
+		Query query = session.createQuery(Query);
+
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+
+		return uList;
+
+	}
+
+	public List<LabOrder> Getlaborderwithspeciman() {
+
+//		Query query = session
+				//.createQuery("from LabOrder  e,TestDescription t where e.testID =t.testID and t.isSpecimenAvailable = true and e.orderStatus='pending' e.specimenID is null");
+		Query query = session
+				.createQuery("from LabOrder  e where e.orderStatus='pending' and e.orderSpecimenID is null");
+		
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+		return uList;
+	}
+
+	public List<LabOrder> ordersearch(String pid) {
+
+		Query query = session
+				.createQuery("from LabOrder  e,TestDescription t,LabSpecimen s,Patient p,Doctor d  where e.testID =t.testID and e.specimenID = s.specimenID and p.patientID = e.patientID and d.DoctorID = e.doctorID and p.patientFullName like :id");
+
+		query.setParameter("id", '%' + pid + '%');
+
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+		return uList;
+	}
+
+	public List<LabOrder> statusSearch(int orderID) {
+
+		Query query = session
+				.createQuery("from LabOrder  e,TestDescription t,LabSpecimen s,Patient p,Doctor d  where e.testID =t.testID and e.specimenID = s.specimenID and p.patientID = e.patientID and d.DoctorID = e.doctorID and e.orderID = :id");
+
+		query.setParameter("id", orderID);
+
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+		return uList;
+	}
+
+	public List<LabOrder> OrderTracking() {
+
+		Query query = session
+				.createQuery("from LabOrder  e,TestDescription t,LabSpecimen s,Patient p,Doctor d  where e.testID =t.testID and e.specimenID = s.specimenID and p.patientID = e.patientID and d.DoctorID = e.doctorID");
+
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+		return uList;
+	}
+
+	public List<LabOrder> Getlabordertolab() {
+
+		Query query = session
+				.createQuery("from LabOrder  e where e.orderStatus='Specimen Sent' ");
+
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+		return uList;
+
+	}
+
+	public List<LabOrder> getAllSpecimenCollectedOrders() {
+
+		Query query = session
+				.createQuery("from LabOrder  e where e.orderStatus='Specimen Collected'");
+
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+		return uList;
+
+	}
+
+	public List<LabOrder> getallordearsstartest() {
+
+		Query query = session
+				.createQuery("from LabOrder e where e.orderStatus='Test Started' ");
+
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+		return uList;
+	}
+
+	public List<LabOrder> insertresults() {
+
+		Query query = session
+				.createQuery("from LabOrder  e where e.orderStatus='Test Executed'");
+
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+
+		return uList;
+	}
+
+	public int SampleCollectedOrder(int oID) {
+		session.beginTransaction();
+
+		Query query = session
+				.createQuery("update LabOrder Set orderStatus = 'Specimen Collected' where orderID = :id");
+
+		query.setParameter("id", oID);
+
+		int r = query.executeUpdate();
+
+		session.getTransaction().commit();
+
+
+		return r;
+	}
+
+	public int TestStared(int oID) {
+
+		session.beginTransaction();
+
+		Query query = session
+				.createQuery("update LabOrder Set orderStatus = 'Test Started' where orderID = :id");
+
+		query.setParameter("id", oID);
+
+		int r = query.executeUpdate();
+
+		session.getTransaction().commit();
+
+		return r;
+	}
+
+	public int TestCompleted(int oID) {
+		session.beginTransaction();
+
+		Query query = session
+				.createQuery("update LabOrder Set orderStatus = 'Test Completed' where orderID = :id");
+
+		query.setParameter("id", oID);
+
+		int r = query.executeUpdate();
+
+		session.getTransaction().commit();
+
+		return r;
+	}
+
+	public int saveOrder(LabOrder order, int tID) {
+
+		try {
+
+			session.beginTransaction();
+
+			TestDescription td = (TestDescription) session.get(
+					TestDescription.class, tID);
+
+			order.setOrderTestID(td);
+
+			session.save(order);
+
+			session.getTransaction().commit();
+
+			int OrdrID = order.getOrderID();
+
+			session.close();
+
+			return OrdrID;
+
+		} catch (RuntimeException ex) {
+
+		}
+		return -999;
+	}
+
+	
+	
+	/*
+	 * 
+	 * This function is used to get the orders where specimens are received by
+	 * lab but not yet started the test
+	 */
+
+	public List<LabOrder> getAllSpecimenReceivedOrders() {
+
+		Query query = session
+
+				.createQuery("from LabOrder  e  where e.orderStatus='Specimen Received'");
+
+		@SuppressWarnings("unchecked")
+		List<LabOrder> uList = query.list();
+
+
+		return uList;
+
+	}
+
+	public int UpdateData(String Query, int Parameter) {
+
+		session.beginTransaction();
+
+		Query query = session.createQuery(Query);
+
+		query.setParameter("id", Parameter);
+
+		int r = query.executeUpdate();
+
+		session.getTransaction().commit();
+
+		return r;
+
+	}
+
+	public int updatespecimanNumber(int orderid, double specimanid) {
+
+		session.beginTransaction();
+
+		LabSpecimen ls = (LabSpecimen) session.get(LabSpecimen.class,
+				specimanid);
+		
+		Query query = session
+				.createQuery("update LabOrder Set orderSpecimenID = :obj , orderStatus = 'Specimen Collected' where orderID = :id");
+
+//		Query query = session
+//				.createSQLQuery("update LabOrder Set specimenID = :obj where orderID = :id");
+
+		query.setParameter("obj", ls);
+//		query.setParameter("obj", specimanid);
+		query.setParameter("id", orderid);
+
+		int r = query.executeUpdate();
+
+		session.getTransaction().commit();
+
+		return r;
+	}
+
+	// update order status to specimen sent
+
+	//
+
+	public int updateStatusToSpecimenSent(int Parameter) {
+
+		session.beginTransaction();
+
+		Query query = session
+				.createQuery("update LabOrder Set orderStatus = 'Specimen Sent' where orderID = :id");
+
+		query.setParameter("id", Parameter);
+
+		int r = query.executeUpdate();
+
+		session.getTransaction().commit();
+
+
+		return r;
+
+	}
+
+	// update order status to specimen received
+
+	//
+
+	public int updateStatusToSpecimenReceived(int Parameter) {
+
+		session.beginTransaction();
+
+		Query query = session
+				.createQuery("update LabOrder Set orderStatus ='Specimen Received' where orderID = :id");
+
+		query.setParameter("id", Parameter);
+
+		int r = query.executeUpdate();
+
+		session.getTransaction().commit();
+
+
+		return r;
+
+	}
+
+	// update order status to test executed
+
+	//
+
+	public int updateStatusToTestExecuted(int Parameter) {
+
+		session.beginTransaction();
+
+		Query query = session
+				.createQuery("update LabOrder Set orderStatus = 'Test Executed' where orderID = :id");
+
+		query.setParameter("id", Parameter);
+
+		int r = query.executeUpdate();
+
+		session.getTransaction().commit();
+
+
+		return r;
+
+	}
+	
+	
+	
+	
+	public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+	    List<T> r = new ArrayList<T>(c.size());
+	    for(Object o: c)
+	      r.add(clazz.cast(o));
+	    return r;
+	}
+
+}

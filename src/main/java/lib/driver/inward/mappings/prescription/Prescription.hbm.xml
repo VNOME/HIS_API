@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 25, 2014 9:23:10 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.inward.prescription.Prescription" table="ward_prescriptionitem"  catalog="his" lazy="false">
+        <id name="auto_id" type="java.lang.Integer">
+            <column name="auto_id" />
+            <generator class="native" />
+        </id>
+       <!--  <many-to-one name="bht_no" class="core.classes.inward.WardAdmission.Admission" fetch="join" lazy="false">
+            <column name="bht_no" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="drug_id" class="core.classes.pharmacy.MstDrugsNew" fetch="join" lazy="false">
+            <column name="drug_id" not-null="true"/>
+        </many-to-one> -->
+        <!-- <property name="dose" type="java.lang.String">
+            <column name="dose" />
+        </property>
+        <property name="frequency" type="java.lang.String">
+            <column name="frequency" />
+        </property>
+        <property name="status" type="java.lang.String">
+            <column name="status" />
+        </property>
+        <property name="start_date" type="java.util.Date">
+            <column name="start_date" />
+        </property>
+        <property name="end_date" type="java.util.Date">
+            <column name="end_date" />
+        </property>
+        <many-to-one name="create_user" class="core.classes.api.user.User" fetch="join" lazy="false">
+            <column name="create_user" not-null="true"/>
+        </many-to-one>
+        <property name="create_date_time" type="java.util.Date">
+            <column name="create_date_time" />
+        </property> -->
+    </class>
+</hibernate-mapping>

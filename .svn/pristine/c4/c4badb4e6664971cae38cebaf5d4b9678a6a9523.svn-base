@@ -1,0 +1,57 @@
+package lib.driver.laboratory.driver_class;
+import javax.jws.soap.SOAPBinding.Use;
+
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.user.User;
+import core.classes.laboratory.LabEquipment;
+import core.classes.laboratory.LabEquipmentUser;
+
+
+
+
+
+public class LabEquipmentUserDBDriver {
+
+	/*
+	 * manupulate data in db table lab_equipment_user by MR
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public LabEquipmentUserDBDriver() {
+
+		
+	}
+
+	// insert data to db table lab_equipment_user
+	public void insertData(LabEquipmentUser leu, int equipmentID,int eqUserID,int createUser) {
+
+		session.beginTransaction();
+
+		// for equipmentID
+		LabEquipment le = (LabEquipment) session.get(LabEquipment.class, equipmentID);
+		leu.setEquipmentID(le);
+		
+		User labEqUser=(User)session.get(User.class, eqUserID);
+		leu.setEquipmentUser(labEqUser);
+		
+		User creLabEqUser=(User)session.get(User.class, createUser);
+		leu.setEquipmentCreateUser(creLabEqUser);
+		leu.setEquipmentLastUpdateUser(creLabEqUser);
+		
+		
+		// -------------
+	
+
+		session.save(leu);
+
+		session.getTransaction().commit();
+
+	}
+
+
+
+}

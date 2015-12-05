@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	<class name="core.classes.laboratory.Lab" table="lab">
+
+		<id name="labID" type="int" column="lab_ID">
+			<generator class="increment" />
+		</id>
+		<property name="labName" column="lab_Name" type="string" />
+		<!-- <property name="labDepartment" column="lab_Department" type="string" /> -->
+		<property name="labType" column="lab_Type" type="string" />
+		<property name="labDescription" column="lab_Description" type="string" />
+<!-- 		<property name="labIncharge" column="lab_Incharge" type="int" />
+		
+		<property name="labCreateUser" column="lab_CreateUser"
+			type="int" />
+		<property name="labLastUpdateUser" column="lab_LastUpdateUser"
+			type="int" /> -->
+	    <many-to-one name="labDepartment" class="core.classes.api.admin.Department" fetch="join" lazy="false">
+        	<column name="lab_Department"/>
+        </many-to-one>	
+	    <many-to-one name="labIncharge" class="core.classes.api.admin.Employee" fetch="join" lazy="false">
+        	<column name="lab_Incharge"/>
+        </many-to-one>
+		<property name="labCreateDate" column="lab_CreateDate"
+			type="java.util.Date" />
+		<property name="labLastUpdate" column="lab_LastUpdate"
+			type="java.util.Date" />
+	    <many-to-one name="labCreateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="lab_CreateUser"/>
+        </many-to-one>
+        
+		<many-to-one name="labLastUpdateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="lab_LastUpdateUser"/>
+        </many-to-one>	
+		
+	</class>
+</hibernate-mapping>

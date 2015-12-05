@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 1, 2013 11:18:10 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.standards.icd10.Icd10" table="icd10">
+        <id name="cIcdId" type="int" access="field">
+            <column name="ICDID" />
+            <generator class="native" />
+        </id>
+        <property name="cIcdCode" type="java.lang.String" access="field">
+            <column name="Code" />
+        </property>
+        <property name="cIcdName" type="java.lang.String" access="field">
+            <column name="Name" />
+        </property>
+        <property name="cRemarks" type="java.lang.String" access="field">
+            <column name="Remarks" />
+        </property>
+        <property name="cCreateDate" type="java.util.Date" access="field">
+            <column name="CreateDate" />
+        </property>
+        <property name="cCreateUser" type="java.lang.String" access="field">
+            <column name="CreateUser" />
+        </property>
+        <property name="cLastUpdate" type="java.util.Date" access="field">
+            <column name="LastUpDate" />
+        </property>
+        <property name="cLastUpdateUser" type="java.lang.String" access="field">
+            <column name="LastUpDateUser" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+<hibernate-mapping>
+    <class name="core.classes.api.user.UserRoles" table="his_user_roles">
+        <id name="userRoleID" type="int">
+            <column name="user_RoleId"/>            
+            <generator class="native"/>
+        </id>
+        <property name="userRoleName" type="java.lang.String">
+            <column name="user_RoleName"/>
+        </property>
+        <set name="permissions" cascade="save-update" table="his_role_permissions" lazy="false">
+            <key column="role_ID"/>
+            <many-to-many column="perm_ID" class="core.classes.api.user.Permission"/>
+        </set>
+        
+    </class>
+</hibernate-mapping>

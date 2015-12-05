@@ -1,0 +1,82 @@
+package lib.driver.laboratory.driver_class;
+
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.SpecimenOfBloodSugarResult;
+
+
+
+public class SpecimenOfBloodSugarResultDBDriver {
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public SpecimenOfBloodSugarResultDBDriver() {
+
+		
+	}
+
+	public boolean saveSpecimen(SpecimenOfBloodSugarResult speciman, int oID,int lID,int doneBy,int chkBy,int createBy) {
+		Transaction tx = null;
+
+		try {
+
+			tx = session.beginTransaction();
+
+			Lab lab = (Lab) session.get(Lab.class, lID);
+
+			// speciman.setOrderID(or);
+			speciman.setLabID(lab);
+			
+			Employee doneEmp=(Employee)session.get(Employee.class, doneBy);
+			speciman.setSbsDoneBy(doneEmp);
+			
+			Employee chkByEmp=(Employee)session.get(Employee.class, chkBy);
+			speciman.setSbsCheckedBy(chkByEmp);
+			
+			User creUser=(User) session.get(User.class, createBy);
+			speciman.setSbsCreateUser(creUser);
+
+
+			session.save(speciman);
+
+			tx.commit();
+
+			updateStatusToSpecimenSent(oID, speciman.getSbsReportID());
+
+			return true;
+
+		} catch (RuntimeException ex) {
+			System.out.println(ex);
+		}
+		return false;
+	}
+
+	public int updateStatusToSpecimenSent(int oid, int rid) {
+
+		
+		session.beginTransaction();
+
+		Query Q = session
+				.createSQLQuery("update labTestResult_SpecimenOfBloodSugar set labTestResult_LabOrderID = :id where labTestResult_ReportID = :rid");
+
+		Q.setParameter("id", oid);
+
+		Q.setParameter("rid", rid);
+
+		Q.executeUpdate();
+
+		int r = Q.executeUpdate();
+
+		session.getTransaction().commit();
+
+		return r;
+
+	}
+}

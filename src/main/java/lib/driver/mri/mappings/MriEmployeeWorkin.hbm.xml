@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriEmployeeWorkin" table="mri_employee_workin" catalog="his">
+        <id name="employeeWorkinId" type="java.lang.Integer">
+            <column name="employee_workin_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriDepartment" class="core.classes.mri.MriDepartment" fetch="select">
+            <column name="fdepartment_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mriLaboratory" class="core.classes.mri.MriLaboratory" fetch="select">
+            <column name="flaboratory_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mriDesignation" class="core.classes.mri.MriDesignation" fetch="select">
+            <column name="fdesignation_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mriEmployee" class="core.classes.mri.MriEmployee" fetch="select">
+            <column name="femployee_id" not-null="true" />
+        </many-to-one>
+        <property name="startDate" type="date">
+            <column name="start_date" length="10" not-null="true" />
+        </property>
+        <property name="endDate" type="date">
+            <column name="end_date" length="10" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="10" not-null="true" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

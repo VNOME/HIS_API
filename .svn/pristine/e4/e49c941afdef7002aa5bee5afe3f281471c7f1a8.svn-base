@@ -1,0 +1,297 @@
+package lib.driver.opd.driver_class;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+
+
+
+import lib.SessionFactoryUtil;
+import lib.driver.api.driver_class.user.UserDBDriver;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import core.classes.api.user.User;
+import core.classes.opd.OutPatient;
+import core.classes.opd.Queue;
+import core.classes.opd.Visit;
+import core.resources.api.user.UserResource;
+import core.resources.opd.QueueResource;
+import core.resources.opd.QueueResource.QueueStatus;
+
+public class QueueDBDriver {
+
+	Session session = SessionFactoryUtil.getSessionFactory()
+			.getCurrentSession();
+
+	public boolean addToQueue(Queue queue, int pID, int assignedBy,
+			int assignedTo) {
+		Transaction tx = null;
+
+		try {
+		
+			if(!session.isOpen())  session = SessionFactoryUtil.getSessionFactory()
+					.openSession();
+			
+			tx = session.beginTransaction();
+					
+			OutPatient patient = (OutPatient) session
+					.get(OutPatient.class, pID);
+			User uassignedBy = (User) session.get(User.class, assignedBy);
+			User uassignedTo = (User) session.get(User.class, assignedTo);
+			
+			QueueResource.lastAssignedDcotor = assignedTo;
+			 
+			queue.setPatient(patient);
+			queue.setQueueAssignedBy(uassignedBy);
+			queue.setQueueAssignedTo(uassignedTo);
+
+			session.save(queue);
+			tx.commit();
+			return true;
+		} catch (Exception ex) {
+			System.err.println(ex.getMessage());
+			if (tx != null && tx.isActive()) {
+				try {
+					tx.rollback();
+				} catch (HibernateException he) {
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+
+	}
+
+	public int checkInPatient(int queueToken) {
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+
+			Queue q = (Queue) session.get(Queue.class, queueToken);
+			q.setQueueStatus("In");
+			session.update(q);
+			tx.commit();
+			return 1;
+
+		} catch (RuntimeException ex) {
+			if (tx != null && tx.isActive()) {
+				try {
+					tx.rollback();
+				} catch (HibernateException he) {
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return 0;
+		}
+	}
+
+	public int checkoutPatient(int patientID) {
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+
+			OutPatient patient = (OutPatient) session.get(OutPatient.class,
+					patientID);
+			Query query = session.createQuery("from Queue where patient=:p");
+			query.setParameter("p", patient);
+
+			Queue q = (Queue) query.list().get(0);
+			q.setQueueStatus("Delete");
+			 
+			session.update(q);
+			  
+			tx.commit();
+			return 1;
+
+		} catch (RuntimeException ex) {
+			if (tx != null && tx.isActive()) {
+				try {
+					tx.rollback();
+				} catch (HibernateException he) {
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return 0;
+		}
+	}
+
+	public List<Queue> getQueuePatientsByUserID(int userID) {
+		Transaction tx = null;
+		try {
+			if(!session.isOpen())  session = SessionFactoryUtil.getSessionFactory()
+					.openSession();
+			tx = session.beginTransaction();
+		
+			
+			Query query = session
+					.createQuery("from Queue where queueAssignedTo=:userID AND queueStatus!='Delete'");
+			User user = (User) session.get(User.class, userID);
+			query.setParameter("userID", user);
+
+			List<Queue> queueRecord = castList(Queue.class, query.list());
+			tx.commit();
+			return queueRecord;
+
+		} catch (RuntimeException ex) {
+			if (tx != null && tx.isActive()) {
+				try {
+					tx.rollback();
+				} catch (HibernateException he) {
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+
+	public Queue isPatientInQueue(int patientID) {
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+
+			OutPatient patient = (OutPatient) session.get(OutPatient.class,
+					patientID);
+			Query query = session
+					.createQuery("from Queue as q where (q.patient=:patient AND (queueStatus='Waiting' OR queueStatus='In'))");
+			query.setParameter("patient", patient);
+			Queue q = (Queue) query.list().get(0);
+			tx.commit();
+			return q;
+		} catch (RuntimeException ex) {
+			if (tx != null && tx.isActive()) {
+				try {
+					tx.rollback();
+				} catch (HibernateException he) {
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+
+	public Queue getCurrentInPatient(int doctor) {
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+
+			User user = (User) session.get(User.class, doctor);
+			Query query = session
+					.createQuery("from Queue as q where (q.queueAssignedTo=:user AND q.queueStatus='In')");
+			query.setParameter("user", user);
+			Queue q = (Queue) query.list().get(0);
+			tx.commit();
+			return q;
+		} catch (RuntimeException ex) {
+			if (tx != null && tx.isActive()) {
+				try {
+					tx.rollback();
+				} catch (HibernateException he) {
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+
+	public List<Queue> getTreatedPatients(int userID) {
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+
+			Query query = session
+					.createQuery("from Queue where (queueAssignedTo=:user AND queueStatus='Delete')");
+			User user = (User) session.get(User.class, userID);
+			query.setParameter("user", user);
+			List<Queue> queueRecord = castList(Queue.class, query.list());
+			tx.commit();
+			return queueRecord;
+
+		} catch (RuntimeException ex) {
+			if (tx != null && tx.isActive()) {
+				try {
+					tx.rollback();
+				} catch (HibernateException he) {
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+
+	public int redirectQueue(int userID) {
+		Transaction tx = null;
+		try {
+
+			List<Queue> patientList = getQueuePatientsByUserID(userID);
+ 
+			QueueResource.QueueStatus qs = new QueueResource.QueueStatus();
+			qs.qStatus = 3;
+			qs.user=userID;
+			QueueResource.queueStatusList.add(qs); 
+			
+
+			if (!session.isOpen())
+				session = SessionFactoryUtil.getSessionFactory().openSession();
+			tx = session.beginTransaction();
+
+			// delete all queue entries belong to this doctor
+			User user = (User) session.get(User.class, userID); 
+			
+			
+			Query query = session
+					.createQuery("delete Queue where (queueAssignedTo=:user AND queueStatus!='Delete')");
+			query.setParameter("user", user);
+			query.executeUpdate();
+			tx.commit();
+ 
+			QueueResource qr = new QueueResource();
+		 
+			Iterator ite =  patientList.iterator(); 
+			while(ite.hasNext())
+			{ 
+				Queue q = (Queue) ite.next();
+				addToQueue(q, q.getPatient().getPatientID(), q
+								.getQueueAssignedBy().getUserID(),  qr.getNextAssignDoctorID( q.getPatient().getPatientID())); 
+			}
+		  
+			return 1; 
+		} catch (Exception ex) {
+
+			System.out.println("Error  HERE: " + ex.getMessage());
+
+			if (tx != null && tx.isActive()) {
+				try {
+					tx.rollback();
+				} catch (HibernateException he) {
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return 0;
+		}
+	}
+
+	public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+		List<T> r = new ArrayList<T>(c.size());
+		for (Object o : c)
+			r.add(clazz.cast(o));
+		return r;
+	}
+
+}

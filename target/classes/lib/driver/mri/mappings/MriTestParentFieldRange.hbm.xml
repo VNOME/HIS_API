@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 6, 2015 6:20:37 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriTestParentFieldRange" table="mri_test_parent_field_range" catalog="his">
+        <id name="testParentFieldRangeId" type="java.lang.Integer">
+            <column name="test_parent_field_range_id" />
+            <generator class="identity" />
+        </id>
+        <property name="gender" type="string">
+            <column name="gender" length="10" not-null="true" />
+        </property>
+        <property name="minage" type="int">
+            <column name="minage" not-null="true" />
+        </property>
+        <property name="unit" type="string">
+            <column name="unit" length="15" />
+        </property>
+        <property name="minVal" type="double">
+            <column name="min_val" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="maxVal" type="double">
+            <column name="max_val" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="maxAge" type="java.lang.Integer">
+            <column name="max_age" />
+        </property>
+        <property name="ftestParentFieldId" type="java.lang.Integer">
+            <column name="ftest_parent_field_id" />
+        </property>
+    </class>
+</hibernate-mapping>

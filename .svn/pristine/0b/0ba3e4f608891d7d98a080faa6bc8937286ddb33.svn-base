@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 28, 2013 10:27:45 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.opd.Exams" table="opd_patient_exam" lazy="false">
+    
+        <id name="examID" type="int">
+            <column name="exam_ID" />
+            <generator class="native" />
+        </id>
+        
+       <many-to-one name="visit" class="core.classes.opd.Visit" fetch="join">
+            <column name="visit_ID" />
+        </many-to-one>
+        
+        <property name="examDate" type="java.util.Date">
+            <column name="exam_Date" />
+        </property>
+        <property name="examWeight" type="double">
+            <column name="exam_Weight" />
+        </property>
+        <property name="examHeight" type="double">
+            <column name="exam_Height" />
+        </property>
+        <property name="examSysBP" type="double">
+            <column name="exam_SysBP" />
+        </property>
+        <property name="examDisatBP" type="double">
+            <column name="exam_DiastBP" />
+        </property>
+        <property name="examTemp" type="double">
+            <column name="exam_Temprature" />
+        </property>
+        <property name="examCreateDate" type="java.util.Date">
+            <column name="exam_CreateDate" />
+        </property>
+    
+          <many-to-one name="examCreateUser" class="core.classes.api.user.User" lazy="false" fetch="join">
+        	<column name="exam_CreateUser" not-null="true"/>
+        </many-to-one> 
+        
+        
+        <property name="examLastUpdate" type="timestamp">
+            <column name="exam_LastUpdate" />
+        </property>
+        
+         <many-to-one name="examLastUpdateUser" class="core.classes.api.user.User" lazy="false" fetch="join">
+        	<column name="exam_LastUpdateUser" not-null="true"/>
+        </many-to-one> 
+        
+        <property name="examActive" type="int">
+            <column name="exam_Active" />
+        </property>
+     
+    </class>
+</hibernate-mapping>

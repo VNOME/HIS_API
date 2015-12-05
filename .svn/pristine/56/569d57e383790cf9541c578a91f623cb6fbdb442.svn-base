@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 26, 2013 10:32:19 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+ 
+ 
+	<class name="core.classes.opd.Queue" table="opd_patient_queue" lazy="false" 
+		dynamic-update="true">
+
+		<id name="queueTokenNo" type="int" column="queue_TokenNo">
+			<generator class="increment" />
+		</id>
+  
+        <many-to-one name="patient" class="core.classes.opd.OutPatient" column="patient_ID"  fetch="join" cascade="all"/>
+                
+		<property name="queueTokenAssignTime" column="queue_AssignTime" type="timestamp" />
+		<many-to-one name="queueAssignedBy" class="core.classes.api.user.User" column="queueAssignedBy"  lazy="false" fetch="join" cascade="all"  />
+       	<many-to-one name="queueAssignedTo" class="core.classes.api.user.User" column="queueAssignedTo"  lazy="false" fetch="join" cascade="all"  />
+        <property name="queueStatus" column="queue_Status" type="string" />
+		<property name="queueRemarks" column="queue_Remarks" type="string" />
+
+	</class>
+	   
+</hibernate-mapping>

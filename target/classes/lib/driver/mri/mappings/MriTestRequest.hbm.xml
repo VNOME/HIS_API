@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 6, 2015 6:20:37 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriTestRequest" table="mri_test_request" catalog="his">
+        <id name="testRequestId" type="java.lang.Integer">
+            <column name="test_request_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriSpecimen" class="core.classes.mri.MriSpecimen" fetch="select">
+            <column name="fspecimen_id" />
+        </many-to-one>
+        <many-to-one name="mriHospitalPatient" class="core.classes.mri.MriHospitalPatient" fetch="select">
+            <column name="fhospital_patient_id" />
+        </many-to-one>
+        <many-to-one name="mriBundle" class="core.classes.mri.MriBundle" fetch="select">
+            <column name="fbundle_id" />
+        </many-to-one>
+        <many-to-one name="mriPatient" class="core.classes.mri.MriPatient" fetch="select">
+            <column name="fpatient_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mriLaboratoryTest" class="core.classes.mri.MriLaboratoryTest" fetch="select">
+            <column name="flaboratory_test_id" not-null="true" />
+        </many-to-one>
+        <property name="increment" type="int">
+            <column name="increment" not-null="true" />
+        </property>
+        <property name="requestId" type="string">
+            <column name="request_id" length="100" not-null="true" />
+        </property>
+        <property name="isHospitalPatient" type="boolean">
+            <column name="is_hospital_patient" not-null="true" />
+        </property>
+        <property name="comments" type="string">
+            <column name="comments" length="50" />
+        </property>
+        <property name="testPriority" type="string">
+            <column name="test_priority" length="20" />
+        </property>
+        <property name="testRequestType" type="string">
+            <column name="test_request_type" length="20" />
+        </property>
+        <property name="testRequestDate" type="timestamp">
+            <column name="test_request_date" length="0" not-null="true" />
+        </property>
+        <property name="testDueDate" type="timestamp">
+            <column name="test_due_date" length="0" not-null="true" />
+        </property>
+        <property name="status" type="java.lang.Integer">
+            <column name="status"/>
+        </property>
+        <set name="mriParentResults" table="mri_parent_result" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ftest_request_id" />
+            </key>
+            <one-to-many class="core.classes.mri.MriParentResult" />
+        </set>        
+        <set name="mriSubFieldResults" table="mri_sub_field_result" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ftest_request_id" />
+            </key>
+            <one-to-many class="core.classes.mri.MriSubFieldResult" />
+        </set>
+        <set name="mriBinaryResults" table="mri_binary_results" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ftest_request_id" />
+            </key>
+            <one-to-many class="core.classes.mri.MriBinaryResults" />
+        </set>
+    </class>
+</hibernate-mapping>

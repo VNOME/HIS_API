@@ -1,0 +1,85 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.user.User;
+
+public class TestDescriptionReference {
+/*
+ * by MR
+ * related to min max reference values of a field in a lab test
+ * This is always connected with TestDescription class
+ */
+	int referenceID;//unique
+	String referenceColumnName;
+	double referenceMinValue;
+	double referenceMaxValue;
+	TestDescription testID;
+		
+	User referenceCreateUser;
+	User referenceLastUpdateUser;
+	Date referenceCreateDate;
+	Date referenceLastUpdate;
+	
+	public int getReferenceID() {
+		return referenceID;
+	}
+	public void setReferenceID(int referenceID) {
+		this.referenceID = referenceID;
+	}
+	
+	public TestDescription getTestID() {
+		return testID;
+	}
+	public void setTestID(TestDescription testID) {
+		this.testID = testID;
+	}
+	public String getReferenceColumnName() {
+		return referenceColumnName;
+	}
+	public void setReferenceColumnName(String referenceColumnName) {
+		this.referenceColumnName = referenceColumnName;
+	}
+	public double getReferenceMinValue() {
+		return referenceMinValue;
+	}
+	public void setReferenceMinValue(double referenceMinValue) {
+		this.referenceMinValue = referenceMinValue;
+	}
+	public double getReferenceMaxValue() {
+		return referenceMaxValue;
+	}
+	public void setReferenceMaxValue(double referenceMaxValue) {
+		this.referenceMaxValue = referenceMaxValue;
+	}	
+	public User getReferenceCreateUser() {
+		return referenceCreateUser;
+	}
+	public void setReferenceCreateUser(User referenceCreateUser) {
+		this.referenceCreateUser = referenceCreateUser;
+	}
+	public User getReferenceLastUpdateUser() {
+		return referenceLastUpdateUser;
+	}
+	public void setReferenceLastUpdateUser(User referenceLastUpdateUser) {
+		this.referenceLastUpdateUser = referenceLastUpdateUser;
+	}
+	public Date getReferenceCreateDate() {
+		return referenceCreateDate;
+	}
+	public void setReferenceCreateDate(Date referenceCreateDate) {
+		this.referenceCreateDate = referenceCreateDate;
+	}
+	public Date getReferenceLastUpdate() {
+		return referenceLastUpdate;
+	}
+	public void setReferenceLastUpdate(Date referenceLastUpdate) {
+		this.referenceLastUpdate = referenceLastUpdate;
+	}
+	
+	
+	
+	
+
+	
+}

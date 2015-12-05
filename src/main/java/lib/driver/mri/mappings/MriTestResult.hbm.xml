@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriTestResult" table="mri_test_result" catalog="his">
+        <composite-id name="id" class="core.classes.mri.MriTestResultId">
+            <key-property name="testResultId" type="int">
+                <column name="test_result_id" />
+            </key-property>
+            <key-property name="ftestParentFieldId" type="int">
+                <column name="ftest_parent_field_id" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="mriParentResult" class="core.classes.mri.MriParentResult" fetch="select">
+            <column name="fparent_result_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mriTestParentFields" class="core.classes.mri.MriTestParentFields" update="false" insert="false" fetch="select">
+            <column name="ftest_parent_field_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mriTestRequest" class="core.classes.mri.MriTestRequest" fetch="select">
+            <column name="ftest_request_id" />
+        </many-to-one>
+        <property name="resultFinalizedDate" type="timestamp">
+            <column name="result_finalized_date" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

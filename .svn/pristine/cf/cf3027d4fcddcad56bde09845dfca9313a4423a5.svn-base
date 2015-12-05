@@ -1,0 +1,45 @@
+package lib.driver.laboratory.driver_class;
+
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.LabSpecimen;
+
+
+public class LabSpecimenDBDriver {
+
+	Session session=SessionFactoryUtil.getSessionFactory().openSession();
+
+	public LabSpecimenDBDriver() {
+
+		//session = 
+	}
+
+	public boolean saveSpecimen(LabSpecimen speciman,int specCollected,int specCreated) {
+
+		try {
+
+			session.beginTransaction();
+			Employee specEmp=(Employee) session.get(Employee.class, specCollected);
+			User specUser = (User) session.get(User.class, specCreated);
+			speciman.setSpecimenCollectedBy(specEmp);
+			speciman.setSpecimenCreateUser(specUser);
+			
+			session.save(speciman);
+
+			session.getTransaction().commit();
+
+			//session.close();
+
+			return true;
+
+		} catch (RuntimeException ex) {
+			System.out.println(ex);
+		}
+		return false;
+	}
+
+}

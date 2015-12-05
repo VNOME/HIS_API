@@ -1,0 +1,83 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+
+
+
+
+import lib.driver.laboratory.driver_class.LabOrderDBDriver;
+import lib.driver.laboratory.driver_class.LabSpecimenDBDriver;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.laboratory.LabSpecimen;
+import flexjson.JSONException;
+
+@Path("Specimen")
+public class LabSpecimenResource {
+	
+	LabSpecimenDBDriver serviceDriver = new LabSpecimenDBDriver();
+
+	LabOrderDBDriver orderservice = new LabOrderDBDriver();
+
+	
+	//******** Change the service path name ad to addLabSpecimen
+	@POST
+	@Path("/addLabSpecimen")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addSpecimen(JSONObject json) {
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+			
+					int orderID = json.getInt("OrderID");
+			
+					LabSpecimen labSpecimen = new LabSpecimen();
+
+					labSpecimen.setSpecimenID(Double.valueOf(json.get("specimenID")
+							.toString()));
+					labSpecimen.setSpecimenStatus(json.getString("status").toString());
+
+					labSpecimen.setSpecimenRemarks(json.getString("remarks").toString());
+					
+					int specimenCollectedBy=json.getInt("collectedBy");
+
+					
+					Date date = dateformat.parse(json.get("collectedDate").toString());
+					labSpecimen.setSpecimenCollectedDate(date);
+					
+					labSpecimen.setSpecimenCreateDate(dateformat.parse(json.getString("createDate")
+							.toString()));
+					int specCreateUser=json.getInt("createUser");					
+					
+					
+					
+					if (serviceDriver.saveSpecimen(labSpecimen,specimenCollectedBy,specCreateUser)) {
+
+						int r = orderservice.updatespecimanNumber(orderID, labSpecimen.getSpecimenID());
+						//System.out.println(r);
+						return "True";
+					} else {
+						return "false";
+					}
+				}
+
+				catch (JSONException e) {
+					e.printStackTrace();
+					return e.getMessage();
+				} catch (Exception e) {
+					return e.getMessage();
+				}
+
+	}
+}

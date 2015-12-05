@@ -1,0 +1,191 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+
+
+package lib.driver.api.driver_class.standards.immr;
+
+import java.util.Iterator;
+import java.util.List;
+
+import lib.SessionFactoryUtil;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import core.classes.api.standards.icd10.Icd10;
+import core.classes.api.standards.immr.Immr;
+
+/**
+ *  ImmrDBDriver class contains all the CRUD operation methods that required by ImmrResources class(web service)
+ *  @author IMANKA
+ * version 1.0
+ */
+
+
+public class ImmrDBDriver {
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+	
+	/**
+	 * This method returns the all the immr code details a given disease name
+	 * @param disease name
+	 * @return immr object of the Immr class
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction.
+	 */
+
+	public Immr getImmrGivenIcdCode(String icdCode)
+	{
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Query query =  session.createQuery("select i from Immr as i where i.mIcdCode = :code");
+			query.setParameter("code",icdCode);
+			List<Immr> immrList  = query.list();
+			Immr immr=new Immr();
+			for(Iterator<Immr> iter = immrList.iterator(); iter.hasNext();)
+			{
+				immr = (Immr)iter.next();
+			}
+			tx.commit();
+			return immr;
+		}catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+		
+			
+	}
+	
+	
+	
+	
+	
+	
+	/**
+	 * This method insert the immr code details to the immr table 
+	 * @param immmrObj object of Immr class
+	 * @return boolean value true if success otherwise false 
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction. 
+	 */
+	public boolean insertImmr(Immr immmrObj)
+	{
+		Transaction tx = null;
+		try{	
+			tx = session.beginTransaction();
+			session.save(immmrObj);
+			tx.commit();
+			return true;
+		}catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+	
+	}
+	
+	
+	
+	
+	
+	/***
+	 * Insert updated data of a particular immr code into the database.
+	 * @param immrObj is a Immr type object that contains data about updating code
+	 * @return a boolean value. Returns true if code details updated Successfully else returns false
+	 */
+	
+	public boolean updateImmrCodeDetails(Immr immrObj){
+		Transaction tx=null;
+		
+		try{
+			tx=session.beginTransaction();
+			session.update(immrObj);
+			tx.commit();
+			return true;
+		}
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Delete immr code from the database 
+	 * @param immrObj is a Immr type object that contains data about deleting code details
+	 * @return a boolean value. Returns true if the code deleted Successfully else returns false
+	 */
+	
+	public boolean deleteImmr(Immr immrObj){
+		Transaction tx=null;
+		
+		try {
+			
+			tx=session.beginTransaction();
+			session.delete(immrObj);
+			tx.commit();
+			return true;
+			
+		} 
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
+}

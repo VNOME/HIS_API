@@ -1,0 +1,82 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import lib.driver.laboratory.driver_class.ProthrombinTimeDBDriver;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.laboratory.ProthrombinTimeResult;
+
+@Path("ProthrombinTime")
+public class ProthrombinTimeResultResource {
+	
+	ProthrombinTimeDBDriver ptsd = new ProthrombinTimeDBDriver();
+	/*
+	 * Add Prothrombin Time Report by MR
+	 */
+
+	@POST
+	@Path("/addProthrombinTimeResult")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addReport(JSONObject json) {
+
+
+		/*
+		 * retrieve data from json object and pass it to service driver class by
+		 * MR
+		 */
+
+		int orderID, labOrder;
+
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+
+			ProthrombinTimeResult ptr = new ProthrombinTimeResult();
+
+			orderID = json.getInt("orderID");
+			labOrder = json.getInt("labID");
+
+			int doneBy=json.getInt("doneBy");
+			int chkBy=json.getInt("checkedBy");
+			ptr.setPtRemarks(json.getString("remarks").toString());
+
+			ptr.setPtProthrombinTime(Double.valueOf(json.getString(
+					"prothrombinTime").toString()));
+			ptr.setPtNormalControl(Double.valueOf(json.getString("normalControl")
+					.toString()));
+			ptr.setPtProthrombinIndex(Double.valueOf(json.getString(
+					"prothrombinIndex").toString()));
+			ptr.setPtProthrombinRatio(Double.valueOf(json.getString(
+					"prothrombinRatio").toString()));
+			ptr.setPtINR(Double.valueOf(json.getString("iNR").toString()));
+			ptr.setPtISI(Double.valueOf(json.getString("iSI").toString()));
+
+			ptr.setPtCompletedDate(dateformat.parse(json.getString("completedDate").toString()));
+			ptr.setPtCreateDate(dateformat.parse(json.getString("createDate").toString()));
+			int userID=json.getInt("createUser");
+			// lpr.setLastUpdate(lastUpdate);//null
+			// lpr.setLastUpdateUser(null);
+
+			
+			
+			ptsd.insertData(ptr, orderID, labOrder,doneBy,chkBy,userID);
+
+			return "ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+
+}

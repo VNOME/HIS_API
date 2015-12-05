@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriSpecimen" table="mri_specimen" catalog="his">
+        <id name="specimenId" type="java.lang.Integer">
+            <column name="specimen_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriSpecimenType" class="core.classes.mri.MriSpecimenType" fetch="select">
+            <column name="fspecimen_type_id" length="11" not-null="true" />
+        </many-to-one>
+        <property name="specimenBarcode" type="string">
+            <column name="specimen_barcode" length="300" />
+        </property>
+        <property name="remarks" type="string">
+            <column name="remarks" length="300" />
+        </property>
+        <property name="specimenReceivedDate" type="timestamp">
+            <column name="specimen_received_date" length="19" not-null="true" />
+        </property>
+        <property name="specimenCollectedPerson" type="string">
+            <column name="specimen_collected_person" length="300" />
+        </property>
+        <property name="specimenDeliveredDepartmentDate" type="timestamp">
+            <column name="specimen_delivered_department_date" length="19" not-null="true" />
+        </property>
+        <property name="storedLocation" type="string">
+            <column name="stored_location" length="11" not-null="true" />
+        </property>
+        <property name="storedOrDestroyed" type="string">
+            <column name="stored_or_destroyed" length="11" not-null="true" />
+        </property>
+        <set name="mriTestRequests" table="mri_test_request" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fspecimen_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriTestRequest" />
+        </set>
+    </class>
+</hibernate-mapping>

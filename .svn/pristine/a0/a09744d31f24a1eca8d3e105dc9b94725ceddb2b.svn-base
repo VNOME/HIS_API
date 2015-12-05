@@ -1,0 +1,83 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+
+
+
+import lib.driver.laboratory.driver_class.ElectrolytesProfileDBDriver;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.laboratory.ElectrolytesProfileResult;
+
+@Path("ElectrolytesProfile")
+public class ElectrolytesProfileResultResource {
+	
+	ElectrolytesProfileDBDriver lpsd = new ElectrolytesProfileDBDriver();
+	/*
+	 * Add electrolytes profile Report by MR
+	 */
+	
+	
+	
+	@POST
+	@Path("/addEPReport")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addReport(JSONObject json) {
+
+		/*
+		 * retrieve data from json object and pass it to service driver class by
+		 * MR
+		 */
+
+		int orderID, labOrder;
+
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+
+			ElectrolytesProfileResult epr = new ElectrolytesProfileResult();
+
+			orderID = json.getInt("orderID");
+			labOrder = json.getInt("labID");
+
+			int doneBy=json.getInt("doneBy");
+			int chkBy=json.getInt("checkedBy");
+			epr.setEpfRemarks(json.getString("remarks").toString());
+
+			epr.setEpfSerumSodium(Double.valueOf(json.getString("serumSodium")
+					.toString()));
+			epr.setEpfSerumPotassium(Double.valueOf(json.getString(
+					"serumPotassium").toString()));
+			epr.setEpfChloride(Double.valueOf(json.getString("chloride")
+					.toString()));
+
+			epr.setEpfCompletedDate(dateformat.parse(json.getString(
+					"completedDate").toString()));
+			epr.setEpfCreateDate(dateformat.parse(json.getString("createDate")
+					.toString()));
+			int userID=json.getInt("createUser");
+			// epr.setLastUpdate(lastUpdate);//null
+			// epr.setLastUpdateUser(null);
+
+			
+
+			lpsd.insertData(epr, orderID, labOrder, doneBy, chkBy, userID);
+
+			return "ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+}

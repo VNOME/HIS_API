@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriHospitalPatient" table="mri_hospital_patient" catalog="his">
+        <id name="hospitalPatientId" type="java.lang.Integer">
+            <column name="hospital_patient_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriHospital" class="core.classes.mri.MriHospital" fetch="select">
+            <column name="fhospital_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mriPatient" class="core.classes.mri.MriPatient" fetch="select">
+            <column name="fpatient_id" not-null="true" />
+        </many-to-one>
+        <property name="bhtNo" type="string">
+            <column name="bht_no" length="50" not-null="true" />
+        </property>
+        <property name="ward" type="string">
+            <column name="ward" length="50" not-null="true" />
+        </property>
+        <set name="mriTestRequests" table="mri_test_request" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fhospital_patient_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriTestRequest" />
+        </set>
+    </class>
+</hibernate-mapping>

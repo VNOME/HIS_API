@@ -1,0 +1,76 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import lib.driver.laboratory.driver_class.SerumProteinDBDriver;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.laboratory.SerumProteinResult;
+
+
+
+@Path("SerumProtein")
+public class SerumProteinResultResource {
+
+	SerumProteinDBDriver spsd = new SerumProteinDBDriver();
+	/*
+	 * Add Serum Protein Report by FF
+	 */
+	@POST
+	@Path("/addSerumProteinResult")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addReport(JSONObject json) {
+
+		/*
+		 * retrieve data from json object and pass it to service driver class by
+		 * FF
+		 */
+
+		int orderID, labOrder;
+
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+
+			SerumProteinResult sp = new SerumProteinResult();
+
+			orderID = json.getInt("orderID");
+			labOrder = json.getInt("labID");
+			
+			int doneBy=json.getInt("doneBy");
+			int chkBy=json.getInt("checkedBy");
+			sp.setSpRemarks(json.getString("remarks").toString());
+
+			sp.setSpAL(Double.valueOf(json.getString(
+					"aL").toString()));
+			sp.setSpGL(Double.valueOf(json.getString("gL")
+					.toString()));
+
+			sp.setSpCompletedDate(dateformat.parse(json.getString(
+					"completedDate").toString()));
+			sp.setSpCreateDate(dateformat.parse(json.getString("createDate")
+					.toString()));
+			int userID=json.getInt("createUser");
+			// lpr.setLastUpdate(lastUpdate);//null
+			// lpr.setLastUpdateUser(null);
+
+			
+
+			spsd.insertData(sp, orderID, labOrder,doneBy,chkBy,userID);
+
+			return "ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+}

@@ -1,0 +1,276 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+
+package core.resources.api.standards.icd10;
+
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.api.standards.icd10.Icd10;
+
+
+import flexjson.JSONSerializer;
+//import flexjson.transformer.DateTransformer;
+
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
+
+
+import java.util.List;
+
+import lib.driver.api.driver_class.standards.icd10.Icd10DBDriver;
+
+
+/**
+ *  Icd10Resources class contains all the rest-full web methods to manipulate icd10 codes
+ *   @author IMANKA
+ * version 1.0
+ */
+
+@Path("icd10Services")
+public class Icd10Resources {
+
+	
+	Icd10DBDriver icd10DBDriver=new Icd10DBDriver();
+	
+	/**
+	 * inserting a new icd10 code to the system
+	 * @param uJson the JSON object that contains details about new icd10 code
+	 * @return returns a string value.True if the inserting is successful else it returns false
+	 */
+	
+	@POST
+	@Path("/addIcdCode")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addIcd10Codes(JSONObject uJson){
+		
+		System.out.println(uJson.toString());
+		String result="false";
+		boolean r=false;
+		Icd10 icd=new Icd10(); 
+		
+		DateFormat formater=new SimpleDateFormat("yyyy-MM-dd");
+		
+		try{
+			
+			icd.setcIcdCode(uJson.getString("cIcdCode"));
+			icd.setcIcdName(uJson.getString("cIcdName"));
+			icd.setcRemarks(uJson.getString("cRemarks"));
+			
+			Date createDate=formater.parse(uJson.getString("cCreateDate"));
+			icd.setcCreateDate(createDate);
+			
+			icd.setcCreateUser(uJson.getString("cCreateUser"));
+			
+			Date lastUpdate=formater.parse(uJson.getString("cLastUpdate"));
+			icd.setcLastUpdate(lastUpdate);
+			
+			icd.setcLastUpdateUser("cLastUpdateUser");
+			//icd.setcImmrCode(uJson.getString("cImmrCode"));
+				
+			r=icd10DBDriver.insertIcd10(icd);
+			result=String.valueOf(r);
+			
+			return result;
+			 
+		}
+		
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		
+		
+		catch(Exception ex){
+			ex.printStackTrace();
+			return ex.getMessage();
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+
+	/***
+	 * 
+	 * Delete a particular code from the system 
+	 * @param jsnObj is JSON object that contains data about code that going to delete
+	 * @return returns a string value.True if the code deleted successfully else it returns false
+	 */	
+	
+	@PUT
+	@Path("/deleteIcdCode")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String deleteIcd10Codes(JSONObject jsnObj){
+		String result="false";
+		boolean r=false;
+		Icd10 icdde=new Icd10();
+		
+		
+		try{
+			
+			icdde.setcIcdId(jsnObj.getInt("cIcdId"));
+			//icdde.setcIcdCode(jsnObj.getString("cIcdCode"));
+			
+			r=icd10DBDriver.deleteIcd10(icdde);		
+			result=String.valueOf(r);
+			
+			return result;
+			
+			
+		}
+		
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/***
+	 * Update Icd10 code details 
+	 * @param jsnIcd10Code is a JSON object which contains new details about a particular Icd10 code that need to be updated
+	 * @return returns a string value.True if the code updated successfully else it returns false
+	 */
+	
+	@PUT
+	@Path("/updateIcd10Code")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String updateUserDetails(JSONObject jsnIcd10Code){
+		
+		String result="false";
+		boolean r=false;
+		Icd10 icdObj=new Icd10();
+
+		
+		DateFormat formater=new SimpleDateFormat("yyyy-MM-dd");
+		
+		
+		try{
+			
+			icdObj.setcIcdCode(jsnIcd10Code.getString("cIcdCode"));
+			icdObj.setcIcdName(jsnIcd10Code.getString("cIcdName"));
+			icdObj.setcRemarks(jsnIcd10Code.getString("cRemarks"));
+			
+			Date createDate=formater.parse(jsnIcd10Code.getString("cCreateDate"));
+			icdObj.setcCreateDate(createDate);
+			
+			icdObj.setcCreateUser(jsnIcd10Code.getString("cCreateUser"));
+			
+			Date lastUpdate=formater.parse(jsnIcd10Code.getString("cLastUpdate"));
+			icdObj.setcLastUpdate(lastUpdate);
+			
+			icdObj.setcLastUpdateUser("cLastUpdateUser");
+			//icdObj.setcImmrCode(jsnIcd10Code.getString("cImmrCode"));
+			
+		
+			
+			r=icd10DBDriver.updateIcd10CodeDetails(icdObj);
+			result=String.valueOf(r);
+			return result;
+			
+		}
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		catch(ParseException ex){
+			ex.printStackTrace();
+			return result;
+		}
+		
+		catch(Exception ex){
+			ex.printStackTrace();
+			return ex.getMessage();
+		}
+
+	}
+	
+	
+	
+	
+		
+	
+	/**
+	 * Get all icd10 codes that are available in the system	
+	 * @return returns a JSON object that contains all the icd10 codes
+	 */
+	
+	@GET
+	@Path("/getAllicd10Codes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getIcd10Details(){
+		//String result="";
+		List<Icd10> icdList =icd10DBDriver.getIcd10Details();
+
+		JSONSerializer serializor=new JSONSerializer();
+		return  serializor.serialize(icdList);
+		
+	}
+	
+	
+	
+	
+	/**
+	 * Get the particular icd10 code which matches with the given Icd code Name	
+	 * @return returns a JSON object that contains all details about that Icd code
+	 */
+
+	@GET
+	@Path("/getIcdGivenIcdName")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String  getIcdGivenIcdName(@PathParam("icd10Code")String cIcdName)
+	{
+		Icd10 icd10 =new Icd10();
+		icd10 = icd10DBDriver.getIcdDetailsGivenDisease(cIcdName);
+		JSONSerializer jsonSerializer = new JSONSerializer();
+		return jsonSerializer.serialize(icd10);
+	}
+	
+
+	
+	
+}

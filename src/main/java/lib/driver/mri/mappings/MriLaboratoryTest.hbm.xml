@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 6, 2015 6:20:37 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriLaboratoryTest" table="mri_laboratory_test" catalog="his">
+        <id name="laboratoryTestId" type="java.lang.Integer">
+            <column name="laboratory_test_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriLaboratory" class="core.classes.mri.MriLaboratory" fetch="select">
+            <column name="flaboratory_id" not-null="true" />
+        </many-to-one>
+        <property name="testFullName" type="string">
+            <column name="test_full_name" length="300" not-null="true" />
+        </property>
+        <property name="testShortName" type="string">
+            <column name="test_short_name" length="100" not-null="true" />
+        </property>
+        <!-- 
+        Newly added by Dushyantha
+         -->
+        <property name="isBinary" type="java.lang.Integer">
+            <column name="is_binary" />
+        </property>
+         <!-- 
+         End
+          -->
+        <set name="mriTestParentFieldses" table="mri_test_parent_fields" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="flaboratory_test_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriTestParentFields" />
+        </set>
+        <set name="mriTestRequests" table="mri_test_request" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="flaboratory_test_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriTestRequest" />
+        </set>
+    </class>
+</hibernate-mapping>

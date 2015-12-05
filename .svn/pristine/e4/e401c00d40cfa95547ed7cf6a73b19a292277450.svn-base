@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	
+	<class name="core.classes.laboratory.TestDescription" table="lab_test_description">
+	
+		<id name="testID" type="int" column="labTestDescription_TestID">
+			<generator class="native" />
+		</id>
+		<property name="testName" column="labTestDescription_TestName"
+			type="string" />
+		<property name="testDescription" column="labTestDescription_TestDescription"
+			type="string" />
+		<property name="testCategory" column="labTestDescription_Category"
+			type="string" />
+		<property name="testProcedure" column="labTestDescription_TestProcedure"
+			type="string" />
+		<property name="testIsSpecimenAvailable" column="labTestDescription_IsSpecimenAvailable"
+			type="boolean" />
+		<property name="testSpecimenType" column="labTestDescription_SpecimenType"
+			type="string" />
+		<property name="testResultTableName" column="labTestDescription_TestResultTableName"
+			type="string" />
+		<property name="testLoincCode" column="labTestdescription_LoincCode"
+			type="string" />
+
+<!-- 		<property name="testCreateUser" column="labTestDescription_CreateUser"
+			type="int" />
+		<property name="testLastUpdateUser" column="labTestDescription_LastUpdateUser"
+			type="int" /> -->
+		<many-to-one name="testCreateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestDescription_CreateUser"/>
+        </many-to-one>
+        
+		<many-to-one name="testLastUpdateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestDescription_LastUpdateUser"/>
+        </many-to-one>
+        
+		
+		<property name="testCreateDate" column="labTestDescription_CreateDate"
+			type="java.util.Date" />
+		<property name="testLastUpdate" column="labTestDescription_LastUpdate"
+			type="java.util.Date" />
+
+	</class>
+	
+</hibernate-mapping>

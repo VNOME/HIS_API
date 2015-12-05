@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	<class name="core.classes.laboratory.LabTestsInLabs" table="lab_tests_in_labs">
+
+		<id name="labTestLabID" type="int" column="labTestsInLabs_ID">
+			<generator class="increment" />
+		</id>
+
+		<many-to-one name="labID" class="core.classes.laboratory.Lab"
+                     fetch="join" not-null="true" cascade="all"  >
+                     <column name="labTestsInLabs_LabID" not-null="true" />
+             </many-to-one>
+
+		<many-to-one name="testID" class="core.classes.laboratory.TestDescription"
+                     fetch="join" not-null="true" cascade="all"  >
+                     <column name="labTestsInLabs_TestID" not-null="true" />
+             </many-to-one>
+		
+		
+		<property name="labTestRemarks" column="labTestsInLabs_Remarks" type="string" />
+		
+		<many-to-one name="labTestCreateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestsInLabs_CreateUser"/>
+        </many-to-one>
+        
+		<many-to-one name="labTestLastUpdateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestsInLabs_LastUpdateUser"/>
+        </many-to-one>
+<!-- 		<property name="labTestCreateUser" column="labTestsInLabs_CreateUser"
+			type="int" />
+		<property name="labTestLastUpdateUser" column="labTestsInLabs_LastUpdateUser"
+			type="int" /> -->
+		<property name="labTestCreateDate" column="labTestsInLabs_CreateDate"
+			type="java.util.Date" />
+		<property name="labTestLastUpdate" column="labTestsInLabs_LastUpdate"
+			type="java.util.Date" />
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,32 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+package core.classes.api.standards.hin;
+
+/***
+ * InvalidIdentifierException is a class extends from Exception class (Predefined) 
+ * and this handles the invalid exception throws from GenerateHin class
+ * @author IMANKA
+ * version 1.0
+ *
+ */
+
+public class InvalidIdentifierException extends Exception{
+	
+	public InvalidIdentifierException(String ex) {
+		super(ex);
+	}
+
+}

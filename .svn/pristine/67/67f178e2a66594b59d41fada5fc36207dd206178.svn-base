@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 11, 2013 6:28:12 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.user.User" table="his_user">
+        <id name="userID" type="int">
+            <column name="user_ID" />
+            <generator class="native" />
+        </id>
+        <property name="userName" type="java.lang.String">
+            <column name="user_Name" />
+        </property>
+        <property name="userPassword" type="java.lang.String">
+            <column name="user_Password" />
+        </property>
+        
+        <many-to-one name="userRoles" class="core.classes.api.user.UserRoles" column="user_RoleID" unique="true" lazy="false" fetch="select"/>
+		<many-to-one name="employees" class="core.classes.api.admin.Employee" column="emp_ID" unique="true" lazy="false" fetch="select"/>
+		
+		<set name="specialPermissions" cascade="save-update" table="his_user_special_permissions" lazy="false">
+            <key column="user_ID"/>
+            <many-to-many column="permission_ID" class="core.classes.api.user.Permission"/>
+        </set>
+        
+    </class>
+</hibernate-mapping>

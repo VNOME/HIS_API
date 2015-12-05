@@ -1,0 +1,59 @@
+package lib.driver.laboratory.driver_class;
+
+import java.util.Date;
+
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.admin.Department;
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.Lab;
+
+
+
+
+
+public class LabDBDriver {
+
+	/*
+	 * manupulate data in db table lab 
+	 */
+
+	Session session= SessionFactoryUtil.getSessionFactory().openSession();;
+
+	public LabDBDriver() {
+
+		//session 
+	}
+
+	// insert data to db table lab
+	public void insertData(Lab lab, int userID,int empID,int deptId) {
+
+		session.beginTransaction();
+		Date date=new Date();
+		Department depart=(Department)session.get(Department.class, deptId);
+		Employee emp=(Employee)session.get(Employee.class, empID);
+		User user=(User)session.get(User.class, userID);
+		Lab upLab=(Lab)session.get(Lab.class, lab.getLabID());
+		upLab.setLabID(lab.getLabID());
+		upLab.setLabName(lab.getLabName());
+		upLab.setLabType(lab.getLabType());
+		upLab.setLabDescription(lab.getLabDescription());
+		upLab.setLabCreateUser(user);
+		upLab.setLabLastUpdateUser(user);
+		upLab.setLabDepartment(depart);
+		upLab.setLabIncharge(emp);
+		upLab.setLabCreateDate(date);
+		upLab.setLabLastUpdate(date);
+		
+
+		session.save(upLab);
+
+		session.getTransaction().commit();
+
+	}
+
+
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 6, 2015 6:20:37 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriSubFieldResult" table="mri_sub_field_result" catalog="his">
+        <id name="subResultId" type="java.lang.Integer">
+            <column name="sub_result_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriTestSubFields" class="core.classes.mri.MriTestSubFields" fetch="select">
+            <column name="ftest_sub_field_id" />
+        </many-to-one>
+        <many-to-one name="mriTestRequest" class="core.classes.mri.MriTestRequest" fetch="select">
+            <column name="ftest_request_id" />
+        </many-to-one>
+        <property name="subResultValue" type="string">
+            <column name="sub_result_value" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

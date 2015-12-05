@@ -1,0 +1,101 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+package core.classes.api.standards.loinc;
+
+/***
+ * Loinc Class contains all the attributes and there getters and setters
+ * @author IMANKA
+ * version 1.0
+ *
+ */
+
+public class Loinc {
+
+	
+	private int oLoincId;
+	private String oLoincCode;
+	private String oLongName;
+	private String oShortName;
+	private String oClass;
+	private int oRank;
+	
+	
+	public Loinc()
+	{
+		
+	}
+	
+	public Loinc(int pLoincId,String pLoincCode,String pLongName, String pShortName, String pClass, int pRank)
+	{
+		this.oLoincId=pLoincId;
+		this.oLoincCode=pLoincCode;
+		this.oLongName=pLongName;
+		this.oShortName=pShortName;
+		this.oClass=pClass;
+		this.oRank=pRank;
+	}
+
+	public int getoLoincId() {
+		return oLoincId;
+	}
+
+	public void setoLoincId(int oLoincId) {
+		this.oLoincId = oLoincId;
+	}
+
+	public String getoLoincCode() {
+		return oLoincCode;
+	}
+
+	public void setoLoincCode(String oLoincCode) {
+		this.oLoincCode = oLoincCode;
+	}
+
+	public String getoLongName() {
+		return oLongName;
+	}
+
+	public void setoLongName(String oLongName) {
+		this.oLongName = oLongName;
+	}
+
+	public String getoShortName() {
+		return oShortName;
+	}
+
+	public void setoShortName(String oShortName) {
+		this.oShortName = oShortName;
+	}
+
+	public String getoClass() {
+		return oClass;
+	}
+
+	public void setoClass(String oClass) {
+		this.oClass = oClass;
+	}
+
+	public int getoRank() {
+		return oRank;
+	}
+
+	public void setoRank(int oRank) {
+		this.oRank = oRank;
+	}
+	
+	
+	
+}

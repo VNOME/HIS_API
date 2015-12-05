@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 20, 2013 10:36:55 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.admin.Leaves" table="leaves">
+        <id name="leaveID" type="int">
+            <column name="leaves_ID" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="employee" class="core.classes.api.admin.Employee" fetch="join">
+            <column name="employee_ID" />
+        </many-to-one>
+        <property name="leaveStartDate" type="java.util.Date">
+            <column name="leaves_StartDate" />
+        </property>
+        <property name="leaveEndDate" type="java.util.Date">
+            <column name="leaves_EndDate" />
+        </property>
+        <property name="leaveApplyDate" type="java.util.Date">
+            <column name="leaves_ApplyDate" />
+        </property>
+        <property name="numberOfDays" type="double">
+            <column name="leaves_NumberOfDays" />
+        </property>
+        <property name="leaveType" type="java.lang.String">
+            <column name="leaves_Type" />
+        </property>
+        <property name="reason" type="java.lang.String">
+            <column name="leaves_Reason" />
+        </property>
+        <property name="addressOnLeave" type="java.lang.String">
+            <column name="leaves_AddressOnLeave" />
+        </property>
+        <property name="currentYearLeaves" type="double">
+            <column name="leaves_CurrentYearLeaves" />
+        </property>
+        <property name="stateOfLeave" type="java.lang.String">
+            <column name="leaves_StatusOfLeave" />
+        </property>
+    </class>
+</hibernate-mapping>

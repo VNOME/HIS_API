@@ -1,0 +1,59 @@
+package lib.driver.laboratory.driver_class;
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.LabOrder;
+import core.classes.laboratory.SerumGlutamicOxaloaceticTransaminaseResult;
+
+
+
+
+public class SerumGlutamicOxaloaceticTransaminaseDBDriver {
+
+	/*
+	 * manupulate data in db table labTestResult_SerumGlutamicOxaloaceticTransaminaseResult by FF
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public SerumGlutamicOxaloaceticTransaminaseDBDriver() {
+
+		
+	}
+
+	// insert data to db table labTestResult_SerumGlutamicOxaloaceticTransaminaseResult
+	public void insertData(SerumGlutamicOxaloaceticTransaminaseResult sgot, int orderID, int labID,int doneBy,int chkBy,int createBy) {
+
+		session.beginTransaction();
+
+		// added FF for labid
+		Lab lab = (Lab) session.get(Lab.class, labID);
+		sgot.setLabID(lab);
+		// -------------
+		// added FF for orderid
+		LabOrder labOrder = (LabOrder) session.get(LabOrder.class, orderID);
+		sgot.setSgotOrderID(labOrder);
+		// -------------
+		Employee doneEmp=(Employee)session.get(Employee.class, doneBy);
+		sgot.setSgotDoneBy(doneEmp);
+		
+		Employee chkByEmp=(Employee)session.get(Employee.class, chkBy);
+		sgot.setSgotCheckedBy(chkByEmp);
+		
+		User creUser=(User) session.get(User.class, createBy);
+		sgot.setSgotCreateUser(creUser);
+		
+
+		session.save(sgot);
+
+		session.getTransaction().commit();
+
+	}
+
+
+
+}

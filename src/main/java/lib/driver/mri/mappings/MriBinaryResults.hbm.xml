@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="core.classes.mri.MriBinaryResults" table="mri_binary_results" catalog="his">
+        <id name="resultId" type="java.lang.Integer">
+            <column name="result_id" />
+            <generator class="identity" />
+        </id>
+        <property name="resultValue" type="java.lang.Integer">
+            <column name="result_value" not-null="true" />
+        </property>
+        <many-to-one name="mriTestRequest" class="core.classes.mri.MriTestRequest" fetch="select">
+            <column name="ftest_request_id" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

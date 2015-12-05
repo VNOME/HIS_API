@@ -1,0 +1,355 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+ */
+
+package core.classes.api.standards.immr;
+
+/***
+ * ImmrStatistics Class contains all the attributes and there getters and
+ * setters
+ * 
+ * @author IMANKA version 1.0
+ */
+
+public class ImmrStatistics {
+
+	private int isId;
+	private String isImmrCode;
+
+	private int isLiveMale_lessThan1;
+	private int isLiveMale_1_4;
+	private int isLiveMale_5_16;
+	private int isLiveMale_17_49;
+	private int isLiveMale_50_69;
+	private int isLiveMale_greaterThan70;
+
+	private int isLiveFemale_lessThan1;
+	private int isLiveFemale_1_4;
+	private int isLiveFemale_5_16;
+	private int isLiveFemale_17_49;
+	private int isLiveFemale_50_69;
+	private int isLiveFemale_greaterthan70;
+
+	private int isDeadMale_lessThan1;
+	private int isDeadMale_1_4;
+	private int isDeadMale_5_16;
+	private int isDeadMale_17_49;
+	private int isDeadMale_50_69;
+	private int isDeadMale_greaterThan70;
+
+	private int isDeadFemale_lessThan1;
+	private int isDeadFemale_1_4;
+	private int isDeadFemale_5_16;
+	private int isDeadFemale_17_49;
+	private int isDeadFemale_50_69;
+	private int isDeadFemale_greaterThan70;
+
+	private int totalLiveMale;
+	private int totalLiveFemale;
+	private int totalDeadMale;
+	private int totalDeadFemale;
+
+	public ImmrStatistics() {
+
+	}
+
+	public ImmrStatistics(int isId, String isImmrCode,
+			int isLiveMale_lessThan1, int isLiveMale_1_4, int isLiveMale_5_16,
+			int isLiveMale_17_49, int isLiveMale_50_69,
+			int isLiveMale_greaterThan70, int isLiveFemale_lessThan1,
+			int isLiveFemale_1_4, int isLiveFemale_5_16,
+			int isLiveFemale_17_49, int isLiveFemale_50_69,
+			int isLiveFemale_greaterthan70, int isDeadMale_lessThan1,
+			int isDeadMale_1_4, int isDeadMale_5_16, int isDeadMale_17_49,
+			int isDeadMale_50_69, int isDeadMale_greaterThan70,
+			int isDeadFemale_lessThan1, int isDeadFemale_1_4,
+			int isDeadFemale_5_16, int isDeadFemale_17_49,
+			int isDeadFemale_50_69, int isDeadFemale_greaterThan70,
+			int totalLiveMale, int totalLiveFemale, int totalDeadMale,
+			int totalDeadFemale) {
+		super();
+		this.isId = isId;
+		this.isImmrCode = isImmrCode;
+		this.isLiveMale_lessThan1 = isLiveMale_lessThan1;
+		this.isLiveMale_1_4 = isLiveMale_1_4;
+		this.isLiveMale_5_16 = isLiveMale_5_16;
+		this.isLiveMale_17_49 = isLiveMale_17_49;
+		this.isLiveMale_50_69 = isLiveMale_50_69;
+		this.isLiveMale_greaterThan70 = isLiveMale_greaterThan70;
+		this.isLiveFemale_lessThan1 = isLiveFemale_lessThan1;
+		this.isLiveFemale_1_4 = isLiveFemale_1_4;
+		this.isLiveFemale_5_16 = isLiveFemale_5_16;
+		this.isLiveFemale_17_49 = isLiveFemale_17_49;
+		this.isLiveFemale_50_69 = isLiveFemale_50_69;
+		this.isLiveFemale_greaterthan70 = isLiveFemale_greaterthan70;
+		this.isDeadMale_lessThan1 = isDeadMale_lessThan1;
+		this.isDeadMale_1_4 = isDeadMale_1_4;
+		this.isDeadMale_5_16 = isDeadMale_5_16;
+		this.isDeadMale_17_49 = isDeadMale_17_49;
+		this.isDeadMale_50_69 = isDeadMale_50_69;
+		this.isDeadMale_greaterThan70 = isDeadMale_greaterThan70;
+		this.isDeadFemale_lessThan1 = isDeadFemale_lessThan1;
+		this.isDeadFemale_1_4 = isDeadFemale_1_4;
+		this.isDeadFemale_5_16 = isDeadFemale_5_16;
+		this.isDeadFemale_17_49 = isDeadFemale_17_49;
+		this.isDeadFemale_50_69 = isDeadFemale_50_69;
+		this.isDeadFemale_greaterThan70 = isDeadFemale_greaterThan70;
+		this.totalLiveMale = totalLiveMale;
+		this.totalLiveFemale = totalLiveFemale;
+		this.totalDeadMale = totalDeadMale;
+		this.totalDeadFemale = totalDeadFemale;
+	}
+
+	public int getIsId() {
+		return isId;
+	}
+
+	public void setIsId(int isId) {
+		this.isId = isId;
+	}
+
+	public String getIsImmrCode() {
+		return isImmrCode;
+	}
+
+	public void setIsImmrCode(String isImmrCode) {
+		this.isImmrCode = isImmrCode;
+	}
+
+	public int getIsLiveMale_lessThan1() {
+		return isLiveMale_lessThan1;
+	}
+
+	public void setIsLiveMale_lessThan1(int isLiveMale_lessThan1) {
+		this.isLiveMale_lessThan1 = isLiveMale_lessThan1;
+	}
+
+	public int getIsLiveMale_1_4() {
+		return isLiveMale_1_4;
+	}
+
+	public void setIsLiveMale_1_4(int isLiveMale_1_4) {
+		this.isLiveMale_1_4 = isLiveMale_1_4;
+	}
+
+	public int getIsLiveMale_5_16() {
+		return isLiveMale_5_16;
+	}
+
+	public void setIsLiveMale_5_16(int isLiveMale_5_16) {
+		this.isLiveMale_5_16 = isLiveMale_5_16;
+	}
+
+	public int getIsLiveMale_17_49() {
+		return isLiveMale_17_49;
+	}
+
+	public void setIsLiveMale_17_49(int isLiveMale_17_49) {
+		this.isLiveMale_17_49 = isLiveMale_17_49;
+	}
+
+	public int getIsLiveMale_50_69() {
+		return isLiveMale_50_69;
+	}
+
+	public void setIsLiveMale_50_69(int isLiveMale_50_69) {
+		this.isLiveMale_50_69 = isLiveMale_50_69;
+	}
+
+	public int getIsLiveMale_greaterThan70() {
+		return isLiveMale_greaterThan70;
+	}
+
+	public void setIsLiveMale_greaterThan70(int isLiveMale_greaterThan70) {
+		this.isLiveMale_greaterThan70 = isLiveMale_greaterThan70;
+	}
+
+	public int getIsLiveFemale_lessThan1() {
+		return isLiveFemale_lessThan1;
+	}
+
+	public void setIsLiveFemale_lessThan1(int isLiveFemale_lessThan1) {
+		this.isLiveFemale_lessThan1 = isLiveFemale_lessThan1;
+	}
+
+	public int getIsLiveFemale_1_4() {
+		return isLiveFemale_1_4;
+	}
+
+	public void setIsLiveFemale_1_4(int isLiveFemale_1_4) {
+		this.isLiveFemale_1_4 = isLiveFemale_1_4;
+	}
+
+	public int getIsLiveFemale_5_16() {
+		return isLiveFemale_5_16;
+	}
+
+	public void setIsLiveFemale_5_16(int isLiveFemale_5_16) {
+		this.isLiveFemale_5_16 = isLiveFemale_5_16;
+	}
+
+	public int getIsLiveFemale_17_49() {
+		return isLiveFemale_17_49;
+	}
+
+	public void setIsLiveFemale_17_49(int isLiveFemale_17_49) {
+		this.isLiveFemale_17_49 = isLiveFemale_17_49;
+	}
+
+	public int getIsLiveFemale_50_69() {
+		return isLiveFemale_50_69;
+	}
+
+	public void setIsLiveFemale_50_69(int isLiveFemale_50_69) {
+		this.isLiveFemale_50_69 = isLiveFemale_50_69;
+	}
+
+	public int getIsLiveFemale_greaterthan70() {
+		return isLiveFemale_greaterthan70;
+	}
+
+	public void setIsLiveFemale_greaterthan70(int isLiveFemale_greaterthan70) {
+		this.isLiveFemale_greaterthan70 = isLiveFemale_greaterthan70;
+	}
+
+	public int getIsDeadMale_lessThan1() {
+		return isDeadMale_lessThan1;
+	}
+
+	public void setIsDeadMale_lessThan1(int isDeadMale_lessThan1) {
+		this.isDeadMale_lessThan1 = isDeadMale_lessThan1;
+	}
+
+	public int getIsDeadMale_1_4() {
+		return isDeadMale_1_4;
+	}
+
+	public void setIsDeadMale_1_4(int isDeadMale_1_4) {
+		this.isDeadMale_1_4 = isDeadMale_1_4;
+	}
+
+	public int getIsDeadMale_5_16() {
+		return isDeadMale_5_16;
+	}
+
+	public void setIsDeadMale_5_16(int isDeadMale_5_16) {
+		this.isDeadMale_5_16 = isDeadMale_5_16;
+	}
+
+	public int getIsDeadMale_17_49() {
+		return isDeadMale_17_49;
+	}
+
+	public void setIsDeadMale_17_49(int isDeadMale_17_49) {
+		this.isDeadMale_17_49 = isDeadMale_17_49;
+	}
+
+	public int getIsDeadMale_50_69() {
+		return isDeadMale_50_69;
+	}
+
+	public void setIsDeadMale_50_69(int isDeadMale_50_69) {
+		this.isDeadMale_50_69 = isDeadMale_50_69;
+	}
+
+	public int getIsDeadMale_greaterThan70() {
+		return isDeadMale_greaterThan70;
+	}
+
+	public void setIsDeadMale_greaterThan70(int isDeadMale_greaterThan70) {
+		this.isDeadMale_greaterThan70 = isDeadMale_greaterThan70;
+	}
+
+	public int getIsDeadFemale_lessThan1() {
+		return isDeadFemale_lessThan1;
+	}
+
+	public void setIsDeadFemale_lessThan1(int isDeadFemale_lessThan1) {
+		this.isDeadFemale_lessThan1 = isDeadFemale_lessThan1;
+	}
+
+	public int getIsDeadFemale_1_4() {
+		return isDeadFemale_1_4;
+	}
+
+	public void setIsDeadFemale_1_4(int isDeadFemale_1_4) {
+		this.isDeadFemale_1_4 = isDeadFemale_1_4;
+	}
+
+	public int getIsDeadFemale_5_16() {
+		return isDeadFemale_5_16;
+	}
+
+	public void setIsDeadFemale_5_16(int isDeadFemale_5_16) {
+		this.isDeadFemale_5_16 = isDeadFemale_5_16;
+	}
+
+	public int getIsDeadFemale_17_49() {
+		return isDeadFemale_17_49;
+	}
+
+	public void setIsDeadFemale_17_49(int isDeadFemale_17_49) {
+		this.isDeadFemale_17_49 = isDeadFemale_17_49;
+	}
+
+	public int getIsDeadFemale_50_69() {
+		return isDeadFemale_50_69;
+	}
+
+	public void setIsDeadFemale_50_69(int isDeadFemale_50_69) {
+		this.isDeadFemale_50_69 = isDeadFemale_50_69;
+	}
+
+	public int getIsDeadFemale_greaterThan70() {
+		return isDeadFemale_greaterThan70;
+	}
+
+	public void setIsDeadFemale_greaterThan70(int isDeadFemale_greaterThan70) {
+		this.isDeadFemale_greaterThan70 = isDeadFemale_greaterThan70;
+	}
+
+	public int getTotalLiveMale() {
+		return totalLiveMale;
+	}
+
+	public void setTotalLiveMale(int totalLiveMale) {
+		this.totalLiveMale = totalLiveMale;
+	}
+
+	public int getTotalLiveFemale() {
+		return totalLiveFemale;
+	}
+
+	public void setTotalLiveFemale(int totalLiveFemale) {
+		this.totalLiveFemale = totalLiveFemale;
+	}
+
+	public int getTotalDeadMale() {
+		return totalDeadMale;
+	}
+
+	public void setTotalDeadMale(int totalDeadMale) {
+		this.totalDeadMale = totalDeadMale;
+	}
+
+	public int getTotalDeadFemale() {
+		return totalDeadFemale;
+	}
+
+	public void setTotalDeadFemale(int totalDeadFemale) {
+		this.totalDeadFemale = totalDeadFemale;
+	}
+
+}

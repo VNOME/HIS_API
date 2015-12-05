@@ -1,0 +1,60 @@
+package lib.driver.laboratory.driver_class;
+
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.LabOrder;
+import core.classes.laboratory.ProthrombinTimeResult;
+
+
+
+
+public class ProthrombinTimeDBDriver {
+
+
+	/*
+	 * manupulate data in db table labTestResult_ProthrombinTime by MR
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public ProthrombinTimeDBDriver() {
+
+		
+	}
+
+	// insert data to db table labTestResult_ProthrombinTime
+	public void insertData(ProthrombinTimeResult ptr, int orderID, int labID,int doneBy,int chkBy,int createBy) {
+
+		session.beginTransaction();
+
+		// added MR for labid
+		Lab lab = (Lab) session.get(Lab.class, labID);
+		ptr.setLabID(lab);
+		// -------------
+		// added MR for orderid
+		LabOrder labOrder = (LabOrder) session.get(LabOrder.class, orderID);
+		ptr.setPtOrderID(labOrder);
+		// -------------
+		Employee doneEmp=(Employee)session.get(Employee.class, doneBy);
+		ptr.setPtDoneBy(doneEmp);
+		
+		Employee chkByEmp=(Employee)session.get(Employee.class, chkBy);
+		ptr.setPtCheckedBy(chkByEmp);
+		
+		User creUser=(User) session.get(User.class, createBy);
+		ptr.setPtCreateUser(creUser);
+		
+		
+		session.save(ptr);
+
+		session.getTransaction().commit();
+
+	}
+
+
+}

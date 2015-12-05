@@ -1,0 +1,108 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.user.User;
+
+public class TestDescription {
+
+	int testID;
+	String testName;
+	String testDescription;
+	String testCategory;
+	String testProcedure;
+	Boolean testIsSpecimenAvailable;
+	String testSpecimenType;
+	String testResultTableName;
+	String testLoincCode;
+	
+	User testCreateUser;
+	User testLastUpdateUser;
+	Date testCreateDate;
+	Date testLastUpdate;
+	
+	public int getTestID() {
+		return testID;
+	}
+	public void setTestID(int testID) {
+		this.testID = testID;
+	}
+	public String getTestName() {
+		return testName;
+	}
+	public void setTestName(String testName) {
+		this.testName = testName;
+	}
+	public String getTestDescription() {
+		return testDescription;
+	}
+	public void setTestDescription(String testDescription) {
+		this.testDescription = testDescription;
+	}	
+	public String getTestProcedure() {
+		return testProcedure;
+	}
+	public void setTestProcedure(String testProcedure) {
+		this.testProcedure = testProcedure;
+	}
+	
+	public String getTestResultTableName() {
+		return testResultTableName;
+	}
+	public void setTestResultTableName(String testResultTableName) {
+		this.testResultTableName = testResultTableName;
+	}
+	public String getTestCategory() {
+		return testCategory;
+	}
+	public void setTestCategory(String testCategory) {
+		this.testCategory = testCategory;
+	}
+	public Boolean getTestIsSpecimenAvailable() {
+		return testIsSpecimenAvailable;
+	}
+	public void setTestIsSpecimenAvailable(Boolean testIsSpecimenAvailable) {
+		this.testIsSpecimenAvailable = testIsSpecimenAvailable;
+	}
+	public String getTestSpecimenType() {
+		return testSpecimenType;
+	}
+	public void setTestSpecimenType(String testSpecimenType) {
+		this.testSpecimenType = testSpecimenType;
+	}
+	public String getTestLoincCode() {
+		return testLoincCode;
+	}
+	public void setTestLoincCode(String testLoincCode) {
+		this.testLoincCode = testLoincCode;
+	}
+	public Date getTestCreateDate() {
+		return testCreateDate;
+	}
+	public void setTestCreateDate(Date testCreateDate) {
+		this.testCreateDate = testCreateDate;
+	}
+	public Date getTestLastUpdate() {
+		return testLastUpdate;
+	}
+	public void setTestLastUpdate(Date testLastUpdate) {
+		this.testLastUpdate = testLastUpdate;
+	}
+	public User getTestCreateUser() {
+		return testCreateUser;
+	}
+	public void setTestCreateUser(User testCreateUser) {
+		this.testCreateUser = testCreateUser;
+	}
+	public User getTestLastUpdateUser() {
+		return testLastUpdateUser;
+	}
+	public void setTestLastUpdateUser(User testLastUpdateUser) {
+		this.testLastUpdateUser = testLastUpdateUser;
+	}
+	
+	
+	
+
+	
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	<class name="core.classes.laboratory.TestDescriptionReference" table="lab_test_description_reference">
+	
+		<id name="referenceID" type="int" column="labTestDescriptionReference_ID">
+			<generator class="increment" />
+		</id>
+		
+		<many-to-one name="testID" class="core.classes.laboratory.TestDescription"
+			fetch="join" cascade="all">
+			<column name="labTestDescriptionReference_TestID" not-null="true" />
+		</many-to-one>
+		
+		<property name="referenceColumnName" column="labTestDescriptionReference_ColumnName"
+			type="string" />
+		<property name="referenceMinValue" column="labTestDescriptionReference_MinValue"
+			type="double" />
+		<property name="referenceMaxValue" column="labTestDescriptionReference_MaxValue"
+			type="double" />
+		
+		<many-to-one name="referenceCreateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestDescriptionReference_CreateUser"/>
+        </many-to-one>
+        
+		<many-to-one name="referenceLastUpdateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestDescriptionReference_LastUpdateUser"/>
+        </many-to-one>
+        
+		
+
+<!-- 		<property name="referenceCreateUser" column="labTestDescriptionReference_CreateUser"
+			type="int" />
+		<property name="referenceLastUpdateUser" column="labTestDescriptionReference_LastUpdateUser"
+			type="int" /> -->
+		<property name="referenceCreateDate" column="labTestDescriptionReference_CreateDate"
+			type="java.util.Date" />
+		<property name="referenceLastUpdate" column="labTestDescriptionReference_LastUpdate"
+			type="java.util.Date" />
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,83 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import lib.driver.laboratory.driver_class.SpecimenOfBloodSugarResultDBDriver;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.laboratory.SpecimenOfBloodSugarResult;
+
+
+
+@Path("SpecimanOfBloodSugar")
+public class SpecimenOfBloodSugarResultResource {
+	
+	SpecimenOfBloodSugarResultDBDriver sd = new SpecimenOfBloodSugarResultDBDriver();
+	/*
+	 * Insert Test Result
+	 */
+	@POST
+	@Path("/addSBSResult")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addSpecimenOfBlood(JSONObject json) {
+
+		DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		// Date date = formatter.parse(json.get("Date").toString());
+
+		SpecimenOfBloodSugarResult spe = new SpecimenOfBloodSugarResult();
+
+		try {
+
+			int LabID = json.getInt("labID");
+
+			int OrderID = json.getInt("orderID");
+
+			int doneBy=json.getInt("doneBy");
+			int chkBy=json.getInt("checkedBy");
+			int userID=json.getInt("createUser");
+
+			Date CompletedDate = formatter.parse(json.get("completedDate")
+					.toString());
+			Date CreateDate = formatter
+					.parse(json.get("createDate").toString());
+
+			spe.setSbsCompletedDate(CompletedDate);
+			spe.setSbsCreateDate(CreateDate);
+			spe.setSbsFBS(Double.valueOf(json.get("fBS").toString()));
+			// spe.setLastUpdate(CompletedDate);
+			// spe.setLastUpdateUser(json.getInt("doneBy"));
+			spe.setSbsPPBS(Double.valueOf(json.get("pPB").toString()));
+			spe.setSbsRBS(Double.valueOf(json.get("rBS").toString()));
+			spe.setSbsRemarks(json.get("remarks").toString());
+			spe.setSbsUrineSugar(Double.valueOf(json.get("urineSugar").toString()));
+
+			
+
+			if(sd.saveSpecimen(spe, OrderID, LabID,doneBy,chkBy,userID)){
+
+				return "OK";
+			}else{
+				return "not that ok";
+				
+			}
+
+		} catch (Exception ex) {
+			return ex.getMessage();
+		}
+	}
+
+	
+}

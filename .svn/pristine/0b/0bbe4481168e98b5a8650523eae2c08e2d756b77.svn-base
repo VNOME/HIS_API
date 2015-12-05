@@ -1,0 +1,160 @@
+package lib.driver.api.driver_class.admin;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import lib.SessionFactoryUtil;
+import core.classes.*;
+import core.classes.api.admin.Department;
+
+/***
+ * 
+ * @author RUSIRU
+ *
+ */
+public class DepartmentDBDriver {
+	
+	Session session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+	
+	
+	/***
+	 * 
+	 * @param dept
+	 * @return
+	 */
+	public boolean insertDepartment(Department dept)
+	{
+		Transaction tx= null;
+		
+    try{		
+			tx = session.beginTransaction();
+			session.save(dept);
+			tx.commit();
+			return true;
+        }
+    
+    catch(RuntimeException ex){
+		if(tx != null && tx.isActive())
+		{
+			try{
+				tx.rollback();
+			}catch(HibernateException he){
+				System.err.println("Error rolling back transaction");
+			}
+			throw ex;
+		}
+		return true;
+	 }
+    
+	}
+	
+	
+	/***
+	 * 
+	 * @param dept
+	 * @return
+	 */
+	public boolean updateDepartment(Department dept)
+	{
+         Transaction tx=null;
+		
+		try{
+			tx=session.beginTransaction();
+			session.update(dept);
+			tx.commit();
+			return true;
+		}
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+	}
+
+
+
+/***
+ * 
+ * @param dept
+ * @return
+ */
+public boolean deleteDepartment(Department dept)
+{
+	Transaction tx=null;
+	
+try {
+		
+		tx=session.beginTransaction();
+		session.delete(dept);
+		tx.commit();
+		return true;	
+	}
+
+catch (RuntimeException ex) {
+	if(tx != null && tx.isActive()){
+		try{
+			tx.rollback();
+		}catch(HibernateException he){
+			System.err.println("Error rolling back transaction");
+		}
+		throw ex;
+	}
+	return false;
+    }
+	
+  }
+
+
+/***
+ * 
+ * @return
+ */
+public List<Department> getDepartmentList()
+{
+	Transaction tx = null;
+	
+	try
+	{
+		tx = session.beginTransaction();
+		Query qq = session.createQuery("select d from Department as d");
+		List<Department> deptList = castList(Department.class, qq.list());
+		tx.commit();
+	    return deptList;	
+	}
+	
+	catch(RuntimeException ex){
+		if(tx != null && tx.isActive())
+		{
+			try{
+				tx.rollback();
+			}
+			catch(HibernateException he){
+				System.err.println("Error rolling back transaction");
+			}
+			throw ex;
+		}
+		return null;
+	}
+}
+
+public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+    List<T> r = new ArrayList<T>(c.size());
+    for(Object o: c)
+      r.add(clazz.cast(o));
+    return r;
+}
+
+}

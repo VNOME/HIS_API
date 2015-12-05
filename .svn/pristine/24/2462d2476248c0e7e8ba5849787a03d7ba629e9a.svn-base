@@ -1,0 +1,110 @@
+package core.resources.api.admin;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.POST;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.api.admin.Department;
+import flexjson.JSONSerializer;
+import flexjson.transformer.DateTransformer;
+
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import lib.driver.api.driver_class.admin.DepartmentDBDriver;
+
+//import classes
+
+
+/***
+ * 
+ * @author RUSIRU
+ *
+ */
+@Path("Department")
+public class DeptResource {
+
+	DepartmentDBDriver deptdriver = new DepartmentDBDriver();
+	//DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+	
+	
+	/***
+	 * 
+	 * @param djson
+	 * @return
+	 */
+	@POST
+	@Path("/addDepartment")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addDepartment(JSONObject djson)
+	{
+		String result="false";
+		boolean r=false;
+		Department dept=new Department();
+		
+		try
+		{
+			dept.setDeptID(djson.getInt("deptID"));
+			dept.setDeptName(djson.getString("deptName"));
+			dept.setDeptSection(djson.getString("deptSection"));
+			dept.setDeptTelephone(djson.getString("deptTelephone"));
+			
+			r= deptdriver.insertDepartment(dept);
+			result= String.valueOf(r);
+			return result;
+		}
+		
+		catch(JSONException ex)
+		{
+			ex.printStackTrace();
+			return result;
+		}
+	}
+	
+	
+	/***
+	 * 
+	 * @param djson
+	 * @return
+	 */
+	@POST
+	@Path("/updateDepartment")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String update(JSONObject djson)
+	{
+		String result="false";
+		boolean r=false;
+		Department dept=new Department();
+		
+		try
+		{
+			dept.setDeptID(djson.getInt("deptID"));
+			dept.setDeptName(djson.getString("deptName"));
+			dept.setDeptSection(djson.getString("deptSection"));
+			dept.setDeptTelephone(djson.getString("deptTelephone"));
+			
+			r= deptdriver.updateDepartment(dept);
+			result= String.valueOf(r);
+			return result;
+		}
+		catch(JSONException ex)
+		{
+			ex.printStackTrace();
+			return result;
+		}
+		
+	}
+	
+}

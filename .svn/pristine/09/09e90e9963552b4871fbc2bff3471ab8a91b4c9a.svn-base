@@ -1,0 +1,80 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.user.User;
+
+public class LabEquipmentUser {
+/*
+ * Related to lab equipment user 
+ * corresponding db table is lab_equipment_user (many-to-many between user and equipment)
+ * concern about which equipment is assigned to which user
+ * by MR
+ */
+	int equipmentUserID;//unique
+	LabEquipment equipmentID;
+	User equipmentUser;
+	String equipmentRemarks;
+	
+	User equipmentCreateUser;
+	User equipmentLastUpdateUser;
+	Date equipmentCreateDate;
+	Date equipmentLastUpdate;
+	
+	
+	public int getEquipmentUserID() {
+		return equipmentUserID;
+	}
+	public void setEquipmentUserID(int equipmentUserID) {
+		this.equipmentUserID = equipmentUserID;
+	}
+	public LabEquipment getEquipmentID() {
+		return equipmentID;
+	}
+	public void setEquipmentID(LabEquipment equipmentID) {
+		this.equipmentID = equipmentID;
+	}
+	public User getEquipmentUser() {
+		return equipmentUser;
+	}
+	public void setEquipmentUser(User equipmentUser) {
+		this.equipmentUser = equipmentUser;
+	}
+	public String getEquipmentRemarks() {
+		return equipmentRemarks;
+	}
+	public void setEquipmentRemarks(String equipmentRemarks) {
+		this.equipmentRemarks = equipmentRemarks;
+	}
+
+	public User getEquipmentCreateUser() {
+		return equipmentCreateUser;
+	}
+	public void setEquipmentCreateUser(User equipmentCreateUser) {
+		this.equipmentCreateUser = equipmentCreateUser;
+	}
+	public User getEquipmentLastUpdateUser() {
+		return equipmentLastUpdateUser;
+	}
+	public void setEquipmentLastUpdateUser(User equipmentLastUpdateUser) {
+		this.equipmentLastUpdateUser = equipmentLastUpdateUser;
+	}
+	public Date getEquipmentCreateDate() {
+		return equipmentCreateDate;
+	}
+	public void setEquipmentCreateDate(Date equipmentCreateDate) {
+		this.equipmentCreateDate = equipmentCreateDate;
+	}
+	public Date getEquipmentLastUpdate() {
+		return equipmentLastUpdate;
+	}
+	public void setEquipmentLastUpdate(Date equipmentLastUpdate) {
+		this.equipmentLastUpdate = equipmentLastUpdate;
+	}
+	
+	
+	
+
+	
+
+}

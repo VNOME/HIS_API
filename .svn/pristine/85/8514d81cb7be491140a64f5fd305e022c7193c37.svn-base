@@ -1,0 +1,276 @@
+package lib.driver.api.driver_class.admin;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.jws.soap.SOAPBinding.Use;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import lib.SessionFactoryUtil;
+import core.classes.*;
+import core.classes.api.admin.Department;
+import core.classes.api.admin.Employee;
+import core.resources.*;
+
+/***
+ * 
+ * @author RUSIRU
+ *
+ */
+
+public class EmployeeDBDriver {
+	
+	Session session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+	
+	/***
+	 * 
+	 * @param emp
+	 * @param deptID
+	 * @return
+	 */
+	public boolean insertEmp(Employee emp,int deptID)
+	{
+		Transaction tx= null;
+		
+		try{
+			tx = session.beginTransaction();
+			Department dept = (Department) session.get(Department.class, deptID);
+			emp.setDepartment(dept);
+			session.save(emp);
+			tx.commit();
+			return true;
+		}
+		
+	catch(RuntimeException ex){
+		if(tx != null && tx.isActive())
+		{
+			try{
+				tx.rollback();
+			}catch(HibernateException he){
+				System.err.println("Error rolling back transaction");
+			}
+			throw ex;
+		}
+		return false;
+	}
+		
+	}
+	
+	/***
+	 * 
+	 * @param emp
+	 * @param deptID
+	 * @return
+	 */
+	
+	public boolean updateEmp(Employee emp,int deptID)
+	{
+		Transaction tx=null;
+		
+		try{
+			tx=session.beginTransaction();
+			Employee employee = (Employee) session.get(Employee.class, emp.getEmpID());
+			
+			Department dept = (Department) session.get(Department.class, deptID);
+			emp.setDepartment(dept);
+			
+			employee.setEmpSerialNo(emp.getEmpSerialNo());
+			employee.setEmpNIC(emp.getEmpNIC());
+			employee.setEmpName(emp.getEmpName());
+			employee.setEmpDOB(emp.getEmpDOB());
+			employee.setEmpAddress(emp.getEmpAddress());
+			employee.setEmpTelephoneNo(emp.getEmpTelephoneNo());
+			employee.setEmpGender(emp.getEmpGender());
+			employee.setCivilStatus(emp.getCivilStatus());
+			employee.setEmpType(emp.getEmpType());
+			employee.setPost(emp.getPost());
+			employee.setAppointmentDate(emp.getAppointmentDate());
+			employee.setPensionDate(emp.getPensionDate());
+			employee.setWAndOPno(emp.getWAndOPno());
+			employee.setBasicSalary(emp.getBasicSalary());
+			employee.setSalaryCode(emp.getSalaryCode());
+			employee.setMedRegNo(emp.getMedRegNo());
+			employee.setDocType(emp.getDocType());
+			employee.setEmpActive(emp.getEmpActive());
+			
+			session.update(employee);
+			tx.commit();
+			return true;
+		}
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+	}
+	
+	/***
+	 * 
+	 * @param emp
+	 * @return
+	 */
+	
+	public boolean deleteEmp(Employee emp)
+	{
+		Transaction tx=null;
+		
+	try {
+			
+			tx=session.beginTransaction();
+			session.delete(emp);
+			tx.commit();
+			return true;	
+		}
+	
+	catch (RuntimeException ex) {
+		if(tx != null && tx.isActive()){
+			try{
+				tx.rollback();
+			}catch(HibernateException he){
+				System.err.println("Error rolling back transaction");
+			}
+			throw ex;
+		}
+		return false;
+	}
+		
+	}
+	
+	
+	/***
+	 * method to get employeeList
+	 * @return
+	 */
+	
+	public List<Employee> getEmployeeList()
+	{
+		Transaction tx = null;
+		
+		try
+		{
+			tx = session.beginTransaction();
+			Query qq = session.createQuery("select e from Employee as e ");
+			List<Employee> employeeList = qq.list();
+			tx.commit();
+		    return employeeList;	
+		}
+		catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}
+				catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+	
+	public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+	    List<T> r = new ArrayList<T>(c.size());
+	    for(Object o: c)
+	      r.add(clazz.cast(o));
+	    return r;
+	}
+	
+	
+	
+	public Employee getEmployee(int eID)
+	{
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			String hql = "select e from employee as where e.empID=:EID";
+			Query query = session.createQuery(hql);
+			query.setParameter("EID", eID);
+			Employee empList = (Employee) query.list().get(0);
+			tx.commit();
+			return empList;
+		}
+		
+		catch (RuntimeException ex) {
+			if (tx != null && tx.isActive()) {
+				try {
+					tx.rollback();
+				} catch (HibernateException he) {
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+	
+	
+	public List getEmpTypeList()
+	{
+		Transaction tx = null;
+		
+		try
+		{
+			tx = session.beginTransaction();
+			Query qq = session.createQuery("select Distinct e.empType from Employee as e ");
+			List empTypeList = qq.list();
+			tx.commit();
+		    return empTypeList;	
+		}
+		catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}
+				catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+	
+	public List<Employee> getEmpByEmpType(String employeeType){
+		Transaction tx = null;		
+		try
+		{
+			tx = session.beginTransaction();
+			Query qq = session.createQuery("select e from Employee as e where e.empType=:eType");
+			qq.setParameter("eType", employeeType);
+			List<Employee> empList = qq.list();
+			tx.commit();
+		    return empList;	
+		}
+		catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}
+				catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+	
+}

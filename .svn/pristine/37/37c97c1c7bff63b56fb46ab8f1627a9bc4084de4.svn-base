@@ -1,0 +1,309 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+package core.classes.api.standards.immr;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import lib.driver.api.driver_class.standards.immr.*;
+
+
+/**
+ * This Class contains the statistical calculations regarding Indoor Morbidity and Mortality Records
+ * @author IMANKA
+ * version 1.0
+ */
+
+public class CalculateImmr {
+	
+	
+	private int liveMale1=0;
+	private int liveMale2=0;
+	private int liveMale3=0;
+	private int liveMale4=0;
+	private int liveMale5=0;
+	private int liveMale6=0;
+	private int liveMale7=0;
+	
+	private int totalLiveMale=0;
+	
+	private int liveFemale9=0;
+	private int liveFemale10=0;
+	private int liveFemale11=0;
+	private int liveFemale12=0;
+	private int liveFemale13=0;
+	private int liveFemale14=0;
+	private int liveFemale15=0;
+	
+	private int totalLiveFemale=0;
+	
+	private int deathsMale17=0;
+	private int deathsMale18=0;
+	private int deathsMale19=0;
+	private int deathsMale20=0;
+	private int deathsMale21=0;
+	private int deathsMale22=0;
+	private int deathsMale23=0;
+	
+	private int totalDeadMale=0;
+	
+	private int deathsFemale25=0;
+	private int deathsFemale26=0;
+	private int deathsFemale27=0;
+	private int deathsFemale28=0;
+	private int deathsFemale29=0;
+	private int deathsFemale30=0;
+	private int deathsFemale31=0;
+	
+	private int totalDeadFemale=0;
+	
+	
+	ImmrStatisticsDBDriver immrStatisticsDBDriver=new ImmrStatisticsDBDriver();
+	
+	
+	/***
+	 * Method getImmrStaticticObjGivenImmrCode will return the relevant ImmrStatistics object which is stored in the database,
+	 * @param immrCode is a String value contains Immr Code
+	 * @return the particular ImmrStatistics type object
+	 */
+
+	public ImmrStatistics getImmrStaticticObjGivenImmrCode(String immrCode)
+	{
+		ImmrStatistics immrStatObj=immrStatisticsDBDriver.getImmrStatisticsRecordGivenImmrCode(immrCode);
+		return immrStatObj;
+	}
+	
+	
+	
+	/***
+	 *  The method updateImmrStatisticsLiveMale will Calculate IMMR Statistics regarding Live, Male Discharge Patients
+	 * @param immrCode  Gets the relevant IMMR code 
+	 * @param patinetAge Patient Age as input parameters
+	 */
+	
+	public void updateImmrStatisticsLiveMale(String immrCode,Double patinetAge)
+	{
+		if (patinetAge < 1) {
+			liveMale1 = liveMale1 + 1;
+		} else if (patinetAge >= 1 && patinetAge <= 4) {
+			liveMale2 = liveMale2 + 1;
+		} else if (patinetAge >= 5 && patinetAge <= 16) {
+			liveMale3 = liveMale3 + 1;
+		} else if (patinetAge >= 17 && patinetAge <= 49) {
+			liveMale4 = liveMale4 + 1;
+		} else if (patinetAge >= 50 && patinetAge <= 69) {
+			liveMale5 = liveMale5 + 1;
+		} else if (patinetAge >= 70) {
+			liveMale6 = liveMale6 + 1;
+		} else {
+			liveMale7 = liveMale7 + 1;
+		}
+
+		totalLiveMale = totalLiveMale + liveMale1 + liveMale2 + liveMale3
+				+ liveMale4 + liveMale5 + liveMale6 + liveMale7;
+		
+		ImmrStatistics lastImmrObj=getImmrStaticticObjGivenImmrCode(immrCode);
+		ImmrStatistics immrStatObj=lastImmrObj;
+		
+		immrStatObj.setIsLiveMale_lessThan1(liveMale1+lastImmrObj.getIsLiveMale_lessThan1());
+		immrStatObj.setIsLiveMale_1_4(liveMale2+lastImmrObj.getIsLiveMale_1_4());
+		immrStatObj.setIsLiveMale_5_16(liveMale3+lastImmrObj.getIsLiveMale_5_16());
+		immrStatObj.setIsLiveMale_17_49(liveMale4+lastImmrObj.getIsLiveMale_17_49());
+		immrStatObj.setIsLiveMale_50_69(liveMale5+lastImmrObj.getIsLiveMale_50_69());
+		immrStatObj.setIsLiveMale_greaterThan70(liveMale6+lastImmrObj.getIsLiveMale_greaterThan70());
+		
+		immrStatObj.setTotalLiveMale(totalLiveMale+lastImmrObj.getTotalLiveMale());
+		
+//		Update the IMMR statistical data in the database
+		updateImmrDetails(immrStatObj);
+	}	
+	
+	
+	/***
+	 * The method updateImmrStatisticsLiveFemale will Calculate IMMR Statistics regarding Live, Female Discharge Patients
+	 * @param immrCode Gets the relevant IMMR code
+	 * @param patinetAge Patient Age as input parameters
+	 */
+	
+	public void updateImmrStatisticsLiveFemale(String immrCode,Double patinetAge)
+	{	
+		if (patinetAge < 1) {
+			liveFemale9 = liveFemale9 + 1;
+		} else if (patinetAge >= 1 && patinetAge <= 4) {
+			liveFemale10 = liveFemale10 + 1;
+		} else if (patinetAge >= 5 && patinetAge <= 16) {
+			liveFemale11 = liveFemale11 + 1;
+		} else if (patinetAge >= 17 && patinetAge <= 49) {
+			liveFemale12 = liveFemale12 + 1;
+		} else if (patinetAge >= 50 && patinetAge <= 69) {
+			liveFemale13 = liveFemale13 + 1;
+		} else if (patinetAge >= 70) {
+			liveFemale14 = liveFemale14 + 1;
+		} else {
+			liveFemale15 = liveFemale15 + 1;
+		}
+
+		totalLiveFemale = totalLiveFemale + liveFemale9 + liveFemale10
+				+ liveFemale11 + liveFemale12 + liveFemale13 + liveFemale14
+				+ liveFemale15;
+		
+		ImmrStatistics lastImmrObj=getImmrStaticticObjGivenImmrCode(immrCode);
+		ImmrStatistics immrStatObj=lastImmrObj;
+		
+		immrStatObj.setIsLiveFemale_lessThan1(liveFemale9+lastImmrObj.getIsLiveFemale_lessThan1());
+		immrStatObj.setIsLiveFemale_1_4(liveFemale10+lastImmrObj.getIsLiveFemale_1_4());
+		immrStatObj.setIsLiveFemale_5_16(liveFemale11+lastImmrObj.getIsLiveFemale_5_16());
+		immrStatObj.setIsLiveFemale_17_49(liveFemale12+lastImmrObj.getIsLiveFemale_17_49());
+		immrStatObj.setIsLiveFemale_50_69(liveFemale13+lastImmrObj.getIsLiveFemale_50_69());
+		immrStatObj.setIsLiveFemale_greaterthan70(liveFemale14+lastImmrObj.getIsLiveFemale_greaterthan70());
+		
+		immrStatObj.setTotalLiveFemale(totalLiveFemale+lastImmrObj.getTotalLiveFemale());
+		
+//		Update the IMMR statistical data in the database
+		updateImmrDetails(immrStatObj);
+
+	}
+	
+	/***
+	 * The method updateImmrStatisticsDeadMale will Calculate IMMR Statistics regarding Dead, Male Discharge Patients
+	 * @param immrCode Gets the relevant IMMR code
+	 * @param patinetAge Patient Age as input parameters
+	 */
+	/*
+	 * The method updateImmrStatisticsDeadMale will Calculate IMMR Statistics regarding Dead, Male Discharge Patients
+	 * Gets the relevant IMMR code and Patient Age as input parameters
+	 */
+	public void updateImmrStatisticsDeadMale(String immrCode,Double patinetAge)
+	{
+		
+		if (patinetAge < 1) {
+			deathsMale17 = deathsMale17 + 1;
+		} else if (patinetAge >= 1 && patinetAge <= 4) {
+			deathsMale18 = deathsMale18 + 1;
+		} else if (patinetAge >= 5 && patinetAge <= 16) {
+			deathsMale19 = deathsMale19 + 1;
+		} else if (patinetAge >= 17 && patinetAge <= 49) {
+			deathsMale20 = deathsMale20 + 1;
+		} else if (patinetAge >= 50 && patinetAge <= 69) {
+			deathsMale21 = deathsMale21 + 1;
+		} else if (patinetAge >= 70) {
+			deathsMale22 = deathsMale22 + 1;
+		} else {
+			deathsMale23 = deathsMale23 + 1;
+		}
+
+		totalDeadMale = totalDeadMale + deathsMale17 + deathsMale18
+				+ deathsMale19 + deathsMale20 + deathsMale21 + deathsMale22
+				+ deathsMale23;
+		
+		ImmrStatistics lastImmrObj=getImmrStaticticObjGivenImmrCode(immrCode);
+		ImmrStatistics immrStatObj=lastImmrObj;
+		
+		immrStatObj.setIsDeadMale_lessThan1(deathsMale17+lastImmrObj.getIsDeadMale_lessThan1());
+		immrStatObj.setIsDeadMale_1_4(deathsMale18+lastImmrObj.getIsDeadMale_1_4());
+		immrStatObj.setIsDeadMale_5_16(deathsMale19+lastImmrObj.getIsDeadMale_5_16());
+		immrStatObj.setIsDeadMale_17_49(deathsMale20+lastImmrObj.getIsDeadMale_17_49());
+		immrStatObj.setIsDeadMale_50_69(deathsMale21+lastImmrObj.getIsDeadFemale_50_69());
+		immrStatObj.setIsDeadMale_greaterThan70(deathsMale22+lastImmrObj.getIsDeadMale_greaterThan70());
+		
+		immrStatObj.setTotalDeadMale(totalDeadMale+lastImmrObj.getTotalDeadMale());
+		
+//		Update the IMMR statistical data in the database
+		updateImmrDetails(immrStatObj);
+
+	}
+	
+	/***
+	 *  The method updateImmrStatisticsDeadMale will Calculate IMMR Statistics regarding Dead, Female Discharge Patients
+	 * @param immrCode  Gets the relevant IMMR code
+	 * @param patinetAge Patient Age as input
+	 */
+
+	public void updateImmrStatisticsDeadFemale(String immrCode, Double patinetAge)
+	{
+
+		if (patinetAge < 1) {
+			deathsFemale25 = deathsFemale25 + 1;
+		} else if (patinetAge >= 1 && patinetAge <= 4) {
+			deathsFemale26 = deathsFemale26 + 1;
+		} else if (patinetAge >= 5 && patinetAge <= 16) {
+			deathsFemale27 = deathsFemale27 + 1;
+		} else if (patinetAge >= 17 && patinetAge <= 49) {
+			deathsFemale28 = deathsFemale28 + 1;
+		} else if (patinetAge >= 50 && patinetAge <= 69) {
+			deathsFemale29 = deathsFemale29 + 1;
+		} else if (patinetAge >= 70) {
+			deathsFemale30 = deathsFemale30 + 1;
+		} else {
+			deathsFemale31 = deathsFemale31 + 1;
+		}
+
+		totalDeadFemale = totalDeadFemale + deathsFemale25 + deathsFemale26
+				+ deathsFemale27 + deathsFemale28 + deathsFemale29
+				+ deathsFemale30 + deathsFemale31;
+		
+		ImmrStatistics lastImmrObj=getImmrStaticticObjGivenImmrCode(immrCode);
+		ImmrStatistics immrStatObj=lastImmrObj;
+		
+		immrStatObj.setIsDeadFemale_lessThan1(deathsFemale25+lastImmrObj.getIsDeadFemale_lessThan1());
+		immrStatObj.setIsDeadFemale_1_4(deathsFemale26+lastImmrObj.getIsDeadFemale_1_4());
+		immrStatObj.setIsDeadFemale_5_16(deathsFemale27+lastImmrObj.getIsDeadFemale_5_16());
+		immrStatObj.setIsDeadFemale_17_49(deathsFemale28+lastImmrObj.getIsDeadFemale_17_49());
+		immrStatObj.setIsDeadFemale_50_69(deathsFemale29+lastImmrObj.getIsDeadFemale_50_69());
+		immrStatObj.setIsDeadFemale_greaterThan70(deathsFemale30+lastImmrObj.getIsDeadFemale_greaterThan70());
+		
+		immrStatObj.setTotalDeadFemale(totalDeadFemale+lastImmrObj.getTotalDeadFemale());
+		
+//		Update the IMMR statistical data in the database
+		updateImmrDetails(immrStatObj);
+
+	}
+	
+
+	/***
+	 * The method updateImmrDetails updates the IMMR statistical data in the Database
+	 * @param immrStat Gets ImmrStatistics type object as an input parameter
+	 * @return
+	 */
+
+	public String updateImmrDetails(ImmrStatistics immrStat) {
+
+		String result = "false";
+		boolean r = false;
+		ImmrStatistics immrStatisticsObj = immrStat;
+
+		DateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+
+			r = immrStatisticsDBDriver.updateImmrStatisticsRecord(immrStatisticsObj);
+			result = String.valueOf(r);
+			return result;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return ex.getMessage();
+		}
+
+	}
+
+	
+	
+	
+	}
+	
+
+

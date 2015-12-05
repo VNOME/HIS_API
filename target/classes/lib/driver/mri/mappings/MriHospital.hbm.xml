@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriHospital" table="mri_hospital" catalog="his">
+        <id name="hospitalId" type="java.lang.Integer">
+            <column name="hospital_id" />
+            <generator class="identity" />
+        </id>
+        <property name="hospitalName" type="string">
+            <column name="hospital_name" length="300" not-null="true" />
+        </property>
+        <property name="address" type="string">
+            <column name="address" length="300" not-null="true" />
+        </property>
+        <property name="location" type="string">
+            <column name="location" length="300" not-null="true" />
+        </property>
+        <property name="contactNo1" type="string">
+            <column name="contact_no_1" length="50" not-null="true" />
+        </property>
+        <property name="contactNo2" type="string">
+            <column name="contact_no_2" length="50" not-null="true" />
+        </property>
+        <set name="mriBundles" table="mri_bundle" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fhospital_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriBundle" />
+        </set>
+        <set name="mriHospitalPatients" table="mri_hospital_patient" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fhospital_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriHospitalPatient" />
+        </set>
+    </class>
+</hibernate-mapping>

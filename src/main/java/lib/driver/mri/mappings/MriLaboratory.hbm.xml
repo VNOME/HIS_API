@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriLaboratory" table="mri_laboratory" catalog="his">
+        <id name="laboratoryId" type="java.lang.Integer">
+            <column name="laboratory_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriDepartment" class="core.classes.mri.MriDepartment" fetch="select">
+            <column name="fdepartment_id" />
+        </many-to-one>
+        <many-to-one name="mriEmployee" class="core.classes.mri.MriEmployee" fetch="select">
+            <column name="flaboratory_incharge_id" not-null="true" />
+        </many-to-one>
+        <property name="laboratoryName" type="string">
+            <column name="laboratory_name" length="11" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="100" />
+        </property>
+        <property name="contactNo1" type="string">
+            <column name="contact_no_1" length="10" not-null="true" />
+        </property>
+        <property name="contactNo2" type="string">
+            <column name="contact_no_2" length="10" not-null="true" />
+        </property>
+        <set name="mriEmployeeWorkins" table="mri_employee_workin" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="flaboratory_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriEmployeeWorkin" />
+        </set>
+        <set name="mriLaboratoryTests" table="mri_laboratory_test" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="flaboratory_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriLaboratoryTest" />
+        </set>
+    </class>
+</hibernate-mapping>

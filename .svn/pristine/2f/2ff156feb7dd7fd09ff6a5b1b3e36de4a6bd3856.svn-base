@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 20, 2013 10:36:55 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.admin.Department" table="department">
+        <id name="deptID" type="int">
+            <column name="department_ID" />
+            <generator class="native" />
+        </id>
+        <property name="deptName" type="java.lang.String">
+            <column name="department_Name" />
+        </property>
+        <property name="deptSection" type="java.lang.String">
+            <column name="department_Section" />
+        </property>
+        <property name="deptTelephone" type="java.lang.String">
+            <column name="department_Telephone" />
+        </property>
+        
+        <set name="employee" table="employee" inverse="true" lazy="false" fetch="select" cascade="all">
+            <key>
+                <column name="department_ID" not-null="true"/>
+            </key>
+            <one-to-many class="core.classes.api.admin.Employee" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

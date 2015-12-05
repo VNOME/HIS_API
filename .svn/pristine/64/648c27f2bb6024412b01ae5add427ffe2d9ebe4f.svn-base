@@ -1,0 +1,133 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class LipidProfileResult {
+	/*
+	 * This class corresponds to db table labTestResult_LipidProfile by FF
+	 */
+
+	int lpReportID;
+	LabOrder lpOrderID;
+	Employee lpDoneBy;
+	Employee lpCheckedBy;
+	Lab labID;
+	String lpRemarks;
+
+	Date lpCompletedDate;
+	User lpCreateUser;
+	User lpLastUpdateUser;
+	Date lpCreateDate;
+	Date lpLastUpdate;
+
+	// result values relevant to lab test
+	Double lpCholesterol;
+	Double lpHDL;
+	Double lpTRIG;
+	Double lpLDL;
+	Double lpVLDL;
+	
+	
+	public Lab getLabID() {
+		return labID;
+	}
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+	public int getLpReportID() {
+		return lpReportID;
+	}
+	public void setLpReportID(int lpReportID) {
+		this.lpReportID = lpReportID;
+	}
+	public LabOrder getLpOrderID() {
+		return lpOrderID;
+	}
+	public void setLpOrderID(LabOrder lpOrderID) {
+		this.lpOrderID = lpOrderID;
+	}
+	public Employee getLpDoneBy() {
+		return lpDoneBy;
+	}
+	public void setLpDoneBy(Employee lpDoneBy) {
+		this.lpDoneBy = lpDoneBy;
+	}
+	public Employee getLpCheckedBy() {
+		return lpCheckedBy;
+	}
+	public void setLpCheckedBy(Employee lpCheckedBy) {
+		this.lpCheckedBy = lpCheckedBy;
+	}
+	public String getLpRemarks() {
+		return lpRemarks;
+	}
+	public void setLpRemarks(String lpRemarks) {
+		this.lpRemarks = lpRemarks;
+	}
+	public Date getLpCompletedDate() {
+		return lpCompletedDate;
+	}
+	public void setLpCompletedDate(Date lpCompletedDate) {
+		this.lpCompletedDate = lpCompletedDate;
+	}
+	public User getLpCreateUser() {
+		return lpCreateUser;
+	}
+	public void setLpCreateUser(User lpCreateUser) {
+		this.lpCreateUser = lpCreateUser;
+	}
+	public User getLpLastUpdateUser() {
+		return lpLastUpdateUser;
+	}
+	public void setLpLastUpdateUser(User lpLastUpdateUser) {
+		this.lpLastUpdateUser = lpLastUpdateUser;
+	}
+	public Date getLpCreateDate() {
+		return lpCreateDate;
+	}
+	public void setLpCreateDate(Date lpCreateDate) {
+		this.lpCreateDate = lpCreateDate;
+	}
+	public Date getLpLastUpdate() {
+		return lpLastUpdate;
+	}
+	public void setLpLastUpdate(Date lpLastUpdate) {
+		this.lpLastUpdate = lpLastUpdate;
+	}
+	public Double getLpCholesterol() {
+		return lpCholesterol;
+	}
+	public void setLpCholesterol(Double lpCholesterol) {
+		this.lpCholesterol = lpCholesterol;
+	}
+	public Double getLpHDL() {
+		return lpHDL;
+	}
+	public void setLpHDL(Double lpHDL) {
+		this.lpHDL = lpHDL;
+	}
+	public Double getLpTRIG() {
+		return lpTRIG;
+	}
+	public void setLpTRIG(Double lpTRIG) {
+		this.lpTRIG = lpTRIG;
+	}
+	public Double getLpLDL() {
+		return lpLDL;
+	}
+	public void setLpLDL(Double lpLDL) {
+		this.lpLDL = lpLDL;
+	}
+	public Double getLpVLDL() {
+		return lpVLDL;
+	}
+	public void setLpVLDL(Double lpVLDL) {
+		this.lpVLDL = lpVLDL;
+	}
+	
+	
+
+}

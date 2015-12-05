@@ -1,0 +1,127 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class SerumGlutamicOxaloaceticTransaminaseResult {
+	/*
+	 * This class corresponds to db table labTestResult_Serum Glutamic
+	 * Oxaloacetic Transaminase by FF
+	 */
+
+	int sgotReportID;
+	LabOrder sgotOrderID;
+	Employee sgotDoneBy;
+	Employee sgotCheckedBy;
+	Lab labID;
+	String sgotRemarks;
+
+	Date sgotCompletedDate;
+	User sgotCreateUser;
+	User sgotLastUpdateUser;
+	Date sgotCreateDate;
+	Date sgotLastUpdate;
+
+	// result values relevant to lab test
+	Double sGOT;
+
+	public Lab getLabID() {
+		return labID;
+	}
+
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+
+	
+	public int getSgotReportID() {
+		return sgotReportID;
+	}
+
+	public void setSgotReportID(int sgotReportID) {
+		this.sgotReportID = sgotReportID;
+	}
+
+	public LabOrder getSgotOrderID() {
+		return sgotOrderID;
+	}
+
+	public void setSgotOrderID(LabOrder sgotOrderID) {
+		this.sgotOrderID = sgotOrderID;
+	}
+
+	public Employee getSgotDoneBy() {
+		return sgotDoneBy;
+	}
+
+	public void setSgotDoneBy(Employee sgotDoneBy) {
+		this.sgotDoneBy = sgotDoneBy;
+	}
+
+	public Employee getSgotCheckedBy() {
+		return sgotCheckedBy;
+	}
+
+	public void setSgotCheckedBy(Employee sgotCheckedBy) {
+		this.sgotCheckedBy = sgotCheckedBy;
+	}
+
+	public String getSgotRemarks() {
+		return sgotRemarks;
+	}
+
+	public void setSgotRemarks(String sgotRemarks) {
+		this.sgotRemarks = sgotRemarks;
+	}
+
+	public Date getSgotCompletedDate() {
+		return sgotCompletedDate;
+	}
+
+	public void setSgotCompletedDate(Date sgotCompletedDate) {
+		this.sgotCompletedDate = sgotCompletedDate;
+	}
+
+	public User getSgotCreateUser() {
+		return sgotCreateUser;
+	}
+
+	public void setSgotCreateUser(User sgotCreateUser) {
+		this.sgotCreateUser = sgotCreateUser;
+	}
+
+	public User getSgotLastUpdateUser() {
+		return sgotLastUpdateUser;
+	}
+
+	public void setSgotLastUpdateUser(User sgotLastUpdateUser) {
+		this.sgotLastUpdateUser = sgotLastUpdateUser;
+	}
+
+	public Date getSgotCreateDate() {
+		return sgotCreateDate;
+	}
+
+	public void setSgotCreateDate(Date sgotCreateDate) {
+		this.sgotCreateDate = sgotCreateDate;
+	}
+
+	public Date getSgotLastUpdate() {
+		return sgotLastUpdate;
+	}
+
+	public void setSgotLastUpdate(Date sgotLastUpdate) {
+		this.sgotLastUpdate = sgotLastUpdate;
+	}
+
+	public Double getsGOT() {
+		return sGOT;
+	}
+
+	public void setsGOT(Double sGOT) {
+		this.sGOT = sGOT;
+	}
+
+}

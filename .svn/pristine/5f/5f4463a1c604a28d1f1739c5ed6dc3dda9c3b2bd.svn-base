@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+<class name="core.classes.laboratory.LabSpecimen" table="lab_specimen">
+
+		<id name="specimenID" type="double" column="labSpecimen_ID" />
+		
+		<property name="specimenStatus" column="labSpecimen_Status" type="string" />
+		<property name="specimenRemarks" column="labSpecimen_Remarks" type="string" />
+
+		
+		
+		<!-- <property name="specimenCollectedBy" column="labSpecimen_CollectedBy"
+			type="int" /> -->
+		<many-to-one name="specimenCollectedBy" class="core.classes.api.admin.Employee" fetch="join" lazy="false">
+        	<column name="labSpecimen_CollectedBy"/>
+        </many-to-one>
+		<property name="specimenCollectedDate" column="labSpecimen_CollectedDate"
+			type="java.util.Date" />
+
+<!-- 		<property name="specimenDeliveredBy" column="labSpecimen_DeliveredBy"
+			type="int" /> -->
+		<many-to-one name="specimenDeliveredBy" class="core.classes.api.admin.Employee" fetch="join" lazy="false">
+        	<column name="labSpecimen_DeliveredBy"/>
+        </many-to-one>
+		<property name="specimenDeliveredDate" column="labSpecimen_DeliveredDate"
+			type="java.util.Date" />
+
+<!-- 		<property name="specimenReceivedBy" column="labSpecimen_ReceivedBy"
+			type="int" /> -->
+		<many-to-one name="specimenReceivedBy" class="core.classes.api.admin.Employee" fetch="join" lazy="false">
+        	<column name="labSpecimen_ReceivedBy"/>
+        </many-to-one>
+		<property name="specimenReceivedDate" column="labSpecimen_ReceivedDate"
+			type="java.util.Date" />
+
+
+		<!-- <property name="specimenCreateUser" column="labSpecimen_CreateUser"
+			type="int" />
+		<property name="specimenLastUpdateUser" column="labSpecimen_LastUpdateUser"
+			type="int" /> -->
+	    <many-to-one name="specimenCreateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labSpecimen_CreateUser"/>
+        </many-to-one>
+        
+		<many-to-one name="specimenLastUpdateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labSpecimen_LastUpdateUser"/>
+        </many-to-one>	
+		<property name="specimenCreateDate" column="labSpecimen_CreateDate"
+			type="java.util.Date" />
+		<property name="specimenLastUpdate" column="labSpecimen_LastUpdate"
+			type="java.util.Date" />
+
+	</class>
+</hibernate-mapping>

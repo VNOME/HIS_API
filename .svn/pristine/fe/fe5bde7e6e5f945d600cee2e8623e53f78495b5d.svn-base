@@ -1,0 +1,186 @@
+package lib.driver.api.driver_class.admin;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.jws.soap.SOAPBinding.Use;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import lib.SessionFactoryUtil;
+import core.classes.*;
+import core.classes.api.admin.Employee;
+import core.classes.api.admin.Leaves;
+import core.resources.*;
+
+/***
+ * 
+ * @author RUSIRU
+ *
+ */
+public class LeaveDBDriver {
+	
+	Session session = SessionFactoryUtil.getSessionFactory().getCurrentSession();
+	
+	/***
+	 * 
+	 * @param le
+	 * @param empID
+	 * @return
+	 */
+	public boolean insertLeave(Leaves le,int empID)
+	{
+		Transaction tx= null;
+		
+		try{
+			tx = session.beginTransaction();
+			Employee emp = (Employee) session.get(Employee.class, empID);
+			le.setEmployee(emp);
+			session.save(le);
+			tx.commit();
+			return true;
+		}
+		
+	catch(RuntimeException ex){
+		if(tx != null && tx.isActive())
+		{
+			try{
+				tx.rollback();
+			}catch(HibernateException he){
+				System.err.println("Error rolling back transaction");
+			}
+			throw ex;
+		}
+		return false;
+	}
+		
+	}
+	
+	
+	/***
+	 * 
+	 * @param le
+	 * @param empID
+	 * @return
+	 */
+	public boolean updateLeave(Leaves le,int empID) 
+	{
+		Transaction tx=null;
+		
+		try{
+			tx=session.beginTransaction();
+			Leaves leaves = (Leaves) session.get(Leaves.class, le.getLeaveID());
+			
+			Employee emp = (Employee) session.get(Employee.class, empID);
+			le.setEmployee(emp);
+			
+			leaves.setLeaveStartDate(le.getLeaveStartDate());
+			leaves.setLeaveEndDate(le.getLeaveEndDate());
+			leaves.setLeaveApplyDate(le.getLeaveApplyDate());
+			leaves.setNumberOfDays(le.getNumberOfDays());
+			leaves.setLeaveType(le.getLeaveType());
+			leaves.setReason(le.getReason());
+			leaves.setAddressOnLeave(le.getAddressOnLeave());
+			leaves.setCurrentYearLeaves(le.getCurrentYearLeaves());
+			leaves.setStateOfLeave(le.getStateOfLeave());
+			session.update(leaves);
+			tx.commit();
+			return true;
+		}
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+	}
+	
+	
+	/***
+	 * 
+	 * @param le
+	 * @return
+	 */
+	public boolean deleteLeave(Leaves le)
+	{
+		Transaction tx=null;
+		
+	try {
+			
+			tx=session.beginTransaction();
+			session.delete(le);
+			tx.commit();
+			return true;	
+		}
+	
+	catch (RuntimeException ex) {
+		if(tx != null && tx.isActive()){
+			try{
+				tx.rollback();
+			}catch(HibernateException he){
+				System.err.println("Error rolling back transaction");
+			}
+			throw ex;
+		}
+		return false;
+	}
+		
+	}
+	
+	
+	/***
+	 * 
+	 * @param empID
+	 * @return
+	 */
+	public List<Leaves> getLeaveDetails(int empID)
+	{
+		Transaction tx = null;
+		
+		try
+		{
+			tx = session.beginTransaction();
+			Employee employee = (Employee) session.get(Employee.class, empID);
+			Query qq = session.createQuery("select l from Leaves as l where l.employee=:employee  order by leaveID desc");
+			qq.setParameter("employee",employee);
+			List<Leaves> leaveList = castList(Leaves.class, qq.list());
+			tx.commit();
+		    return leaveList;	
+		}
+		
+		catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}
+				catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+	
+	public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+	    List<T> r = new ArrayList<T>(c.size());
+	    for(Object o: c)
+	      r.add(clazz.cast(o));
+	    return r;
+	}
+	
+}

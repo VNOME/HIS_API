@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 31, 2013 2:45:00 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.standards.hin.Hin" table="hin">
+        <id name="hHinId" type="int" access="field">
+            <column name="hin_Id" />
+            <generator class="native" />
+        </id>
+        <property name="hDate" type="java.util.Date" access="field">
+            <column name="hin_Date" />
+        </property>
+        <property name="hPCI" type="java.lang.String" access="field">
+            <column name="hin_Pci" />
+        </property>
+        <property name="hLastSerialNumber" type="java.lang.String" access="field">
+            <column name="hin_LastserialNumber" />
+        </property>
+    </class>
+</hibernate-mapping>

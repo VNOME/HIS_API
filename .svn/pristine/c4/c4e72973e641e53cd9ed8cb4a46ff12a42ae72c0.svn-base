@@ -1,0 +1,61 @@
+package lib.driver.laboratory.driver_class;
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.LabOrder;
+import core.classes.laboratory.SerumProteinResult;
+
+
+
+
+
+public class SerumProteinDBDriver {
+
+	/*
+	 * manupulate data in db table labTestResult_SerumProteinResult by FF
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public SerumProteinDBDriver() {
+
+		
+	}
+
+	// insert data to db table labTestResult_SerumProteinResult
+	public void insertData(SerumProteinResult sp, int orderID, int labID,int doneBy,int chkBy,int createBy) {
+
+		session.beginTransaction();
+
+		// added FF for labid
+		Lab lab = (Lab) session.get(Lab.class, labID);
+		sp.setLabID(lab);
+		// -------------
+		// added FF for orderid
+		LabOrder labOrder = (LabOrder) session.get(LabOrder.class, orderID);
+		sp.setSpOrderID(labOrder);
+		// -------------
+		
+		Employee doneEmp=(Employee)session.get(Employee.class, doneBy);
+		sp.setSpDoneBy(doneEmp);
+		
+		Employee chkByEmp=(Employee)session.get(Employee.class, chkBy);
+		sp.setSpCheckedBy(chkByEmp);
+		
+		User creUser=(User) session.get(User.class, createBy);
+		sp.setSpCreateUser(creUser);
+
+		session.save(sp);
+
+		session.getTransaction().commit();
+
+	}
+
+
+
+
+}

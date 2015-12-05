@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2013 9:25:17 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+
+	<class name="core.classes.laboratory.SerumProteinResult" table="labTestResult_SerumProtein">
+
+		<id name="spReportID" type="int" column="labTestResult_ReportID">
+			<generator class="increment" />
+		</id>
+
+		<many-to-one name="spOrderID" class="core.classes.laboratory.LabOrder"
+			not-null="true" cascade="all" unique="true">
+			<column name="labTestResult_LabOrderID" />
+		</many-to-one>
+
+		<many-to-one name="spDoneBy" class="core.classes.api.admin.Employee" fetch="join" lazy="false">
+        	<column name="labTestResult_DoneBy"/>
+        </many-to-one>
+        
+		<many-to-one name="spCheckedBy" class="core.classes.api.admin.Employee" fetch="join" lazy="false">
+        	<column name="labTestResult_CheckedBy"/>
+        </many-to-one>
+
+		<many-to-one name="labID" class="core.classes.lab.Lab"
+			fetch="join">
+			<column name="labTestResult_LabID" not-null="true" />
+		</many-to-one>
+
+		<property name="spRemarks" column="labTestResult_Remarks" type="string" />
+
+
+		<property name="spAL" column="aL" type="double" />
+		<property name="spGL" column="gL" type="double" />
+
+
+		<property name="spCompletedDate" column="labTestResult_CompletedDate"
+			type="java.util.Date" />
+		
+		<many-to-one name="spCreateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestResult_CreateUser"/>
+        </many-to-one>        
+		<many-to-one name="spLastUpdateUser" class="core.classes.api.user.User" fetch="join" lazy="false">
+        	<column name="labTestResult_LastUpdateUser"/>
+        </many-to-one>
+		<property name="spCreateDate" column="labTestResult_CreateDate"
+			type="java.util.Date" />
+		<property name="spLastUpdate" column="labTestResult_LastUpdate"
+			type="java.util.Date" />
+	</class>
+</hibernate-mapping>

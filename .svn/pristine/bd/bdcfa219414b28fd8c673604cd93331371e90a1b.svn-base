@@ -1,0 +1,77 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+
+
+
+import lib.driver.laboratory.driver_class.SerumGlutamicOxaloaceticTransaminaseDBDriver;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.laboratory.SerumGlutamicOxaloaceticTransaminaseResult;
+
+
+
+@Path("SerumGlutamicOxaloaceticTransaminase")
+public class SerumGlutamicOxaloaceticTransaminaseResultService {
+
+	SerumGlutamicOxaloaceticTransaminaseDBDriver sgotsd = new SerumGlutamicOxaloaceticTransaminaseDBDriver();
+	/*
+	 * Add Serum Glutamic Oxaloacetic Transaminase Report by FF
+	 */
+	@POST
+	@Path("/addSGOTResult")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addReport(JSONObject json) {
+
+		/*
+		 * retrieve data from json object and pass it to service driver class by
+		 * FF
+		 */
+
+		int orderID, labOrder;
+
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+
+			SerumGlutamicOxaloaceticTransaminaseResult sgot = new SerumGlutamicOxaloaceticTransaminaseResult();
+
+			orderID = json.getInt("orderID");
+			labOrder = json.getInt("labID");
+
+			int doneBy=json.getInt("doneBy");
+			int chkBy=json.getInt("checkedBy");
+			sgot.setSgotRemarks(json.getString("remarks").toString());
+
+			sgot.setsGOT(Double.valueOf(json.getString(
+					"sGOT").toString()));
+			
+			sgot.setSgotCompletedDate(dateformat.parse(json.getString(
+					"completedDate").toString()));
+			sgot.setSgotCreateDate(dateformat.parse(json.getString("createDate")
+					.toString()));
+			int userID=json.getInt("createUser");
+			
+			
+
+			
+
+			sgotsd.insertData(sgot, orderID, labOrder,doneBy,chkBy,userID);
+
+			return "ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+}

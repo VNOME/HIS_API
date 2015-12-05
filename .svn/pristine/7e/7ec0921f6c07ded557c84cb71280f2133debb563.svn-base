@@ -1,0 +1,74 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.user.User;
+
+public class LabTestsInLabs {
+/*
+ * Related to lab tests which are conducted in different labs 
+ * corresponding db table is lab_tests_in_labs (many-to-many between lab_test_description and lab)
+ * concern about which lab tests are is conducted in which labs
+ * by MR
+ */
+	int labTestLabID;//unique
+	Lab labID;
+	TestDescription testID;
+	String labTestRemarks;
+	
+	User labTestCreateUser;
+	User labTestLastUpdateUser;
+	Date labTestCreateDate;
+	Date labTestLastUpdate;
+	
+	public int getLabTestLabID() {
+		return labTestLabID;
+	}
+	public void setLabTestLabID(int labTestLabID) {
+		this.labTestLabID = labTestLabID;
+	}
+	public Lab getLabID() {
+		return labID;
+	}
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+	public TestDescription getTestID() {
+		return testID;
+	}
+	public void setTestID(TestDescription testID) {
+		this.testID = testID;
+	}
+	public String getLabTestRemarks() {
+		return labTestRemarks;
+	}
+	public void setLabTestRemarks(String labTestRemarks) {
+		this.labTestRemarks = labTestRemarks;
+	}
+	public Date getLabTestCreateDate() {
+		return labTestCreateDate;
+	}
+	public void setLabTestCreateDate(Date labTestCreateDate) {
+		this.labTestCreateDate = labTestCreateDate;
+	}
+	public Date getLabTestLastUpdate() {
+		return labTestLastUpdate;
+	}
+	public void setLabTestLastUpdate(Date labTestLastUpdate) {
+		this.labTestLastUpdate = labTestLastUpdate;
+	}
+	public User getLabTestCreateUser() {
+		return labTestCreateUser;
+	}
+	public void setLabTestCreateUser(User labTestCreateUser) {
+		this.labTestCreateUser = labTestCreateUser;
+	}
+	public User getLabTestLastUpdateUser() {
+		return labTestLastUpdateUser;
+	}
+	public void setLabTestLastUpdateUser(User labTestLastUpdateUser) {
+		this.labTestLastUpdateUser = labTestLastUpdateUser;
+	}
+	
+
+}

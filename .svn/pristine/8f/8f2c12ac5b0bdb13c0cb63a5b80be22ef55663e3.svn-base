@@ -1,0 +1,31 @@
+package core.classes.opd;
+
+import core.classes.laboratory.LabOrder;
+
+/***
+ * OpdLabOrder class contains all the attributes and there getters and setters.
+ * @author MIYURU
+ *
+ */
+public class OpdLabOrder extends LabOrder {
+ 
+	private int labOrder_ID;
+	private Visit visit;
+	
+	
+	public Visit getVisit() {
+		return visit;
+	}
+	public void setVisit(Visit visit) {
+		this.visit = visit;
+	}
+	public int getLabOrder_ID() {
+		return labOrder_ID;
+	}
+	public void setLabOrder_ID(int labOrder_ID) {
+		this.labOrder_ID = labOrder_ID;
+	}
+	
+	 
+	 
+}

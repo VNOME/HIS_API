@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 6, 2015 6:20:37 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriTestSubFields" table="mri_test_sub_fields" catalog="his">
+        <id name="testSubFieldId" type="java.lang.Integer">
+            <column name="test_sub_field_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriTestParentFields" class="core.classes.mri.MriTestParentFields" fetch="select">
+            <column name="ftest_parent_field_id" not-null="true" />
+        </many-to-one>
+        <property name="testSubFieldName" type="string">
+            <column name="test_sub_field_name" length="11" not-null="true" />
+        </property>
+        <set name="mriSubFieldResults" table="mri_sub_field_result" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ftest_sub_field_id" />
+            </key>
+            <one-to-many class="core.classes.mri.MriSubFieldResult" />
+        </set>
+        <set name="mriTestSubFieldRanges" table="mri_test_sub_field_range" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="ftest_sub_field_id" />
+            </key>
+            <one-to-many class="core.classes.mri.MriTestSubFieldRange" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriUser" table="mri_user" catalog="his">
+        <id name="userId" type="java.lang.Integer">
+            <column name="user_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriEmployee" class="core.classes.mri.MriEmployee" fetch="select">
+            <column name="femployee_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="mriUserRoles" class="core.classes.mri.MriUserRoles" fetch="select">
+            <column name="fuser_role_id" not-null="true" />
+        </many-to-one>
+        <property name="userName" type="string">
+            <column name="user_name" length="50" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="100" not-null="true" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

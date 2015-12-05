@@ -1,0 +1,16 @@
+/**
+ * 
+ */
+package core.classes.opd;
+
+/**
+ * 
+ * @author Prabhath
+ * 
+ */
+
+public class OutPatient extends Patient {
+
+	public OutPatient() {
+	}
+}

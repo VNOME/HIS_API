@@ -1,0 +1,163 @@
+package core.classes.laboratory;
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class LiverProfileResult {
+	/*
+	 * This class corresponds to db table labTestResult_LiverProfile by MR
+	 */
+	
+	int lvReportID;
+	LabOrder lvOrderID;
+	Employee lvDoneBy;
+	Employee lvCheckedBy;
+	Lab labID;
+	String lvRemarks;
+	
+	Date lvCompletedDate;
+	User lvCreateUser;
+	User lvLastUpdateUser;
+	Date lvCreateDate;
+	Date lvLastUpdate;
+
+	// result values relevant to lab test
+	Double lvSerumProteinTotal;
+	Double lvSerumAlbumin;
+	Double lvGlobulin;
+	Double lvAGRatio;
+	Double lvSerumBilirubinTotal;
+	Double lvSerumAlkalinePhosphatase;
+	Double lvSGPT;
+	Double lvGammaGT;
+	Double lvSGOT;
+	
+	
+	public Lab getLabID() {
+		return labID;
+	}
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+	public int getLvReportID() {
+		return lvReportID;
+	}
+	public void setLvReportID(int lvReportID) {
+		this.lvReportID = lvReportID;
+	}
+	public LabOrder getLvOrderID() {
+		return lvOrderID;
+	}
+	public void setLvOrderID(LabOrder lvOrderID) {
+		this.lvOrderID = lvOrderID;
+	}
+
+	public String getLvRemarks() {
+		return lvRemarks;
+	}
+	public void setLvRemarks(String lvRemarks) {
+		this.lvRemarks = lvRemarks;
+	}
+	public Date getLvCompletedDate() {
+		return lvCompletedDate;
+	}
+	public void setLvCompletedDate(Date lvCompletedDate) {
+		this.lvCompletedDate = lvCompletedDate;
+	}
+	
+	public Employee getLvDoneBy() {
+		return lvDoneBy;
+	}
+	public void setLvDoneBy(Employee lvDoneBy) {
+		this.lvDoneBy = lvDoneBy;
+	}
+	public Employee getLvCheckedBy() {
+		return lvCheckedBy;
+	}
+	public void setLvCheckedBy(Employee lvCheckedBy) {
+		this.lvCheckedBy = lvCheckedBy;
+	}
+	public User getLvCreateUser() {
+		return lvCreateUser;
+	}
+	public void setLvCreateUser(User lvCreateUser) {
+		this.lvCreateUser = lvCreateUser;
+	}
+	public User getLvLastUpdateUser() {
+		return lvLastUpdateUser;
+	}
+	public void setLvLastUpdateUser(User lvLastUpdateUser) {
+		this.lvLastUpdateUser = lvLastUpdateUser;
+	}
+	public Date getLvCreateDate() {
+		return lvCreateDate;
+	}
+	public void setLvCreateDate(Date lvCreateDate) {
+		this.lvCreateDate = lvCreateDate;
+	}
+	public Date getLvLastUpdate() {
+		return lvLastUpdate;
+	}
+	public void setLvLastUpdate(Date lvLastUpdate) {
+		this.lvLastUpdate = lvLastUpdate;
+	}
+	public Double getLvSerumProteinTotal() {
+		return lvSerumProteinTotal;
+	}
+	public void setLvSerumProteinTotal(Double lvSerumProteinTotal) {
+		this.lvSerumProteinTotal = lvSerumProteinTotal;
+	}
+	public Double getLvSerumAlbumin() {
+		return lvSerumAlbumin;
+	}
+	public void setLvSerumAlbumin(Double lvSerumAlbumin) {
+		this.lvSerumAlbumin = lvSerumAlbumin;
+	}
+	public Double getLvGlobulin() {
+		return lvGlobulin;
+	}
+	public void setLvGlobulin(Double lvGlobulin) {
+		this.lvGlobulin = lvGlobulin;
+	}
+	public Double getLvAGRatio() {
+		return lvAGRatio;
+	}
+	public void setLvAGRatio(Double lvAGRatio) {
+		this.lvAGRatio = lvAGRatio;
+	}
+	public Double getLvSerumBilirubinTotal() {
+		return lvSerumBilirubinTotal;
+	}
+	public void setLvSerumBilirubinTotal(Double lvSerumBilirubinTotal) {
+		this.lvSerumBilirubinTotal = lvSerumBilirubinTotal;
+	}
+	public Double getLvSerumAlkalinePhosphatase() {
+		return lvSerumAlkalinePhosphatase;
+	}
+	public void setLvSerumAlkalinePhosphatase(Double lvSerumAlkalinePhosphatase) {
+		this.lvSerumAlkalinePhosphatase = lvSerumAlkalinePhosphatase;
+	}
+	public Double getLvSGPT() {
+		return lvSGPT;
+	}
+	public void setLvSGPT(Double lvSGPT) {
+		this.lvSGPT = lvSGPT;
+	}
+	public Double getLvGammaGT() {
+		return lvGammaGT;
+	}
+	public void setLvGammaGT(Double lvGammaGT) {
+		this.lvGammaGT = lvGammaGT;
+	}
+	public Double getLvSGOT() {
+		return lvSGOT;
+	}
+	public void setLvSGOT(Double lvSGOT) {
+		this.lvSGOT = lvSGOT;
+	}
+	
+	
+		
+
+}

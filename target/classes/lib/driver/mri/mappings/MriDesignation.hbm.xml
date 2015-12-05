@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriDesignation" table="mri_designation" catalog="his">
+        <id name="designationId" type="java.lang.Integer">
+            <column name="designation_id" />
+            <generator class="identity" />
+        </id>
+        <property name="designationName" type="string">
+            <column name="designation_name" length="100" not-null="true" />
+        </property>
+        <set name="mriEmployeeWorkins" table="mri_employee_workin" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fdesignation_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriEmployeeWorkin" />
+        </set>
+    </class>
+</hibernate-mapping>

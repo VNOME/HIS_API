@@ -1,0 +1,300 @@
+package core.resources.api.admin;
+
+import javax.jws.soap.SOAPBinding.Use;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.POST;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+import org.hibernate.Session;
+
+
+import flexjson.JSONDeserializer;
+import flexjson.JSONSerializer;
+import flexjson.transformer.DateTransformer;
+
+import java.util.Date;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+
+
+
+//import classes
+import core.classes.*;
+import core.classes.api.admin.Employee;
+import lib.SessionFactoryUtil;
+import lib.driver.api.driver_class.admin.EmployeeDBDriver;
+
+
+/***
+ * 
+ * @author RUSIRU
+ *
+ */
+
+@Path("Employee")
+public class EmpResource {
+	
+	EmployeeDBDriver empd = new EmployeeDBDriver();	
+	DateFormat dateformat = new SimpleDateFormat("dd/MM/yyyy");
+	
+	/***
+	 * A Post method to Insert Employees
+	 * @param ejson
+	 * @return
+	 */
+	
+	@POST
+	@Path("/addEmployee")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addEmp(JSONObject ejson)
+	{
+		String result="false";
+		boolean r=false;
+		Employee emp=new Employee();
+		
+		
+		try
+		{
+			emp.setEmpID(ejson.getInt("empID"));
+			emp.setEmpSerialNo(ejson.getInt("empSerialNo"));
+			emp.setEmpNIC(ejson.getString("empNIC"));
+			emp.setEmpName(ejson.getString("empName"));
+			emp.setEmpAddress(ejson.getString("empAddress"));
+			
+		
+			Date empDOB= dateformat.parse(ejson.getString("empDOB"));
+			emp.setEmpDOB(empDOB);
+			
+			emp.setEmpTelephoneNo(ejson.getString("empTelephoneNo"));
+			emp.setEmpGender(ejson.getString("empGender"));
+			emp.setCivilStatus(ejson.getString("civilStatus"));
+			emp.setEmpType(ejson.getString("empType"));
+			emp.setPost(ejson.getString("post"));
+			
+			Date empapp= dateformat.parse(ejson.getString("appointmentDate"));
+			emp.setAppointmentDate(empapp);
+			
+			Date empPen= dateformat.parse(ejson.getString("pensionDate"));
+			emp.setPensionDate(empPen);
+			
+			emp.setWAndOPno(ejson.getString("WAndOPno"));
+			emp.setBasicSalary(ejson.getDouble("basicSalary"));
+			emp.setSalaryCode(ejson.getString("salaryCode"));
+			emp.setMedRegNo(ejson.getString("medRegNo"));
+			emp.setDocType(ejson.getString("docType"));
+			emp.setEmpActive((byte)ejson.getInt("empActive"));
+			int deptID = ejson.getInt("deptID");
+			
+			r= empd.insertEmp(emp, deptID);
+			result= String.valueOf(r);
+			return result;
+		}
+		catch(JSONException ex)
+		{
+			ex.printStackTrace();
+			return result;
+		}
+		
+		catch(ParseException ex){
+			ex.printStackTrace();
+			return result;
+		}
+		
+	}
+	
+	
+	
+	/***
+	 * A method to update Employees
+	 * @param ejson
+	 * @return
+	 */
+	@PUT
+    @Path("/updateEmployee")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	
+	public String updateEmployee(JSONObject ejson)
+	{
+		String result="false";
+		boolean r=false;
+		Employee emp=new Employee();
+		//DateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");
+		
+		try{
+			
+			emp.setEmpID(ejson.getInt("empID"));
+			emp.setEmpSerialNo(ejson.getInt("empSerialNo"));
+			emp.setEmpNIC(ejson.getString("empNIC"));
+			emp.setEmpName(ejson.getString("empName"));
+			emp.setEmpAddress(ejson.getString("empAddress"));
+			
+		
+			Date empDOB= dateformat.parse(ejson.getString("empDOB"));
+			emp.setEmpDOB(empDOB);
+			
+			emp.setEmpTelephoneNo(ejson.getString("empTelephoneNo"));
+			emp.setEmpGender(ejson.getString("empGender"));
+			emp.setCivilStatus(ejson.getString("civilStatus"));
+			emp.setEmpType(ejson.getString("empType"));
+			emp.setPost(ejson.getString("post"));
+			
+			Date empapp= dateformat.parse(ejson.getString("appointmentDate"));
+			emp.setAppointmentDate(empapp);
+			
+			Date empPen= dateformat.parse(ejson.getString("pensionDate"));
+			emp.setPensionDate(empPen);
+			
+			emp.setWAndOPno(ejson.getString("WAndOPno"));
+			emp.setBasicSalary(ejson.getDouble("basicSalary"));
+			emp.setSalaryCode(ejson.getString("salaryCode"));
+			emp.setMedRegNo(ejson.getString("medRegNo"));
+			emp.setDocType(ejson.getString("docType"));
+			emp.setEmpActive((byte)ejson.getInt("empActive"));
+			int deptID = ejson.getInt("deptID");
+			
+			r= empd.updateEmp(emp,deptID);
+			result= String.valueOf(r);
+			return result;
+		}
+		
+		catch(JSONException ex){
+			ex.printStackTrace();	
+			return result;
+		}
+		catch(ParseException ex){
+			ex.printStackTrace();
+			return result;
+		}
+	}
+		
+
+	/***
+	 * A method to delete employees
+	 * @param ejson
+	 * @return
+	 */
+	
+	@PUT
+    @Path("/deleteEmployee")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_JSON)
+	
+	public String deleteEmployee(JSONObject ejson)
+	{
+		String result="false";
+		boolean r=false;
+		Employee emp=new Employee();
+		
+		try
+		{
+			emp.setEmpID(ejson.getInt("empID"));
+			emp.setEmpSerialNo(ejson.getInt("empSerialNo"));
+			emp.setEmpName(ejson.getString("empName"));
+			emp.setEmpAddress(ejson.getString("empAddress"));
+            
+			Date empDob = dateformat.parse(ejson.getString("empDOB"));
+			emp.setEmpDOB(empDob);
+			
+			emp.setEmpTelephoneNo(ejson.getString("empTelephoneNo"));
+			emp.setEmpGender(ejson.getString("empGender"));
+			emp.setCivilStatus(ejson.getString("civilStatus"));
+			emp.setEmpType(ejson.getString("empType"));
+			emp.setPost(ejson.getString("post"));
+			
+			Date empapp = dateformat.parse(ejson.getString("appointmentDate"));
+			emp.setAppointmentDate(empapp);
+			
+			Date empPen = dateformat.parse(ejson.getString("pensionDate"));
+			emp.setPensionDate(empPen);
+		
+            emp.setWAndOPno(ejson.getString("WAndOPno"));
+            emp.setBasicSalary(ejson.getDouble("basicSalary"));
+            emp.setSalaryCode(ejson.getString("salaryCode"));
+            emp.setMedRegNo(ejson.getString("medRegNo"));
+            emp.setDocType(ejson.getString("docType"));
+            emp.setEmpActive((byte)ejson.getInt("empActive"));
+
+			
+			r= empd.deleteEmp(emp);
+			result=String.valueOf(r);
+			return result;
+		}
+		
+		catch(JSONException ex)
+		{
+			ex.printStackTrace();
+			return result;
+		}
+		catch(ParseException ex)
+		{
+			ex.printStackTrace();
+			return result;
+		}
+		
+	}
+	
+	/***
+	 * A method to see the employee list
+	 * @param empID
+	 * @return
+	 */
+	@GET
+	@Path("/employeeList")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getEmployeeList()
+	{
+		 List<Employee> employeeList  = empd.getEmployeeList();
+		 JSONSerializer serializor = new JSONSerializer();
+		 //return serializor.include("*").transform(new DateTransformer("yyyy-MM-dd"),"empDOB","appointmentDate","pensionDate").serialize(employeeList);
+		 return serializor.include("empID","empName").exclude("*").serialize(employeeList);
+		 //return serializor.exclude("*.class").transform(new DateTransformer("yyyy-MM-dd"), "empDOB","appointmentDate","pensionDate").serialize(employeeList);
+	    //return serializor.serialize(empList);
+	}
+	
+	
+	//for admin-Miyuru
+	
+	@SuppressWarnings("unchecked")
+	@GET
+	@Path("/empTypeList")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getEmpTypeList()
+	{
+		
+		 
+		 List empTypeList  = empd.getEmpTypeList();
+
+		 JSONSerializer serializor = new JSONSerializer();
+		 return serializor.include("empType").exclude("*").serialize(empTypeList);
+		 //return serializor.exclude("*.class").transform(new DateTransformer("yyyy-MM-dd"), "empDOB","appointmentDate","pensionDate").serialize(employeeList);
+	    //return serializor.serialize(empList);
+	}
+	
+	@GET
+	@Path("/empListByEmpType/{eType}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getEmpListByEmpType(@PathParam("eType")  String eType)
+	{
+		 List empTypeList  = empd.getEmpByEmpType(eType);
+		 JSONSerializer serializor = new JSONSerializer();
+		 return serializor.include("empID","empName").exclude("*").serialize(empTypeList);
+		 //return serializor.exclude("*.class").transform(new DateTransformer("yyyy-MM-dd"), "empDOB","appointmentDate","pensionDate").serialize(employeeList);
+	    //return serializor.serialize(empList);
+	}
+		
+}

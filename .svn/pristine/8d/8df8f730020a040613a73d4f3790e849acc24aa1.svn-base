@@ -1,0 +1,111 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.opd.Patient;
+
+public class LabOrder {
+
+	int orderID;//unique
+	TestDescription orderTestID;
+	String orderLocation;
+	String orderStatus;//pending,specimen collected,specimen delivered,test started,test completed
+	Date orderDueDate;
+	int orderPriority;
+	String orderRemarks;
+	LabSpecimen orderSpecimenID;
+
+	User orderCreateUser;
+	User orderLastUpdateUser;
+	Date orderCreateDate;
+	Date orderLastUpdate;
+	
+
+	public LabOrder(){
+		
+	}
+	
+	public int getOrderID() {
+		return orderID;
+	}
+	public void setOrderID(int orderID) {
+		this.orderID = orderID;
+	}	
+	public String getOrderLocation() {
+		return orderLocation;
+	}
+	public void setOrderLocation(String orderLocation) {
+		this.orderLocation = orderLocation;
+	}
+	public String getOrderStatus() {
+		return orderStatus;
+	}
+	public void setOrderStatus(String orderStatus) {
+		this.orderStatus = orderStatus;
+	}
+	public TestDescription getOrderTestID() {
+		return orderTestID;
+	}
+	public void setOrderTestID(TestDescription orderTestID) {
+		this.orderTestID = orderTestID;
+	}
+	public Date getOrderDueDate() {
+		return orderDueDate;
+	}
+	public void setOrderDueDate(Date orderDueDate) {
+		this.orderDueDate = orderDueDate;
+	}
+	public int getOrderPriority() {
+		return orderPriority;
+	}
+	public void setOrderPriority(int orderPriority) {
+		this.orderPriority = orderPriority;
+	}
+	public String getOrderRemarks() {
+		return orderRemarks;
+	}
+	public void setOrderRemarks(String orderRemarks) {
+		this.orderRemarks = orderRemarks;
+	}
+	public LabSpecimen getOrderSpecimenID() {
+		return orderSpecimenID;
+	}
+	public void setOrderSpecimenID(LabSpecimen orderSpecimenID) {
+		this.orderSpecimenID = orderSpecimenID;
+	}
+
+
+	public User getOrderCreateUser() {
+		return orderCreateUser;
+	}
+
+	public void setOrderCreateUser(User orderCreateUser) {
+		this.orderCreateUser = orderCreateUser;
+	}
+
+	public User getOrderLastUpdateUser() {
+		return orderLastUpdateUser;
+	}
+
+	public void setOrderLastUpdateUser(User orderLastUpdateUser) {
+		this.orderLastUpdateUser = orderLastUpdateUser;
+	}
+
+	public Date getOrderCreateDate() {
+		return orderCreateDate;
+	}
+	public void setOrderCreateDate(Date orderCreateDate) {
+		this.orderCreateDate = orderCreateDate;
+	}
+	public Date getOrderLastUpdate() {
+		return orderLastUpdate;
+	}
+	public void setOrderLastUpdate(Date orderLastUpdate) {
+		this.orderLastUpdate = orderLastUpdate;
+	}	
+
+	
+
+}

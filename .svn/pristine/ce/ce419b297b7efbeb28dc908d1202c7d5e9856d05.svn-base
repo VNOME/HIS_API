@@ -1,0 +1,86 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import lib.driver.laboratory.driver_class.LiverProfileDBDriver;
+
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.laboratory.LiverProfileResult;
+
+
+
+@Path("LiverProfile")
+public class LiverProfileResultResource {
+
+	LiverProfileDBDriver lpsd = new LiverProfileDBDriver();
+	/*
+	 * Add liver profile Report by MR
+	 */
+	@POST
+	@Path("/addLiverProfileResult")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addReport(JSONObject json) {
+
+		/*
+		 * retrieve data from json object and pass it to service driver class by
+		 * MR
+		 */
+
+		int orderID, labOrder;
+
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+
+			LiverProfileResult lpr = new LiverProfileResult();
+
+			orderID = json.getInt("orderID");
+			labOrder = json.getInt("labID");
+
+			int doneBy=json.getInt("doneBy");
+			int chkBy=json.getInt("checkedBy");
+			lpr.setLvRemarks(json.getString("remarks").toString());
+
+			lpr.setLvSerumProteinTotal(Double.valueOf(json.getString(
+					"serumProteinTotal").toString()));
+			lpr.setLvSerumAlbumin(Double.valueOf(json.getString("serumAlbumin")
+					.toString()));
+			lpr.setLvGlobulin(Double.valueOf(json.getString("globulin")
+					.toString()));
+			lpr.setLvAGRatio(Double.valueOf(json.getString("aGRatio").toString()));
+			lpr.setLvSerumBilirubinTotal(Double.valueOf(json.getString(
+					"serumBilirubinTotal").toString()));
+			lpr.setLvSerumAlkalinePhosphatase(Double.valueOf(json.getString(
+					"serumAlkalinePhosphatase").toString()));
+			lpr.setLvSGPT(Double.valueOf(json.getString("sGPT").toString()));
+			lpr.setLvGammaGT(Double.valueOf(json.getString("gammaGT").toString()));
+			lpr.setLvSGOT(Double.valueOf(json.getString("sGOT").toString()));
+
+			lpr.setLvCompletedDate(dateformat.parse(json.getString(
+					"completedDate").toString()));
+			lpr.setLvCreateDate(dateformat.parse(json.getString("createDate")
+					.toString()));
+			int userID=json.getInt("createUser");
+			// lpr.setLastUpdate(lastUpdate);//null
+			// lpr.setLastUpdateUser(null);
+
+			
+
+			lpsd.insertData(lpr, orderID, labOrder,doneBy,chkBy,userID);
+
+			return "ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+}

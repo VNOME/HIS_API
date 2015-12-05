@@ -1,0 +1,226 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+
+package core.resources.api.standards.immr;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import lib.driver.api.driver_class.standards.immr.*;
+import lib.driver.api.driver_class.standards.loinc.*;
+
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.api.standards.icd10.Icd10;
+import core.classes.api.standards.immr.Immr;
+import core.classes.api.standards.loinc.Loinc;
+
+/**
+ * 
+ *ImmrResources class contains all the rest-full web methods to manipulate Immr codes
+ * @author IMANKA
+ * version 1.0
+ */
+
+@Path("immrServices")
+public class ImmrResources {
+	
+		ImmrDBDriver immrDBDriver=new ImmrDBDriver();
+		
+		/**
+		 * inserting a new Immr code to the system
+		 * @param uJson the JSON object that contains details about new Immr code
+		 * @return returns a string value.True if the inserting is successful else it returns false
+		 */
+		
+		@POST
+		@Path("/addImmrCode")
+		@Produces(MediaType.TEXT_PLAIN)
+		@Consumes(MediaType.APPLICATION_JSON)
+		public String addImmrCodes(JSONObject uJson){
+			
+			System.out.println(uJson.toString());
+			String result="false";
+			boolean r=false;
+			Immr immr=new Immr();
+			
+			DateFormat formater=new SimpleDateFormat("yyyy-MM-dd");
+			
+			try{
+				
+				  immr.setmImmr(uJson.getInt("mImmr"));
+				  immr.setmCode(uJson.getString("mCode"));
+				  immr.setmName(uJson.getString("mName"));
+				  immr.setmCategory(uJson.getString("mCategory"));
+				  immr.setmIcdCode(uJson.getString("mIcdCode"));
+				  immr.setmCreateUser(uJson.getString("mCreateUser"));
+				  
+				  Date createDate=formater.parse(uJson.getString("mCreateDate"));
+				  immr.setmCreateDate(createDate);
+				  
+				  immr.setmLastUpDateUser(uJson.getString("mLastUpDateUser"));
+				  
+				  Date lastUpdateDate=formater.parse(uJson.getString("mLastUpDate"));
+				  immr.setmLastUpDate(lastUpdateDate);
+				
+				  immr.setmActive(uJson.getInt("mActive"));
+				
+				  r=immrDBDriver.insertImmr(immr);
+				  result=String.valueOf(r);
+				
+				  return result;
+				
+			}
+			
+			catch(JSONException ex){
+				ex.printStackTrace();	
+				return result;
+			}
+			
+			
+			catch(Exception ex){
+				ex.printStackTrace();
+				return ex.getMessage();
+			}	
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+
+		/***
+		 * Update Immr code details 
+		 * @param immrObj is a JSON object which contains new details about a particular Immr code that need to be updated
+		 * @return returns a string value.True if the code updated successfully else it returns false
+		 */
+		
+		@PUT
+		@Path("/updateImmrCode")
+		@Produces(MediaType.TEXT_PLAIN)
+		@Consumes(MediaType.APPLICATION_JSON)
+		public String updateImmrDetails(JSONObject uJson){
+			
+			String result="false";
+			boolean r=false;
+			Immr immrObj=new Immr();
+			
+			DateFormat formater=new SimpleDateFormat("yyyy-MM-dd");
+			
+			
+			try{
+				//	icd.setcIcdCode(uJson.getString("cIcdCode"));
+				
+				immrObj.setmImmr(uJson.getInt("mImmr"));
+				immrObj.setmCode(uJson.getString("mCode"));
+				immrObj.setmName(uJson.getString("mName"));
+				immrObj.setmCategory(uJson.getString("mCategory"));
+				immrObj.setmIcdCode(uJson.getString("mIcdCode"));
+				immrObj.setmCreateUser(uJson.getString("mCreateUser"));
+				  
+				Date createDate=formater.parse(uJson.getString("mCreateDate"));
+				immrObj.setmCreateDate(createDate);
+				  
+				immrObj.setmLastUpDateUser(uJson.getString("mLastUpDateUser"));
+				  
+				Date lastUpdateDate=formater.parse(uJson.getString("mLastUpDate"));
+				immrObj.setmLastUpDate(lastUpdateDate);
+				
+				immrObj.setmActive(uJson.getInt("mActive"));
+				  
+				r=immrDBDriver.updateImmrCodeDetails(immrObj);
+				result=String.valueOf(r);
+				return result;
+				
+			}
+			catch(JSONException ex){
+				ex.printStackTrace();	
+				return result;
+			}
+			catch(ParseException ex){
+				ex.printStackTrace();
+				return result;
+			}
+			
+			catch(Exception ex){
+				ex.printStackTrace();
+				return ex.getMessage();
+			}
+
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/***
+		 * 
+		 * Delete a particular code from the system 
+		 * @param jsnObj is JSON object that contains data about code that is going to delete
+		 * @return returns a string value.True if the code deleted successfully else it returns false
+		 */	
+		
+		@PUT
+		@Path("/deleteImmr")
+		@Produces(MediaType.TEXT_PLAIN)
+		@Consumes(MediaType.APPLICATION_JSON)
+		public String deleteIcd10Codes(JSONObject jsnObj){
+			String result="false";
+			boolean r=false;
+			Immr immr=new Immr();
+			
+			try{
+				immr.setmImmr(jsnObj.getInt("mImmr"));
+				
+				r=immrDBDriver.deleteImmr(immr);	
+				result=String.valueOf(r);
+				
+				return result;
+				
+			}
+			
+			catch(JSONException ex){
+				ex.printStackTrace();	
+				return result;
+			}
+			
+		}
+		
+		
+		
+		
+
+		
+
+}

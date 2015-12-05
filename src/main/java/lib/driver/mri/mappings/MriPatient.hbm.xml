@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriPatient" table="mri_patient" catalog="his">
+        <id name="patientId" type="java.lang.Integer">
+            <column name="patient_id" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="name" length="300" not-null="true" />
+        </property>
+        <property name="birthday" type="timestamp">
+            <column name="birthday" length="19" not-null="true" />
+        </property>
+        <property name="sex" type="string">
+            <column name="sex" length="10" not-null="true" />
+        </property>
+        <property name="nic" type="string">
+            <column name="nic" length="50" not-null="true" />
+        </property>
+        <property name="isActive" type="boolean">
+            <column name="is_active" not-null="true" />
+        </property>
+        <set name="mriHospitalPatients" table="mri_hospital_patient" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fpatient_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriHospitalPatient" />
+        </set>
+        <set name="mriInternalPatients" table="mri_internal_patient" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fpatient_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriInternalPatient" />
+        </set>
+        <set name="mriTestRequests" table="mri_test_request" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fpatient_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriTestRequest" />
+        </set>
+    </class>
+</hibernate-mapping>

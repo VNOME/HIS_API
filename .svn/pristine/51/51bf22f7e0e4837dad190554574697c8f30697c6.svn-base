@@ -1,0 +1,130 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class ErythrocyteSedimentationRateResult {
+
+	/*
+	 * This class corresponds to db table labTestResult_ErythrocyteSedimentationRate by
+	 * MR
+	 */
+
+	int esrReportID;
+	LabOrder esrOrderID;
+	Employee esrDoneBy;
+	Employee esrCheckedBy;
+	Lab labID;
+	String esrRemarks;
+	
+	Date esrCompletedDate;
+	User esrCreateUser;
+	User esrLastUpdateUser;
+	Date esrCreateDate;
+	Date esrLastUpdate;
+
+	// result values relevant to lab test
+	Double esrHr;
+
+	
+
+	public Lab getLabID() {
+		return labID;
+	}
+
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+
+	public int getEsrReportID() {
+		return esrReportID;
+	}
+
+	public void setEsrReportID(int esrReportID) {
+		this.esrReportID = esrReportID;
+	}
+
+	public LabOrder getEsrOrderID() {
+		return esrOrderID;
+	}
+
+	public void setEsrOrderID(LabOrder esrOrderID) {
+		this.esrOrderID = esrOrderID;
+	}
+
+	public Employee getEsrDoneBy() {
+		return esrDoneBy;
+	}
+
+	public void setEsrDoneBy(Employee esrDoneBy) {
+		this.esrDoneBy = esrDoneBy;
+	}
+
+	public Employee getEsrCheckedBy() {
+		return esrCheckedBy;
+	}
+
+	public void setEsrCheckedBy(Employee esrCheckedBy) {
+		this.esrCheckedBy = esrCheckedBy;
+	}
+
+	public String getEsrRemarks() {
+		return esrRemarks;
+	}
+
+	public void setEsrRemarks(String esrRemarks) {
+		this.esrRemarks = esrRemarks;
+	}
+
+	public Date getEsrCompletedDate() {
+		return esrCompletedDate;
+	}
+
+	public void setEsrCompletedDate(Date esrCompletedDate) {
+		this.esrCompletedDate = esrCompletedDate;
+	}
+
+	public User getEsrCreateUser() {
+		return esrCreateUser;
+	}
+
+	public void setEsrCreateUser(User esrCreateUser) {
+		this.esrCreateUser = esrCreateUser;
+	}
+
+	public User getEsrLastUpdateUser() {
+		return esrLastUpdateUser;
+	}
+
+	public void setEsrLastUpdateUser(User esrLastUpdateUser) {
+		this.esrLastUpdateUser = esrLastUpdateUser;
+	}
+
+	public Date getEsrCreateDate() {
+		return esrCreateDate;
+	}
+
+	public void setEsrCreateDate(Date esrCreateDate) {
+		this.esrCreateDate = esrCreateDate;
+	}
+
+	public Date getEsrLastUpdate() {
+		return esrLastUpdate;
+	}
+
+	public void setEsrLastUpdate(Date esrLastUpdate) {
+		this.esrLastUpdate = esrLastUpdate;
+	}
+
+	public Double getEsrHr() {
+		return esrHr;
+	}
+
+	public void setEsrHr(Double esrHr) {
+		this.esrHr = esrHr;
+	}
+
+	
+}

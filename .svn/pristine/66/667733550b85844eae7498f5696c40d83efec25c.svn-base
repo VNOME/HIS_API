@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jul 17, 2013 11:31:02 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.pharmacy.MstDrugsNew" table="mstpharmdrugs">
+        <id name="dSrNo" type="java.lang.Integer">
+            <column name="mstPharmDrugs_srno" />
+            <generator class="identity" />
+        </id>
+        <set name="supp" table="trnPharmDrugsSupplied" inverse="true" lazy="false" fetch="select" cascade="all">
+			<key column="trnPharmDrugsSupplied_srno" not-null="true"/>
+         	<one-to-many class="core.classes.pharmacy.TrnDrugsSupplied"/> 
+        </set>
+        <set name="dispense" table="trnPharmDispenseDrugs" inverse="true" lazy="true" fetch="select" cascade="all">
+			<key column="trnPharmDispenseDrugs_srno" not-null="true"/>
+         	<one-to-many class="core.classes.pharmacy.TrnDispenseDrugs"/>
+        </set>
+        <set name="request" table="trnPharmRequestDrugs" inverse="true" lazy="false" fetch="select" cascade="all">
+			<key column="trnPharmRequestDrugs_srno" not-null="true"/>
+         	<one-to-many class="core.classes.pharmacy.TrnRequestDrugs"/>
+        </set>
+        <set name="frequencies" table="trnPharmDrugFrequency" inverse="true" lazy="false" fetch="select" cascade="all">
+			<key column="trnPharmDrugFrequency_srno" not-null="true"/>
+         	<many-to-many column="trnPharmDrugFrequency_id" class="core.classes.pharmacy.MstDrugFrequency"/>
+        </set>
+         <set name="dosages" table="trnPharmDrugDosage" inverse="true" lazy="false" fetch="select" cascade="all">
+			<key column="trnPharmDrugDosage_srno" not-null="true"/>
+         	<many-to-many column="trnPharmDrugDosage_id" class="core.classes.pharmacy.MstDrugDosage"/>
+        </set>
+        
+        
+        <many-to-one name="categories" class="core.classes.pharmacy.MstDrugCategory" fetch="select" lazy="false">
+        	<column name="mstPharmDrugs_categoryid" not-null="true"/>
+        </many-to-one> 
+        
+        <property name="dName" type="string">
+            <column name="mstPharmDrugs_name" length="130" not-null="true" unique="true" />
+        </property>
+        <property name="dRemarks" type="string">
+            <column name="mstPharmDrugs_remarks" length="200" />
+        </property>
+        <property name="dCreateDate" type="timestamp">
+            <column name="mstPharmDrugs_createdate" length="19" />
+        </property>
+        <property name="dCreateUser" type="int">
+            <column name="mstPharmDrugs_createuser" length="200" />
+        </property>
+        <property name="dLastUpdate" type="timestamp">
+            <column name="mstPharmDrugs_lastupdate" length="19" />
+        </property>
+        <property name="dLastUpdateUser" type="int">
+            <column name="mstPharmDrugs_lastupdateuser" length="200" />
+        </property>
+        <property name="dActive" type="java.lang.Boolean">
+            <column name="mstPharmDrugs_active" />
+        </property>
+        <property name="dUnit" type="string">
+            <column name="mstPharmDrugs_unit" length="50" />
+        </property>
+        <property name="dPrice" type="java.lang.Double">
+            <column name="mstPharmDrugs_price" precision="22" scale="0" />
+        </property>
+        <property name="dQty" type="java.lang.Integer">
+            <column name="mstPharmDrugs_qty" />
+        </property>
+        <property name="statusReOrder" type="java.lang.Integer">
+            <column name="mstPharmDrugs_statusReOrder" />
+        </property>
+        <property name="statusDanger" type="java.lang.Integer">
+            <column name="mstPharmDrugs_statusDanger" />
+        </property>
+    </class>
+</hibernate-mapping>

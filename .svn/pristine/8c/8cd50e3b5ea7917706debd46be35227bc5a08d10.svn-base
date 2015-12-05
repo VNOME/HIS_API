@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 13, 2013 10:56:52 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.standards.immr.ImmrStatistics" table="immrstatistic">
+        <id name="isId" type="int">
+            <column name="immrStatistic_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="isImmrCode" type="java.lang.String">
+            <column name="immrStatistic_immrCode" />
+        </property>
+        <property name="isLiveMale_lessThan1" type="int">
+            <column name="immrStatistic_liveMale_lessThan1" />
+        </property>
+        <property name="isLiveMale_1_4" type="int">
+            <column name="immrStatistic_liveMale_1_4" />
+        </property>
+        <property name="isLiveMale_5_16" type="int">
+            <column name="immrStatistic_liveMale_5_16" />
+        </property>
+        <property name="isLiveMale_17_49" type="int">
+            <column name="immrStatistic_liveMale_17_49" />
+        </property>
+        <property name="isLiveMale_50_69" type="int">
+            <column name="immrStatistic_liveMale_50_69" />
+        </property>
+        <property name="isLiveMale_greaterThan70" type="int">
+            <column name="immrStatistic_liveMale_greaterThan70" />
+        </property>
+        <property name="isLiveFemale_lessThan1" type="int">
+            <column name="immrStatistic_liveFemale_lessThan1" />
+        </property>
+        <property name="isLiveFemale_1_4" type="int">
+            <column name="immrStatistic_liveFemale_1_4" />
+        </property>
+        <property name="isLiveFemale_5_16" type="int">
+            <column name="immrStatistic_liveFemale_5_16" />
+        </property>
+        <property name="isLiveFemale_17_49" type="int">
+            <column name="immrStatistic_liveFemale_17_49" />
+        </property>
+        <property name="isLiveFemale_50_69" type="int">
+            <column name="immrStatistic_liveFemale_50_69" />
+        </property>
+        <property name="isLiveFemale_greaterthan70" type="int">
+            <column name="immrStatistic_liveFemale_greaterthan70" />
+        </property>
+        <property name="isDeadMale_lessThan1" type="int">
+            <column name="immrStatistic_deadMale_lessThan1" />
+        </property>
+        <property name="isDeadMale_1_4" type="int">
+            <column name="immrStatistic_deadMale_1_4" />
+        </property>
+        <property name="isDeadMale_5_16" type="int">
+            <column name="immrStatistic_deadMale_5_16" />
+        </property>
+        <property name="isDeadMale_17_49" type="int">
+            <column name="immrStatistic_deadMale_17_49" />
+        </property>
+        <property name="isDeadMale_50_69" type="int">
+            <column name="immrStatistic_deadMale_50_69" />
+        </property>
+        <property name="isDeadMale_greaterThan70" type="int">
+            <column name="immrStatistic_deadMale_greaterThan70" />
+        </property>
+        <property name="isDeadFemale_lessThan1" type="int">
+            <column name="immrStatistic_deadFemale_lessThan1" />
+        </property>
+        <property name="isDeadFemale_1_4" type="int">
+            <column name="immrStatistic_deadFemale_1_4" />
+        </property>
+        <property name="isDeadFemale_5_16" type="int">
+            <column name="immrStatistic_deadFemale_5_16" />
+        </property>
+        <property name="isDeadFemale_17_49" type="int">
+            <column name="immrStatistic_deadFemale_17_49" />
+        </property>
+        <property name="isDeadFemale_50_69" type="int">
+            <column name="immrStatistic_deadFemale_50_69" />
+        </property>
+        <property name="isDeadFemale_greaterThan70" type="int">
+            <column name="immrStatistic_deadFemale_greaterThan70" />
+        </property>
+        <property name="totalLiveMale" type="int">
+            <column name="immrStatistic_totalLiveMale" />
+        </property>
+        <property name="totalLiveFemale" type="int">
+            <column name="immrStatistic_totalLiveFemale" />
+        </property>
+        <property name="totalDeadMale" type="int">
+            <column name="immrStatistic_totalDeadMale" />
+        </property>
+        <property name="totalDeadFemale" type="int">
+            <column name="immrStatistic_totalDeadFemale" />
+        </property>
+    </class>
+</hibernate-mapping>

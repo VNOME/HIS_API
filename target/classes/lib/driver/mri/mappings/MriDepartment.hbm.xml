@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 4, 2015 3:37:58 PM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.mri.MriDepartment" table="mri_department" catalog="his">
+        <id name="departmentId" type="java.lang.Integer">
+            <column name="department_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="mriEmployee" class="core.classes.mri.MriEmployee" fetch="select">
+            <column name="fdept_incharge_id" not-null="true" />
+        </many-to-one>
+        <property name="departmentName" type="string">
+            <column name="department_name" length="300" not-null="true" />
+        </property>
+        <property name="location" type="string">
+            <column name="location" length="100" not-null="true" />
+        </property>
+        <property name="laboratoryCounts" type="java.lang.Integer">
+            <column name="laboratory_counts" />
+        </property>
+        <property name="numberOfMlt" type="java.lang.Integer">
+            <column name="number_of_mlt" />
+        </property>
+        <property name="numberOfConsultant" type="java.lang.Integer">
+            <column name="number_of_consultant" />
+        </property>
+        <set name="mriLaboratories" table="mri_laboratory" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fdepartment_id" />
+            </key>
+            <one-to-many class="core.classes.mri.MriLaboratory" />
+        </set>
+        <set name="mriEmployeeWorkins" table="mri_employee_workin" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="fdepartment_id" not-null="true" />
+            </key>
+            <one-to-many class="core.classes.mri.MriEmployeeWorkin" />
+        </set>
+    </class>
+</hibernate-mapping>

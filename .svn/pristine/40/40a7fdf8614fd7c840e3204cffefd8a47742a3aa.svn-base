@@ -1,0 +1,132 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+public class BloodPictureResult {
+
+	/*
+	 * This class corresponds to db table labTestResult_BloodPicture by
+	 * MR
+	 */
+
+	int bpReportID;
+	LabOrder bpOrderID;
+	Employee bpDoneBy;
+	Employee bpCheckedBy;
+	Lab labID;
+	String bpRemarks;
+	
+	Date bpCompletedDate;
+	User bpCreateUser;
+	User bpLastUpdateUser;
+	Date bpCreateDate;
+	Date bpLastUpdate;
+
+	// result values relevant to lab test
+	String bloodPicture;
+
+	
+	
+	public int getBpReportID() {
+		return bpReportID;
+	}
+
+	public void setBpReportID(int bpReportID) {
+		this.bpReportID = bpReportID;
+	}
+
+	public LabOrder getBpOrderID() {
+		return bpOrderID;
+	}
+
+	public void setBpOrderID(LabOrder bpOrderID) {
+		this.bpOrderID = bpOrderID;
+	}
+
+	public Employee getBpDoneBy() {
+		return bpDoneBy;
+	}
+
+	public void setBpDoneBy(Employee bpDoneBy) {
+		this.bpDoneBy = bpDoneBy;
+	}
+
+	public Employee getBpCheckedBy() {
+		return bpCheckedBy;
+	}
+
+	public void setBpCheckedBy(Employee bpCheckedBy) {
+		this.bpCheckedBy = bpCheckedBy;
+	}
+
+	public String getBpRemarks() {
+		return bpRemarks;
+	}
+
+	public void setBpRemarks(String bpRemarks) {
+		this.bpRemarks = bpRemarks;
+	}
+
+	public Date getBpCompletedDate() {
+		return bpCompletedDate;
+	}
+
+	public void setBpCompletedDate(Date bpCompletedDate) {
+		this.bpCompletedDate = bpCompletedDate;
+	}
+
+	public User getBpCreateUser() {
+		return bpCreateUser;
+	}
+
+	public void setBpCreateUser(User bpCreateUser) {
+		this.bpCreateUser = bpCreateUser;
+	}
+
+	public User getBpLastUpdateUser() {
+		return bpLastUpdateUser;
+	}
+
+	public void setBpLastUpdateUser(User bpLastUpdateUser) {
+		this.bpLastUpdateUser = bpLastUpdateUser;
+	}
+
+	public Date getBpCreateDate() {
+		return bpCreateDate;
+	}
+
+	public void setBpCreateDate(Date bpCreateDate) {
+		this.bpCreateDate = bpCreateDate;
+	}
+
+	public Date getBpLastUpdate() {
+		return bpLastUpdate;
+	}
+
+	public void setBpLastUpdate(Date bpLastUpdate) {
+		this.bpLastUpdate = bpLastUpdate;
+	}
+
+	public Lab getLabID() {
+		return labID;
+	}
+
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+
+	
+	public String getBloodPicture() {
+		return bloodPicture;
+	}
+
+	public void setBloodPicture(String bloodPicture) {
+		this.bloodPicture = bloodPicture;
+	}
+	
+	
+
+}

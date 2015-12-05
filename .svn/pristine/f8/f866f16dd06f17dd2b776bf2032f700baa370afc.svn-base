@@ -1,0 +1,142 @@
+package core.resources.laboratory;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
+
+import core.classes.api.standards.loinc.LoincUseStandard;
+import core.classes.laboratory.TestDescription;
+import lib.driver.laboratory.driver_class.TestDescriptionDBDriver;
+import flexjson.JSONSerializer;
+
+@Path("TestDescription")
+public class TestDescriptionResource {
+	
+	TestDescriptionDBDriver testDesDBDriver = new TestDescriptionDBDriver();
+
+	@GET
+	@Path("/getAll")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String GetAllTestDescription() {
+		try {
+
+			
+
+			List<TestDescription> uList = testDesDBDriver.SelectData("from TestDescription");
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.serialize(uList);
+
+		} catch (Exception e) {
+			return "error";
+		}
+	}
+
+	@GET
+	@Path("/get/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getLoing(@PathParam("id") int Id) {
+		try {
+			JSONSerializer serializer = new JSONSerializer();
+
+			List<TestDescription> uList = testDesDBDriver.getdatawithparametes(
+					"from TestDescription where  testID = :id", Id);//changed by mr
+
+			return serializer.serialize(uList);
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+	}
+
+	@POST
+	@Path("/gettestid")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String GetAlltestId(JSONObject json) {
+		try {
+
+			ArrayList<Integer> tid = new ArrayList<Integer>();
+
+			JSONArray data = json.getJSONArray("data");
+			for (int i = 0; i < data.length(); i++) {
+				tid.add(data.getInt(i));
+			}
+
+			List<TestDescription> uList = testDesDBDriver
+					.Selecdatafromlist(
+							"select testID,testName from TestDescription where testID = :id",
+							tid);//changed by MR
+
+			JSONSerializer serializer = new JSONSerializer();
+
+			return serializer.serialize(uList);
+
+		} catch (Exception e) {
+			return "error";
+		}
+	}
+	
+	//Added by MR 
+	//to insert test description data to db
+	@POST
+	@Path("/addTestDescription")
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public String addTestDescription(JSONObject json) {
+
+		/*
+		 * retrieve data from json object and pass it to service driver class by
+		 * MR
+		 */
+		
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
+		
+
+		try {
+			
+			String loincCode=LoincUseStandard.getLoincCodeGivenTestName(json.getString("testName").toString());
+
+			TestDescription td = new TestDescription();
+					
+			td.setTestName(json.getString("testName").toString());
+			td.setTestDescription(json.getString("testDescription").toString());
+			td.setTestCategory(json.getString("category").toString());
+			td.setTestProcedure(json.getString("testProcedure").toString());
+			td.setTestIsSpecimenAvailable(json.getBoolean("specAvail"));//check this
+			td.setTestSpecimenType(json.getString("specimenType").toString());
+			td.setTestLoincCode(loincCode);//need to get from another table
+			td.setTestResultTableName(json.getString("testResultTableName").toString());
+
+			
+			td.setTestCreateDate(dateformat.parse(json.getString("createDate")
+					.toString()));
+			int testCreatedUser=json.getInt("createUser");
+			// epr.setLastUpdate(lastUpdate);//null
+			// epr.setLastUpdateUser(null);
+
+			testDesDBDriver.insertData(td,testCreatedUser);
+
+			return "ok";
+
+		} catch (Exception e) {
+			return e.getMessage();
+		}
+		//----------------
+	}
+	
+
+}

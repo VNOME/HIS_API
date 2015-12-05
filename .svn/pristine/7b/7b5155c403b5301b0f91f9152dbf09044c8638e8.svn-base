@@ -1,0 +1,261 @@
+/*
+-----------------------------------------------------------------------------------------------------------------------------------
+HIS – Health Information System - RESTful  API
+-----------------------------------------------------------------------------------------------------------------------------------
+This is a free and open source API which can be used to develop and distributed in the hope that it will be useful to develop EMR systems.
+You can utilize the services provides by the API to speed up the development process. 
+You can modify the API to cater your requirements at your own risk. 
+ 
+-----------------------------------------------------------------------------------------------------------------------------------
+Authors: H.L.M.M De Silva, K.V.M Jayadewa, G.A.R Perera, S.I Kodithuwakku
+Supevisor: Dr. Koliya Pulasinghe | Dean /Faculty of Graduate Studies |SLIIT
+Co-Supervisor: Mr.Indraka Udayakumara | Senior Lecturer | SLIIT
+URL: https://sites.google.com/a/my.sliit.lk/his
+----------------------------------------------------------------------------------------------------------------------------------
+*/
+
+package lib.driver.api.driver_class.standards.loinc;
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import lib.SessionFactoryUtil;
+import lib.driver.api.driver_class.standards.loinc.*;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+//import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import core.classes.api.standards.loinc.Loinc;
+
+
+/**
+ *  LoincDBDriver class contains all the CRUD operation methods that required by loincResources class(web service)
+ *  @author IMANKA
+ *  version 1.0
+ */
+
+public class LoincDBDriver {
+	
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+	
+	
+	/**
+	 * This method insert the LOINC code details to the LOINC table 
+	 * @param loincObj object of LOINC class
+	 * @return boolean value true if success otherwise false 
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction. 
+	 */
+	
+	public boolean insertLoincCode(Loinc loincObj)
+	{
+		Transaction tx = null;
+		try{	
+			tx = session.beginTransaction();
+			session.save(loincObj);
+			tx.commit();
+			return true;
+		}catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	/***
+	 * Insert updated Loinc data into the database.
+	 * @param loincObj is a Loinc type object that contains data about updating Loinc data
+	 * @return a boolean value. Returns true if loinc details updated Successfully else returns false
+	 */
+	
+	public boolean updateLoincDetails(Loinc loincObj){
+		Transaction tx=null;
+		
+		try{
+			tx=session.beginTransaction();
+			session.update(loincObj);
+			tx.commit();
+			return true;
+		}
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Delete LOINC code from the database 
+	 * @param loincObj is a LOINC type object that contains data about deleting code details
+	 * @return a boolean value. Returns true if the code deleted Successfully else returns false
+	 */
+	
+	public boolean deleteLoincCode(Loinc loincObj){
+		Transaction tx=null;
+		
+		try {
+			
+			tx=session.beginTransaction();
+			session.delete(loincObj);
+			tx.commit();
+			return true;
+			
+		} 
+		
+		catch (RuntimeException ex) {
+			if(tx != null && tx.isActive()){
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return false;
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+	
+	/**
+	 * This method returns the all the icd10 code details a given disease name
+	 * @param disease name
+	 * @return icd10Code object of the Icd10 class
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction.
+	 */
+
+	public Loinc getLoincDetailsGivenTestName(String testName)
+	{
+		Transaction tx = null;
+		try{
+			tx = session.beginTransaction();
+			Query query =  session.createQuery("select ln from Loinc as ln where ln.oLongName = :name");
+			query.setParameter("name",testName);
+			List<Loinc> loincList  = query.list();
+			Loinc loincCode=new Loinc();
+			for(Iterator<Loinc> iter = loincList.iterator(); iter.hasNext();)
+			{
+				loincCode = (Loinc)iter.next();
+			}
+			tx.commit();
+			return loincCode;
+		}catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+		
+			
+	}
+	
+	
+	
+
+	/**
+	 * This method retrieve a list of Loinc codes
+	 * @return Loinc codes list List<Loinc>
+	 * @throws Method throws a {@link RuntimeException} in failing the update, throws a {@link HibernateException} on error rolling back transaction.
+	 */
+	public List<Loinc> getLoincDetails(){
+		Transaction tx = null;
+		
+		try{
+			tx = session.beginTransaction();
+			Query query =  session.createQuery("select ln from Loinc as ln");
+			
+			List<Loinc> loincList =castList(Loinc.class, query.list()); 
+			tx.commit();
+			return loincList;
+			
+		}
+		catch(RuntimeException ex){
+			if(tx != null && tx.isActive())
+			{
+				try{
+					tx.rollback();
+				}catch(HibernateException he){
+					System.err.println("Error rolling back transaction");
+				}
+				throw ex;
+			}
+			return null;
+		}
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	/**
+	 * Cast collection of data list into a particular java List and the type will be as mentioned 
+	 * @param clazz Class name 
+	 * @param c collection of data that need to be cast
+	 * @return returns a java List that contains data and the type will be as mentioned in clazz param
+	 */
+	
+	public static <T> List<T> castList(Class<? extends T> clazz, Collection<?> c) {
+	    List<T> r = new ArrayList<T>(c.size());
+	    for(Object o: c)
+	      r.add(clazz.cast(o));
+	    return r;
+	}
+	
+	
+	
+
+}

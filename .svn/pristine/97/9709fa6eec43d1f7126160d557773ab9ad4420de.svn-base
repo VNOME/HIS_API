@@ -1,0 +1,83 @@
+package core.classes.laboratory;
+
+import java.util.Date;
+
+import core.classes.api.user.User;
+
+public class LabEquipment {
+/*
+ * Related to lab equipment details ....corresponding db table is lab_equipment
+ * by MR
+ */
+	int equipmentID;//unique
+	Lab labID;
+	String equipmentName;
+	String equipmentDescription;
+	String equipmentRemarks;
+	
+	User equipmentCreateUser;
+	User equipmentLastUpdateUser;
+	Date equipmentCreateDate;
+	Date equipmentLastUpdate;
+	
+	public int getEquipmentID() {
+		return equipmentID;
+	}
+	public void setEquipmentID(int equipmentID) {
+		this.equipmentID = equipmentID;
+	}
+	public Lab getLabID() {
+		return labID;
+	}
+	public void setLabID(Lab labID) {
+		this.labID = labID;
+	}
+	public String getEquipmentName() {
+		return equipmentName;
+	}
+	public void setEquipmentName(String equipmentName) {
+		this.equipmentName = equipmentName;
+	}
+	public String getEquipmentDescription() {
+		return equipmentDescription;
+	}
+	public void setEquipmentDescription(String equipmentDescription) {
+		this.equipmentDescription = equipmentDescription;
+	}
+	public String getEquipmentRemarks() {
+		return equipmentRemarks;
+	}
+	public void setEquipmentRemarks(String equipmentRemarks) {
+		this.equipmentRemarks = equipmentRemarks;
+	}
+	
+	public User getEquipmentCreateUser() {
+		return equipmentCreateUser;
+	}
+	public void setEquipmentCreateUser(User equipmentCreateUser) {
+		this.equipmentCreateUser = equipmentCreateUser;
+	}
+	public User getEquipmentLastUpdateUser() {
+		return equipmentLastUpdateUser;
+	}
+	public void setEquipmentLastUpdateUser(User equipmentLastUpdateUser) {
+		this.equipmentLastUpdateUser = equipmentLastUpdateUser;
+	}
+	public Date getEquipmentCreateDate() {
+		return equipmentCreateDate;
+	}
+	public void setEquipmentCreateDate(Date equipmentCreateDate) {
+		this.equipmentCreateDate = equipmentCreateDate;
+	}
+	public Date getEquipmentLastUpdate() {
+		return equipmentLastUpdate;
+	}
+	public void setEquipmentLastUpdate(Date equipmentLastUpdate) {
+		this.equipmentLastUpdate = equipmentLastUpdate;
+	}
+
+	
+
+	
+
+}

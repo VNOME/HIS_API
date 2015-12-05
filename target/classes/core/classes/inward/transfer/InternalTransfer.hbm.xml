@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 25, 2014 9:23:10 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.inward.transfer.InternalTransfer" table="INTERNALTRANSFER">
+        <id name="transferId" type="int">
+            <column name="TRANSFERID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="bhtNo" class="core.classes.inward.WardAdmission.Admission" fetch="join">
+            <column name="BHTNO" />
+        </many-to-one>
+        <many-to-one name="transferFromWard" class="core.classes.inward.admin.Ward" fetch="join">
+            <column name="TRANSFERFROMWARD" />
+        </many-to-one>
+        <many-to-one name="transferWard" class="core.classes.inward.admin.Ward" fetch="join">
+            <column name="TRANSFERWARD" />
+        </many-to-one>
+        <property name="resonForTrasnsfer" type="java.lang.String">
+            <column name="RESONFORTRASNSFER" />
+        </property>
+        <property name="reportOfSpacialExamination" type="java.lang.String">
+            <column name="REPORTOFSPACIALEXAMINATION" />
+        </property>
+        <property name="treatmentSuggested" type="java.lang.String">
+            <column name="TREATMENTSUGGESTED" />
+        </property>
+        <property name="transferCreatedDate" type="java.util.Date">
+            <column name="TRANSFERCREATEDDATE" />
+        </property>
+        <many-to-one name="transferCreatedUser" class="core.classes.api.user.User" fetch="join">
+            <column name="TRANSFERCREATEDUSER" />
+        </many-to-one>
+        <property name="read" type="int">
+            <column name="READ" />
+        </property>
+    </class>
+</hibernate-mapping>

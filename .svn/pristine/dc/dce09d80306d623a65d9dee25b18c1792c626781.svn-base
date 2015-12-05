@@ -1,0 +1,58 @@
+package lib.driver.laboratory.driver_class;
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Session;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.LabOrder;
+import core.classes.laboratory.ThyroidStimulatingHormoneResult;
+
+
+public class ThyroidStimulatingHormoneDBDrive {
+
+
+	/*
+	 * manupulate data in db table labTestResult_ThyroidStimulatingHormone by MR
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public ThyroidStimulatingHormoneDBDrive() {
+
+		
+	}
+
+	// insert data to db table labTestResult_ThyroidStimulatingHormone
+	public void insertData(ThyroidStimulatingHormoneResult tshr, int orderID,int labID,int doneBy,
+			int chkBy,int createBy) {
+
+		session.beginTransaction();
+
+		// added MR for labid
+		Lab lab = (Lab) session.get(Lab.class, labID);
+		tshr.setLabID(lab);
+		// -------------
+		// added MR for orderid
+		LabOrder labOrder = (LabOrder) session.get(LabOrder.class, orderID);
+		tshr.setTshOrderID(labOrder);
+		// -------------
+		Employee doneEmp=(Employee)session.get(Employee.class, doneBy);
+		tshr.setTshDoneBy(doneEmp);
+		
+		Employee chkByEmp=(Employee)session.get(Employee.class, chkBy);
+		tshr.setTshCheckedBy(chkByEmp);
+		
+		User creUser=(User) session.get(User.class, createBy);
+		tshr.setTshCreateUser(creUser);
+		
+
+		session.save(tshr);
+
+		session.getTransaction().commit();
+
+	}
+
+
+}

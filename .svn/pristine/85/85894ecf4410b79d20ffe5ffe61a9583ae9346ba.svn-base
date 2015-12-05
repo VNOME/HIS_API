@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 1, 2013 11:43:24 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.standards.loinc.Loinc" table="loinc_code">
+        <id name="oLoincId" type="int" access="field">
+            <column name="loincCode_ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="oLoincCode" type="java.lang.String" access="field">
+            <column name="loincCode_loincCode" />
+        </property>
+        <property name="oLongName" type="java.lang.String" access="field">
+            <column name="loincCode_LongName" />
+        </property>
+        <property name="oShortName" type="java.lang.String" access="field">
+            <column name="loincCode_ShortName" />
+        </property>
+        <property name="oClass" type="java.lang.String" access="field">
+            <column name="loincCode_Class" />
+        </property>
+        <property name="oRank" type="int" access="field">
+            <column name="loincCode_Rank" />
+        </property>
+    </class>
+</hibernate-mapping>

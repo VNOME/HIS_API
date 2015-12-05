@@ -1,0 +1,82 @@
+package lib.driver.laboratory.driver_class;
+import lib.SessionFactoryUtil;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+import core.classes.laboratory.BloodPictureResult;
+import core.classes.laboratory.Lab;
+import core.classes.laboratory.LabOrder;
+
+
+
+public class BloodPictureDBDriver {
+
+	/*
+	 * manupulate data in db table labTestResult_BloodPicture by MR
+	 */
+
+	Session session = SessionFactoryUtil.getSessionFactory().openSession();
+
+	public BloodPictureDBDriver() {
+
+		
+	}
+
+	// insert data to db table labTestResult_BloodPicture
+	public void insertData(BloodPictureResult bpr, int orderID, int labID,int doneBy,int chkBy,int createBy) {
+
+		session.beginTransaction();
+
+		Employee doneEmp=(Employee)session.get(Employee.class, doneBy);
+		bpr.setBpDoneBy(doneEmp);
+		
+		Employee chkByEmp=(Employee)session.get(Employee.class, chkBy);
+		bpr.setBpCheckedBy(chkByEmp);
+		
+		User creUser=(User) session.get(User.class, createBy);
+		bpr.setBpCreateUser(creUser);
+		// added MR for labid
+		Lab lab = (Lab) session.get(Lab.class, labID);
+		bpr.setLabID(lab);
+		// -------------
+		// added MR for orderid
+		LabOrder labOrder = (LabOrder) session.get(LabOrder.class, orderID);
+		bpr.setBpOrderID(labOrder);
+		// -------------
+
+		session.save(bpr);
+
+		session.getTransaction().commit();
+		
+		updateStatusToSpecimenSent(orderID, bpr.getBpReportID());
+	}
+
+	public int updateStatusToSpecimenSent(int oid, int rid) {
+
+		session = SessionFactoryUtil.getSessionFactory().openSession();
+
+		session.beginTransaction();
+
+		Query Q = session
+				.createSQLQuery("update ElectrolytesProfileResult set labTestResult_LabOrderID = :id where labTestResult_ReportID = :rid");
+
+		Q.setParameter("id", oid);
+
+		Q.setParameter("rid", rid);
+
+		Q.executeUpdate();
+
+		int r = Q.executeUpdate();
+
+		session.getTransaction().commit();
+
+
+		return r;
+
+	}
+	
+
+}

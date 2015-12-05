@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Sep 1, 2013 1:16:04 AM by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="core.classes.api.standards.immr.Immr" table="immr">
+        <id name="mImmr" type="int" access="field">
+            <column name="IMMRID" />
+            <generator class="assigned" />
+        </id>
+        <property name="mCode" type="java.lang.String" access="field">
+            <column name="Code" />
+        </property>
+        <property name="mName" type="java.lang.String" access="field">
+            <column name="Name" />
+        </property>
+        <property name="mCategory" type="java.lang.String" access="field">
+            <column name="Category" />
+        </property>
+        <property name="mIcdCode" type="java.lang.String" access="field">
+            <column name="ICDCODE" />
+        </property>
+        <property name="mCreateUser" type="java.lang.String" access="field">
+            <column name="CreateUser" />
+        </property>
+        <property name="mCreateDate" type="java.util.Date" access="field">
+            <column name="CreateDate" />
+        </property>
+        <property name="mLastUpDate" type="java.util.Date" access="field">
+            <column name="LastUpDate" />
+        </property>
+        <property name="mLastUpDateUser" type="java.lang.String" access="field">
+            <column name="LastUpDateUser" />
+        </property>
+        <property name="mActive" type="int" access="field">
+            <column name="Active" />
+        </property>
+    </class>
+</hibernate-mapping>

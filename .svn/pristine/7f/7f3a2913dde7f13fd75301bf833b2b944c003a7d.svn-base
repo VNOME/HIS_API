@@ -1,0 +1,68 @@
+package core.classes.opd;
+
+import java.util.Date;
+
+import core.classes.api.admin.Employee;
+import core.classes.api.user.User;
+
+/***
+ * Queue class contains all the attributes and there getters and setters.
+ * @author MIYURU
+ *
+ */
+public class Queue {
+
+	private int queueTokenNo;
+	private Date queueTokenAssignTime;
+	private User queueAssignedBy;
+	private User queueAssignedTo;
+	private String queueStatus;
+	private String queueRemarks;
+	private OutPatient patient;
+	 
+	 
+	public int getQueueTokenNo() {
+		return queueTokenNo;
+	}
+	public void setQueueTokenNo(int queueTokenNo) {
+		this.queueTokenNo = queueTokenNo;
+	}
+	public Date getQueueTokenAssignTime() {
+		return queueTokenAssignTime;
+	}
+	public void setQueueTokenAssignTime(Date queueTokenAssignTime) {
+		this.queueTokenAssignTime = queueTokenAssignTime;
+	}
+	public User getQueueAssignedBy() {
+		return queueAssignedBy;
+	}
+	public void setQueueAssignedBy(User queueAssignedBy) {
+		this.queueAssignedBy = queueAssignedBy;
+	}
+	public User getQueueAssignedTo() {
+		return queueAssignedTo;
+	}
+	public void setQueueAssignedTo(User queueAssignedTo) {
+		this.queueAssignedTo = queueAssignedTo;
+	}
+	public String getQueueStatus() {
+		return queueStatus;
+	}
+	public void setQueueStatus(String queueStatus) {
+		this.queueStatus = queueStatus;
+	}
+	public String getQueueRemarks() {
+		return queueRemarks;
+	}
+	public void setQueueRemarks(String queueRemarks) {
+		this.queueRemarks = queueRemarks;
+	}
+	public OutPatient getPatient() {
+		return patient;
+	}
+	public void setPatient(OutPatient patient) {
+		this.patient = patient;
+	}
+	  
+
+}
